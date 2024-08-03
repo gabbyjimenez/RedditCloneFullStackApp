@@ -79,4 +79,7 @@ export default {
 label {
   margin-right: 0.5rem;
 }
+.register{
+  align-content: center;
+}
 </style>
