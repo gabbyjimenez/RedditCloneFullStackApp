@@ -2,7 +2,7 @@ package com.techelevator.controller;
 
 
 import com.techelevator.dao.DenDao;
-import com.techelevator.model.Den;
+import com.techelevator.model.DenDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -13,14 +13,16 @@ import java.util.List;
 
 @RestController
 @CrossOrigin
-@PreAuthorize("")
+@PreAuthorize("permitAll()")
 public class DenController {
 
     @Autowired
     private DenDao denDao;
+
+    @PreAuthorize("permitAll()")
     @GetMapping (path = "/dens")
-    public List<Den> retrieveAllDens(){
-        List<Den> dens = denDao.retrieveAllDens();
+    public List<DenDto> retrieveAllDens(){
+        List<DenDto> dens = denDao.retrieveAllDens();
         return dens;
     }
 

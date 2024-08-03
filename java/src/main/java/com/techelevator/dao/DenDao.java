@@ -1,12 +1,12 @@
 package com.techelevator.dao;
 
-import com.techelevator.model.Den;
+import com.techelevator.model.DenDto;
 
 import java.util.List;
 
 public interface DenDao {
 
-    List<Den> retrieveAllDens();
+    List<DenDto> retrieveAllDens();
 
 
 

@@ -68,6 +68,6 @@ CREATE TABLE responses (
 );
 
 
-
+GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO final_capstone_appuser;
 --ROLLBACK;
 COMMIT TRANSACTION;
