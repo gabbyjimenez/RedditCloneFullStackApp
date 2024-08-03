@@ -1,6 +1,6 @@
 package com.techelevator.model;
 
-public class Den {
+public class DenDto {
 
     private int denId;
 
@@ -10,14 +10,14 @@ public class Den {
 
     private String denCreatorUserName;
 
-    public Den(int denId, String denName, int denCreator, String denCreatorUserName) {
+    public DenDto(int denId, String denName, int denCreatorId, String denCreatorUserName) {
         this.denId = denId;
         this.denName = denName;
         this.denCreatorId = denCreatorId;
         this.denCreatorUserName = denCreatorUserName;
     }
 
-    public Den(){
+    public DenDto(){
 
     }
     public int getDenId() {

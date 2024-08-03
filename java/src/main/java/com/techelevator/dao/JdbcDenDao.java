@@ -1,7 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.Den;
+import com.techelevator.model.DenDto;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -21,18 +21,19 @@ public class JdbcDenDao implements DenDao {
 
 
 
-    public List<Den> retrieveAllDens(){
-       List<Den> dens = new ArrayList<>();
+    @Override
+    public List<DenDto> retrieveAllDens(){
+       List<DenDto> dens = new ArrayList<>();
 
 
-       String sql = "SELECT den_id, den_name, users.username AS creator_username, users.user_id " +
+       String sql = "SELECT den_id, den_name, users.username AS creator_username, creator_id " +
                "FROM dens " +
                "JOIN users ON dens.creator_id = users.user_id;";
 
        try{
            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
            while(results.next()){
-               Den den = mapRowToDen(results);
+               DenDto den = mapRowToDen(results);
                dens.add(den);
            }
 
@@ -53,12 +54,12 @@ public class JdbcDenDao implements DenDao {
 
 
 
-    private Den mapRowToDen(SqlRowSet rowSet){
-        Den den = new Den();
+    private DenDto mapRowToDen(SqlRowSet rowSet){
+        DenDto den = new DenDto();
         den.setDenId(rowSet.getInt("den_id"));
         den.setDenName(rowSet.getString("den_name"));
         den.setDenCreatorId(rowSet.getInt("creator_id"));
-        den.setDenCreatorUserName(rowSet.getString("creator_userName"));
+        den.setDenCreatorUserName(rowSet.getString("creator_username"));
         return den;
     }
 
