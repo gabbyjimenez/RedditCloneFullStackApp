@@ -4,7 +4,7 @@ export default {
 
 
   getDens() {
-     return axios.get('/Dens');
+     return axios.get('/dens' );
   },
 
 

@@ -1,6 +1,6 @@
 <template>
   <div class="home">
-    <Header/>
+    <theHeader/>
     <side-bar/>
     //sidebar
     //header
@@ -11,7 +11,7 @@
 
 <script>
 
-import Header from '../components/Header.vue'
+import theHeader from '../components/Header.vue'
 import DenDetails from '../components/DenDetails.vue'
 import SideBar from '../components/SideBar.vue'
 
@@ -20,7 +20,7 @@ export default {
   components: {
     DenDetails,
     SideBar,
-    Header
+    theHeader
   }
 }
 </script>

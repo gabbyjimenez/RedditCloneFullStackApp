@@ -2,7 +2,7 @@
     <div>
         <h4>Explore Dens</h4>
         <div class="den" v-for="den in dens" v-bind:key="den.Id">
-           <p>{{ den.Id }} : {{ den.name }} - {{ den.creatorId }}</p>
+           <p>{{ den.denId }} : {{ den.denName }} - {{ den.denCreatorId }}</p>
         </div>
     </div>
   </template>
@@ -16,21 +16,7 @@
       data() {
           return {
               dens: [
-                {
-                    id: '1',
-                    name: 'ham',
-                    creatorId: '3'
-                },
-                {
-                    id: '2',
-                    name: 'burb',
-                    creatorId: '3'
-                },
-                {
-                    id: '2',
-                    name: 'burb',
-                    creatorId: '3'
-                },
+                
 
               ]
           }
