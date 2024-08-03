@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, dens, categories, den_category, posts;
+DROP TABLE IF EXISTS users, dens, categories, den_category, posts, responses;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -16,7 +16,7 @@ CREATE TABLE dens (
 	creator_id int, 
 	
 	CONSTRAINT PK_den PRIMARY KEY (den_id),
-	CONSTRAINT FK_user_den FOREIGN KEY (creator_id) REFERENCES users(user_id),
+	CONSTRAINT FK_user_den FOREIGN KEY (creator_id) REFERENCES users(user_id)
 	
 );
 
@@ -59,7 +59,7 @@ CREATE TABLE responses (
 	response_id SERIAL,
 	response_desc TEXT NOT NULL,
 	post_id int,
-	creator_id,
+	creator_id int,
 	
 	CONSTRAINT PK_response_id PRIMARY KEY (response_id),
 	CONSTRAINT FK_users_responses FOREIGN KEY (creator_id) REFERENCES users(user_id),
