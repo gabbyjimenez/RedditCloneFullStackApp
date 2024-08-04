@@ -1,10 +1,8 @@
 <template>
   <div class="home">
-    <theHeader/>
-    <side-bar/>
-    //sidebar
-    //header
-    <DenDetails />
+    <theHeader id="header"/>
+    <side-bar id="sidebar"/>
+    <DenDetails id="dendetails"/>
     <p>You must be authenticated to see this</p>
   </div>
 </template>
@@ -29,6 +27,12 @@ export default {
 
 .home{
   text-align: center;
+
 }
+
+
+
+
+
 
 </style>

@@ -51,53 +51,5 @@ export default {
 }
 </script>
   
-<style scoped>
-
-.den {
-    border-bottom: 1px solid #f2f2f2;
-}
-
-.den:last-child {
-    border-bottom: 0px;
-}
-
-.den a {
-    display: block;
-    padding: 10px 20px;
-}
-
-.den a:visited {
-    color: black;
-    text-decoration: none;
-}
-
-.den a:hover {
-    background-color: #f2f2f2;
-    cursor: pointer;
-}
-
-div{
-    align-content: center;
-    width: 50%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    flex-grow: 1;
-}
-
-
-.den {
-display: flex;
-  background: rgb(245, 245, 245);
-  border: solid 2px rgba(0, 0, 0, 0.5);
-  border-radius: 10px;
-  margin-bottom: 10px;
-
-
-
-  padding: 10px;
-  text-shadow: 0 1px 1px rgba(255, 255, 255, 0.8);
-  word-wrap: break-word;
-  cursor: pointer;
-}
+<style>
 </style>
