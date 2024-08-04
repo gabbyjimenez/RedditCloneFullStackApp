@@ -2,9 +2,9 @@ import axios from 'axios';
 
 export default {
 
-  getPosts() {
-    return axios.get('/post');
-  },
+  getPosts(denName) {
+    return axios.get(`${denName}/posts`);
+  }
 
 //   getTopic(topicId) {
 //     return axios.get(`/post/${postId}`)

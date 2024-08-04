@@ -1,7 +1,7 @@
 <template>
     <div>
-        <label for="">Search Player: </label>
-        <input type="text" name="denName" id="denName" v-model="searchFilter">
+        <label for="">Search: </label>
+        <input type="text" name="denName" v-model="searchFilter">
     </div>
 
     <div>
@@ -18,12 +18,17 @@ import DenService from '../services/DenService.js';
 
 export default {
 
+    props: {
+       dens: {
+        type: Array,
+        
+       }
+
+    },
+    
     data() {
         return {
-            searchFilter: '',
-            dens: [
-
-            ]
+            searchFilter: ''
         }
     },
     computed: {
@@ -38,15 +43,7 @@ export default {
 
         }
     },
-    created() {
-
-        DenService.getDens().then(response => {
-            this.dens = response.data;
-        }).catch(error => {
-            console.log('You are out of luck')
-        })
-
-    }
+  
 
 }
 </script>
