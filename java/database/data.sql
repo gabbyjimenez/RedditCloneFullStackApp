@@ -127,10 +127,10 @@ VALUES('Test 7', 'Hello World 7', 12, 1);
 
 
 INSERT INTO responses (response_desc, post_id, creator_id)
-VALUES('My issue is the lob pass going 30 yards short of where I want it haha', 8, 1);
+VALUES('My issue is the lob pass going 30 yards short of where I want it haha', 2, 1);
 
 INSERT INTO responses (response_desc, post_id, creator_id)
-VALUES('Operation Sports nerfs the CPU Int slider because its a bit much. They catch EVERYTHING. Most should just be broken up passes.', 8, 1);
+VALUES('Operation Sports nerfs the CPU Int slider because its a bit much. They catch EVERYTHING. Most should just be broken up passes.', 2, 1);
 
 INSERT INTO responses (response_desc, post_id, creator_id)
 VALUES('Test Comment 3', 9, 1);
@@ -177,6 +177,54 @@ VALUES('Finance');
 
 INSERT INTO categories (category_name)
 VALUES('Science');
+
+
+--Linking Den and Category
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (5 , 2);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (5 , 1);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (6 , 2);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (3 , 6);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (4 , 7);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (8 , 7);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (1 , 3);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (2 , 5);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (7 , 8);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (7 , 4);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (5 , 12);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (4 , 11);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (1 , 9);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (4 , 10);
+
+INSERT INTO den_category (category_id, den_id)
+VALUES (5 , 10);
 
 --ROLLBACK
 COMMIT TRANSACTION;
