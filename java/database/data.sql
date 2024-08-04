@@ -72,6 +72,35 @@ INSERT INTO responses (response_desc, post_id, creator_id)
 VALUES('Test Comment 1', 5, 1);
 
 
+--Test Categories
+--SELECT * FROM categories
+
+INSERT INTO categories (category_name)
+VALUES('Entertainment');
+
+INSERT INTO categories (category_name)
+VALUES('Tech');
+
+INSERT INTO categories (category_name)
+VALUES('Food');
+
+INSERT INTO categories (category_name)
+VALUES('News');
+
+INSERT INTO categories (category_name)
+VALUES('Sports');
+
+INSERT INTO categories (category_name)
+VALUES('Gaming');
+
+INSERT INTO categories (category_name)
+VALUES('Health & Beauty');
+
+INSERT INTO categories (category_name)
+VALUES('Finance');
+
+INSERT INTO categories (category_name)
+VALUES('Science');
 
 
 COMMIT TRANSACTION;
