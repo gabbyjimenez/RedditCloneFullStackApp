@@ -12,6 +12,6 @@ public interface DenDao {
 
     List<PostDto> retrievePostsByDenName(String denName);
 
-    List<ResponseDto> retrieveResponsesByPost(int postId);
+    List<ResponseDto> retrieveResponsesByPost(String denName, int postId);
 
 }

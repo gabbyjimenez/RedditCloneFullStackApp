@@ -36,7 +36,6 @@ public class DenController {
     @GetMapping(path = "/{den}/{id}/comments")
     public List<ResponseDto> retrieveResponsesByPost(@PathVariable("den") String denName, @PathVariable("id") int postId){
         List<ResponseDto> responses = denDao.retrieveResponsesByPost(denName, postId);
-
         return responses;
     }
 

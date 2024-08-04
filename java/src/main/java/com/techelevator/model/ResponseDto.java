@@ -7,17 +7,19 @@ public class ResponseDto {
     private int postId;
     private int creatorId;
     private String creatorName;
+    private String denName;
 
     public ResponseDto(){
 
     }
 
-    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName) {
+    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName) {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.postId = postId;
         this.creatorId = creatorId;
         this.creatorName = creatorName;
+        this.denName = denName;
     }
 
     public int getResponseId() {
@@ -58,5 +60,13 @@ public class ResponseDto {
 
     public void setCreatorName(String creatorName) {
         this.creatorName = creatorName;
+    }
+
+    public String getDenName() {
+        return denName;
+    }
+
+    public void setDenName(String denName) {
+        this.denName = denName;
     }
 }
