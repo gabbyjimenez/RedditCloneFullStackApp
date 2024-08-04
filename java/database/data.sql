@@ -23,6 +23,30 @@ VALUES('SteamedHams', 1);
 
 
 
+--Populating Posts For Testing
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 1', 'Hello World 1', 2, 1);
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 2', 'Hello World 2', 2, 1);
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 3', 'Hello World 3', 3, 1);
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 4', 'Hello World 4', 3, 1);
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 5', 'Hello World 5', 1, 1);
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 6', 'Hello World 6', 1, 1);
+
+INSERT INTO posts (post_title, post_desc, den_id, creator_id)
+VALUES('Test 7', 'Hello World 7', 1, 1);
+
+
 
 
 
