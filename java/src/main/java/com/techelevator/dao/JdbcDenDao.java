@@ -3,6 +3,8 @@ package com.techelevator.dao;
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
+import com.techelevator.model.ResponseDto;
+import org.apache.coyote.Response;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -71,6 +73,32 @@ public class JdbcDenDao implements DenDao {
         }
 
         return posts;
+    }
+
+    @Override
+    public List<ResponseDto> retrieveResponsesByPost(int postId) {
+        List<ResponseDto> responses = new ArrayList<>();
+
+        String sql = "";
+
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, postId);
+            while(results.next()){
+                ResponseDto response = mapRowToResponse(results);
+                responses.add(response);
+            }
+
+        } catch(CannotGetJdbcConnectionException e){
+            throw new DaoException("Unable To Connect to Database", e);
+
+        }
+
+        return responses;
+    }
+    private ResponseDto mapRowToResponse(SqlRowSet rowSet){
+        ResponseDto response = new ResponseDto();
+
+        return response;
     }
 
 
