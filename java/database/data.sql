@@ -48,7 +48,7 @@ VALUES('Hiking', 1);
 
 --Populating Posts For Testing
 
-SELECT * FROM posts
+
 
 INSERT INTO posts (post_title, post_desc, den_id, creator_id)
 VALUES('', 'Hello World 1', 1, 1);
@@ -178,5 +178,5 @@ VALUES('Finance');
 INSERT INTO categories (category_name)
 VALUES('Science');
 
-
+--ROLLBACK
 COMMIT TRANSACTION;
