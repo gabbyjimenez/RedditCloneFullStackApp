@@ -47,6 +47,30 @@ INSERT INTO posts (post_title, post_desc, den_id, creator_id)
 VALUES('Test 7', 'Hello World 7', 1, 1);
 
 
+--Test Responses
+
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 1', 1, 1);
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 2', 1, 1);
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 3', 1, 1);
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 1', 2, 1);
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 1', 3, 1);
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 1', 4, 1);
+
+INSERT INTO responses (response_desc, post_id, creator_id)
+VALUES('Test Comment 1', 5, 1);
+
 
 
 
