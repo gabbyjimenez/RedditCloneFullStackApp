@@ -1,18 +1,12 @@
 <template>
-    <header class="flex">
-        <h1>{{post.postTitle}}</h1>
-  </header>
-  <div class="created">
 
-<label>Created By:</label>
-<span>{{ post.creatorUsername }} </span>
-</div>
-<div class="postBody">
-    <div class="wrap">
-        {{post.postDesc}}
-</div>
-</div>
+<div class="den" v-for="post in posts" v-bind:key="post.postTitle">
+    <router-link v-bind:to="{ name: 'DenView', params: { postTitle: post.postTitle } }">
+      {{ post.postTitle }}  
+    </router-link>
+  </div>
 
+  
 </template>
 
 <script>
@@ -21,7 +15,6 @@ export default {
     props: {
        posts: {
         type: Array,
-        
        }
 
     },
@@ -33,8 +26,6 @@ export default {
     },
     computed: {
         filteredPosts() {
-
-
             return this.posts.filter((post) => {
                 return this.searchFilter == '' ? true : post.postTitle.includes(this.searchFilter);
             });

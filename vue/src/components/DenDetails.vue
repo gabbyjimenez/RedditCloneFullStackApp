@@ -6,15 +6,14 @@
 
     <div>
         <h4>Explore Dens</h4>
-        <div class="den" v-for="den in filteredDens" v-bind:key="den.denId" >
-        <p v-on:click="$router.push({ name: 'den', params: { denId: den.denId } })">{{ den.denId }} : {{ den.denName }} - {{ den.denCreatorUserName }}</p>
+        <div class="den" v-for="den in filteredDens" v-bind:key="den.denName" >
+        <p v-on:click="$router.push({ name: 'den', params: { denName: den.denName } })">{{ den.denId }} : {{ den.denName }} - {{ den.denCreatorUserName }}</p>
         </div>
     </div>
 </template>
   
 <script>
 
-import DenService from '../services/DenService.js';
 
 export default {
 
@@ -33,8 +32,6 @@ export default {
     },
     computed: {
         filteredDens() {
-
-
             return this.dens.filter((den) => {
                 return this.searchFilter == '' ? true : den.denName.includes(this.searchFilter);
             });

@@ -6,6 +6,7 @@ export default {
     return axios.get(`${denName}/posts`);
   }
 
+
 //   getTopic(topicId) {
 //     return axios.get(`/post/${postId}`)
 //   },
