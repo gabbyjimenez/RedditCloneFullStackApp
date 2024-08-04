@@ -53,10 +53,12 @@ public class JdbcDenDao implements DenDao {
 
         List<PostDto> posts = new ArrayList<>();
 
-        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id FROM posts " +
-                "JOIN users ON posts.creator_id = users.user_id " +
+        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name \n" +
+                "FROM responses " +
+                "JOIN users ON responses.creator_id = users.user_id " +
+                "JOIN posts ON responses.post_id = posts.post_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
-                "WHERE dens.den_name ILIKE ?";
+                "WHERE dens.den_name ILIKE ? AND posts.post_id = ?";
 
 
 
@@ -79,7 +81,10 @@ public class JdbcDenDao implements DenDao {
     public List<ResponseDto> retrieveResponsesByPost(int postId) {
         List<ResponseDto> responses = new ArrayList<>();
 
-        String sql = "";
+        String sql = "SELECT response_id, response_desc, post_id, creator_id, users.username AS creator_name " +
+                "FROM responses " +
+                "JOIN users ON responses.creator_id = users.user_id " +
+                "WHERE post_id = ?";
 
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, postId);
@@ -87,17 +92,18 @@ public class JdbcDenDao implements DenDao {
                 ResponseDto response = mapRowToResponse(results);
                 responses.add(response);
             }
-
         } catch(CannotGetJdbcConnectionException e){
             throw new DaoException("Unable To Connect to Database", e);
-
         }
-
         return responses;
     }
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
         ResponseDto response = new ResponseDto();
-
+        response.setResponseId(rowSet.getInt("response_id"));
+        response.setResponseDesc(rowSet.getString("response_desc"));
+        response.setPostId(rowSet.getInt("post_id"));
+        response.setCreatorId(rowSet.getInt("creator_id"));
+        response.setCreatorName(rowSet.getString("creator_name"));
         return response;
     }
 
