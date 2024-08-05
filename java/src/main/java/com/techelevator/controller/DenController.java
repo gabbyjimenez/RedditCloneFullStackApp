@@ -33,6 +33,12 @@ public class DenController {
         return denDao.createNewDen(den);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{den}")
+    public void deleteDenByDenName(@PathVariable("den") String denName){
+
+    }
+
     @GetMapping (path = "/{den}/posts")
     public List<PostDto> retrievePostsByDenName(@PathVariable("den") String denName){
         List<PostDto> posts = denDao.retrievePostsByDenName(denName);

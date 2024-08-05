@@ -156,6 +156,19 @@ public class JdbcDenDao implements DenDao {
         return newDen;
     }
 
+    @Override
+    public void deleteDenByDenName(String denName) {
+
+
+        //NEED IMPLEMENTATION FOR DELETING A POST
+        //MUST DELETE BOTTOM UP --> COMMENTS --> POSTS --> JOIN DATA --> DEN
+        
+        String sql = "";
+
+
+
+    }
+
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
         ResponseDto response = new ResponseDto();
         response.setResponseId(rowSet.getInt("response_id"));

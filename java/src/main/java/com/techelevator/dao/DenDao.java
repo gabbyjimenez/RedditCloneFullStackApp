@@ -18,4 +18,6 @@ public interface DenDao {
 
     DenDto createNewDen(DenDto newDen);
 
+    void deleteDenByDenName(String denName);
+
 }
