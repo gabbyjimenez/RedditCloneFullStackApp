@@ -22,8 +22,7 @@ public class JdbcDenDao implements DenDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-
-
+    
     @Override
     public List<DenDto> retrieveAllDens(){
        List<DenDto> dens = new ArrayList<>();
@@ -33,10 +32,12 @@ public class JdbcDenDao implements DenDao {
                "FROM dens " +
                "JOIN users ON dens.creator_id = users.user_id;";
 
+
        try{
            SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
            while(results.next()){
                DenDto den = mapRowToDen(results);
+               den.setCategoryNames(retrieveCategoriesForDen(den.getDenId()));
                dens.add(den);
            }
 
@@ -97,6 +98,30 @@ public class JdbcDenDao implements DenDao {
         }
         return responses;
     }
+
+    @Override
+    public List<String> retrieveCategoriesForDen(int denId) {
+
+        List<String> categories = new ArrayList<>();
+
+        String sql = "SELECT category_name \n" +
+                "FROM categories\n" +
+                "JOIN den_category ON categories.category_id = den_category.category_id\n" +
+                "JOIN dens ON den_category.den_id = dens.den_id\n" +
+                "WHERE dens.den_id = ?";
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, denId);
+            while(results.next()){
+                categories.add(results.getString("category_name"));
+
+            }
+        } catch(CannotGetJdbcConnectionException e){
+            throw new DaoException("Unable To Connect to Database", e);
+        }
+
+        return categories;
+    }
+
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
         ResponseDto response = new ResponseDto();
         response.setResponseId(rowSet.getInt("response_id"));

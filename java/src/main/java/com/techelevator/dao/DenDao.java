@@ -14,4 +14,6 @@ public interface DenDao {
 
     List<ResponseDto> retrieveResponsesByPost(String denName, int postId);
 
+    List<String> retrieveCategoriesForDen(int denId);
+
 }
