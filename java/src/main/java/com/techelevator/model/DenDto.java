@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import java.util.List;
+
 public class DenDto {
 
     private int denId;
@@ -10,16 +12,29 @@ public class DenDto {
 
     private String denCreatorUserName;
 
-    public DenDto(int denId, String denName, int denCreatorId, String denCreatorUserName) {
+    private List<String> categoryNames;
+
+    public DenDto(int denId, String denName, int denCreatorId, String denCreatorUserName, List<String> categoryNames) {
         this.denId = denId;
         this.denName = denName;
         this.denCreatorId = denCreatorId;
         this.denCreatorUserName = denCreatorUserName;
+        this.categoryNames = categoryNames;
     }
 
     public DenDto(){
 
     }
+
+
+    public List<String> getCategoryNames() {
+        return categoryNames;
+    }
+
+    public void setCategoryNames(List<String> categoryNames) {
+        this.categoryNames = categoryNames;
+    }
+
     public int getDenId() {
         return denId;
     }
