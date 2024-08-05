@@ -13,6 +13,8 @@
 </template>
   
 <script>
+import DenList from './DenList.vue';
+
 
 
 export default {
@@ -33,7 +35,7 @@ export default {
     computed: {
         filteredDens() {
             return this.dens.filter((den) => {
-                return this.searchFilter == '' ? true : den.denName.includes(this.searchFilter);
+                return this.searchFilter == '' ? true : den.denName.includes(this.searchFilter) || den.categoryNames.includes(this.searchFilter);
             });
 
 

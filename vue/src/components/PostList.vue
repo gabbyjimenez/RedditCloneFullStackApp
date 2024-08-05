@@ -1,5 +1,5 @@
 <template>
-    <p>blorg</p>
+
 
     <div>
         <label for="">Search: </label>

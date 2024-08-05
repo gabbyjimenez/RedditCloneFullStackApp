@@ -1,6 +1,9 @@
 <template>
     <header>
-        <h3 id="headerText">Header Name</h3>
+      <router-link id="homeLink" v-bind:to="{ name: 'home' }">Home</router-link>
+        <p id="headerText">Header Name</p>
+        <p>logout</p>
+        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
     </header>
   </template>
   
@@ -14,8 +17,26 @@
   
   <style scoped>
   #headerText {
-    text-align: center;
+    
     text-decoration:underline;
+
+  }
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    
+    font-size: large;
+    background-color: lightblue;
+    text-align: center;
+  }
+  #homeLink {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1%;
+
+
 
   }
  
