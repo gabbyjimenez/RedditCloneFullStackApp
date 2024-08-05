@@ -16,4 +16,6 @@ public interface DenDao {
 
     List<String> retrieveCategoriesForDen(int denId);
 
+    DenDto createNewDen(DenDto newDen);
+
 }

@@ -5,6 +5,7 @@ import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 import org.apache.coyote.Response;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -120,6 +121,39 @@ public class JdbcDenDao implements DenDao {
         }
 
         return categories;
+    }
+
+    @Override
+    public DenDto createNewDen(DenDto newDen) {
+
+       String sqlDen = "INSERT INTO dens (den_name, den_desc, creator_id) " +
+               "VALUES (?, ?, ?) " +
+               "RETURNING den_id;";
+
+       String sqlJoin = "INSERT INTO den_category (den_id, category_id) " +
+               "VALUES (?, (SELECT category_id FROM categories WHERE category_name = ?)) " +
+               "RETURNING group_category_id;";
+
+
+        try{
+
+            //Get Everything from Den Object, Returning new ID
+            int newDenId = jdbcTemplate.queryForObject(sqlDen, int.class, newDen.getDenName(), newDen.getDenDesc(), newDen.getDenCreatorId());
+            newDen.setDenId(newDenId);
+
+            for(String category : newDen.getCategoryNames()){
+                int entryAddedId = jdbcTemplate.queryForObject(sqlJoin, int.class, newDen.getDenId(), category);
+            }
+
+
+            //Add to categories Join Table, Use newDen.getDenID to add to Join Table on category.
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return newDen;
     }
 
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
