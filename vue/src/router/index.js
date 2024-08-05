@@ -50,7 +50,7 @@ const routes = [
     }
   },
   {
-    path: "/den",
+    path: "/:denName/posts",
     name: "den",
     component: DenView,
     meta: {

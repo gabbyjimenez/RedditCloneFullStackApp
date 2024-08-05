@@ -2,7 +2,8 @@
     <div>
         <theHeader id="header" />
         <side-bar id="sidebar" /> 
-        <PostList v-bind:posts="PostList" />     
+        <PostList v-bind:posts="posts" />     
+        
     </div>
     
 
@@ -31,8 +32,8 @@ export default {
 
   methods: {
 
-    getPosts() {
-      PostService.getPosts(this.denName).then(response => {
+    getPosts(name) {
+      PostService.getPosts(name).then(response => {
         this.posts = response.data;
       }).catch(error => {
         console.log('You are out of luck')
@@ -40,7 +41,7 @@ export default {
     }
   },
   created() {
-    this.getPosts();
+    this.getPosts(this.$route.params.denName);
   }
 
 }
