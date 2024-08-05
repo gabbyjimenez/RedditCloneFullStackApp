@@ -14,18 +14,29 @@ public class DenDto {
 
     private List<String> categoryNames;
 
-    public DenDto(int denId, String denName, int denCreatorId, String denCreatorUserName, List<String> categoryNames) {
+    private String denDesc;
+
+
+    public DenDto(int denId, String denName, int denCreatorId, String denCreatorUserName, List<String> categoryNames, String denDesc) {
         this.denId = denId;
         this.denName = denName;
         this.denCreatorId = denCreatorId;
         this.denCreatorUserName = denCreatorUserName;
         this.categoryNames = categoryNames;
+        this.denDesc = denDesc;
     }
 
     public DenDto(){
 
     }
 
+    public String getDenDesc() {
+        return denDesc;
+    }
+
+    public void setDenDesc(String denDesc) {
+        this.denDesc = denDesc;
+    }
 
     public List<String> getCategoryNames() {
         return categoryNames;
