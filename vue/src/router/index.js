@@ -6,7 +6,8 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import DenView from '../views/DenView.vue'
+import DenView from '../views/DenView.vue';
+
 
 
 /**

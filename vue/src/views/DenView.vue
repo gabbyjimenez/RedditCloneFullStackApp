@@ -1,7 +1,9 @@
 <template>
     <div>
         <theHeader id="header" />
-        <PostList v-bind:posts="posts" />     
+        
+        <PostList v-bind:posts="posts" />
+           
         
     </div>
     
@@ -14,10 +16,12 @@ import theHeader from '../components/Header.vue'
 import PostService from '../services/PostService'
 import PostList from '../components/PostList.vue'
 
+
 export default {
     components: {
     PostList,
     theHeader,
+  
 
   }, data() {
     return {
