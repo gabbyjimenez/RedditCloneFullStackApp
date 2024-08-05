@@ -13,6 +13,7 @@ CREATE TABLE users (
 CREATE TABLE dens (
 	den_id SERIAL,
 	den_name VARCHAR(100) NOT NULL UNIQUE,
+	den_desc TEXT NOT NULL,
 	creator_id int, 
 	
 	CONSTRAINT PK_den PRIMARY KEY (den_id),

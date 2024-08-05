@@ -6,41 +6,41 @@ INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpUL
 --Creating Dens
 --SELECT * FROM dens;
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('BallIsLife', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('BallIsLife', 'Basketball Gang!', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('CollegeFootball25', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('CollegeFootball25', 'For all fans of the video game College Football 25', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('KeepingUpWithTheKardashians', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('KeepingUpWithTheKardashians','Test Description' , 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('MensFitness', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('MensFitness','Test Description' , 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('AppleFanboyClub', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('AppleFanboyClub', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('GuyFieri', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('GuyFieri', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('StockMarketUpdates', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('StockMarketUpdates', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('MakeupReviews', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('MakeupReviews', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('PixarUpdates', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('PixarUpdates', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('NotSportscenter', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('NotSportscenter', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('NotFakeNews', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('NotFakeNews', 'Test Description', 1);
 
-INSERT INTO dens (den_name, creator_id)
-VALUES('Hiking', 1);
+INSERT INTO dens (den_name, den_desc, creator_id)
+VALUES('Hiking', 'Test Description', 1);
 
 
 
