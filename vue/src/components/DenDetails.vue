@@ -4,6 +4,8 @@
     <input type="text" name="denName" v-model="searchFilter" />
   </div>
 
+  <!-- <add-den-form/> -->
+
   <div>
     <h4>Explore Dens</h4>
     <div class="den" v-for="den in filteredDens" v-bind:key="den.denName">
@@ -19,9 +21,13 @@
 </template>
   
 <script>
-import DenList from "./DenList.vue";
+// import AddDenForm from './AddDenForm.vue';
+
 
 export default {
+  components: { 
+    // AddDenForm 
+  },
   props: {
     dens: {
       type: Array,
