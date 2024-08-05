@@ -1,6 +1,6 @@
 <template>
     <header>
-        <h3 id="headerText">GROUPS</h3>
+        <h3 id="headerText">Header Name</h3>
     </header>
   </template>
   
