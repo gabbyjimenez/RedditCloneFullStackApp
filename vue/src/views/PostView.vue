@@ -1,6 +1,5 @@
 <template>
     <theHeader/>
-    <SideBar/>
     <PostDeails/>
 
   

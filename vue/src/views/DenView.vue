@@ -1,7 +1,6 @@
 <template>
     <div>
         <theHeader id="header" />
-        <side-bar id="sidebar" /> 
         <PostList v-bind:posts="posts" />     
         
     </div>
@@ -12,14 +11,12 @@
 <script>
 
 import theHeader from '../components/Header.vue'
-import SideBar from '../components/SideBar.vue'
 import PostService from '../services/PostService'
 import PostList from '../components/PostList.vue'
 
 export default {
     components: {
     PostList,
-    SideBar,
     theHeader,
 
   }, data() {
