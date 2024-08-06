@@ -256,11 +256,11 @@ public class JdbcDenDao implements DenDao {
     public PostDto createNewPost(PostDto newPost) {
 
         String sql = "INSERT INTO posts (post_title, post_desc, den_id, creator_id) " +
-                "VALUES (?, ?, ?, ?) " +
+                "VALUES (?, ?, (SELECT den_id FROM dens WHERE den_name = ?), ?) " +
                 "RETURNING post_id";
 
         try{
-            int newPostId = jdbcTemplate.queryForObject(sql, int.class, newPost.getPostTitle(), newPost.getPostDesc(), newPost.getDenId(), newPost.getCreatorId());
+            int newPostId = jdbcTemplate.queryForObject(sql, int.class, newPost.getPostTitle(), newPost.getPostDesc(), newPost.getDenName(), newPost.getCreatorId());
             newPost.setPostId(newPostId);
 
         } catch (CannotGetJdbcConnectionException e) {

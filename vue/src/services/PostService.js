@@ -8,7 +8,7 @@ export default {
 
   makeNewPost(newPost){
 
-    return axios.post(`${newPost.denName}/posts`);
+    return axios.post(`${newPost.denName}/posts`, newPost);
 
   }
 //   getTopic(topicId) {

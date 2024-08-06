@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>Add Post:</h4>
-    <form v-on:submit="">
+    <form v-on:submit.prevent="makeNewPost">
       <div class="field">
         <label for="denName">Post Title:</label>
         <input
@@ -22,12 +22,13 @@
         >
         </textarea>
       </div>
+      <button type="submit">Post</button>
     </form>
   </div>
 </template>
 
 <script>
-import PostService from "../services/PostService";
+import PostService from "../services/PostService.js";
 export default {
   props: {
     dens: {
@@ -37,38 +38,25 @@ export default {
 
   data() {
     return {
-      newPost: {
-        creatorId: this.$store.state.user,
-        denId: this.den.denId,
+    
+    newPost: {
+        creatorId: 1,
         postTitle: "",
         postDesc: "",
-        denName: this.den.denName,
+        denName: this.$route.params.denName,
       },
+      
+    
     };
   },
 
   methods: {
     
-    
-    setNewPostId(denName){
-
-        const den = this.dens.filter(denName => {
-
-            
-
-
-        })
-
-
-
-
-
-    },
-    makeNewPost(newPost) {
-      return PostService.makeNewPost(newPost)
+    makeNewPost() {
+      PostService.makeNewPost(this.newPost)
         .then((response) => {
           console.log(response.data);
-          console.log(newPost);
+          console.log(this.newPost);
           this.clearForm();
         })
         .catch((error) => {
@@ -78,19 +66,18 @@ export default {
 
     clearForm() {
       return (this.newPost = {});
+    }
+        
+
     },
-  },
 
-  created:{
+   
+  };
 
-
-
-
-
-  }
+  
 
 
-};
+
 </script>
 
 <style>
