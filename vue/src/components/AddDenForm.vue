@@ -1,12 +1,12 @@
 <template>
     <div id="main">
-
+<div id="button">
         <div id="button" class="card"  style="width: 30%;" v-on:click="denOpen = true">
   <div  class="card-body">
     <h5 class="card-title">+</h5>
   </div>
 </div>
-
+</div>
 
         <form id="AddNewDen" v-on:submit.prevent="AddNewDen" v-show="denOpen == true">
             <div class="field">
@@ -96,11 +96,10 @@ export default {
 <style>
 #button{
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    text-align: center;
-    
-
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding: 1%;
 }
 
 </style>
