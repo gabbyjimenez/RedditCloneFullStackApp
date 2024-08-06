@@ -1,7 +1,9 @@
 <template>
   <div class="home">
     <theHeader id="header" />
+    <AddDenForm />
     <DenDetails id="dendetails" v-bind:dens="dens"/>
+    
     <p>You must be authenticated to see this</p>
   </div>
 </template>
@@ -11,13 +13,16 @@
 import theHeader from '../components/Header.vue'
 import DenDetails from '../components/DenDetails.vue'
 import DenService from '../services/DenService.js'
+import AddDenForm from '../components/AddDenForm.vue'
+
 
 
 export default {
   components: {
     DenDetails,
-    theHeader
-  },
+    theHeader,
+    AddDenForm
+},
 
   data() {
     return {
@@ -29,7 +34,7 @@ export default {
 
     getDens() {
       DenService.getDens().then(response => {
-        this.dens = response.data;
+        this.dens = response.data
       }).catch(error => {
         console.log('You are out of luck')
       })

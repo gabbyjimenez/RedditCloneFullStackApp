@@ -33,10 +33,27 @@ public class DenController {
         return denDao.createNewDen(den);
     }
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{den}")
+    public void deleteDenByDenName(@PathVariable("den") String denName){
+
+    }
+
     @GetMapping (path = "/{den}/posts")
     public List<PostDto> retrievePostsByDenName(@PathVariable("den") String denName){
         List<PostDto> posts = denDao.retrievePostsByDenName(denName);
         return posts;
+    }
+
+
+    //DO I NEED PATHVARIABLE ON THIS IF INSERTED FROM THE FRONT END?
+    //SQL WOULD HAVE TO BE SUB SELECT WHERE ID = DENNAME
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "/{den}/posts")
+    public PostDto createNewPost(@RequestBody PostDto newPost){
+
+        return denDao.createNewPost(newPost);
+
     }
 
     @GetMapping(path = "/{den}/{id}/comments")
@@ -45,6 +62,14 @@ public class DenController {
         return responses;
     }
 
+
+
+    //MAY ALSO NEED TO LOOK AT PATHVARIABLE ANNOTATIONS BUT UNSURE WHAT THEY WOULD BE NEEDED FOR
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "/{den}/{id}/comments")
+    public ResponseDto createNewResponse(@RequestBody ResponseDto newResponse){
+        return denDao.createNewResponse(newResponse);
+    }
 
 
 
