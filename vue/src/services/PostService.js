@@ -10,9 +10,10 @@ export default {
 
     return axios.post(`${newPost.denName}/posts`, newPost);
 
+  },
+
+  deletePost(post){
+    return axios.delete(`${post.denName}/${post.postId}`);
   }
-//   getTopic(topicId) {
-//     return axios.get(`/post/${postId}`)
-//   },
 
 }
