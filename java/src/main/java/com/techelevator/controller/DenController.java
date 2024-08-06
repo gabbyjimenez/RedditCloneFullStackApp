@@ -97,11 +97,4 @@ public class DenController {
         denDao.deleteCommentByCommentId(commentId);
 
     }
-
-
-
-
-
-
-
 }
