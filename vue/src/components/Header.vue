@@ -3,7 +3,7 @@
       <router-link id="homeLink" v-bind:to="{ name: 'home' }">Home</router-link>
         <p id="headerText">Header Name</p>
         <p>logout</p>
-        <router-link v-bind:to="{ name: 'logout' }" v-if="$store.state.token != ''">Logout</router-link>
+        
     </header>
   </template>
   
