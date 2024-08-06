@@ -1,45 +1,70 @@
 <template>
-    <header>
-      <router-link id="homeLink" v-bind:to="{ name: 'home' }"><img src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722957878/foxbutton_uilkmi.png" /></router-link>
-        <p id="headerText">Header Name</p>
-       
-        <p>favorite|logout</p>
-        
-    </header>
-  </template>
+  <header>
+    <div id="homeLink">
+      <router-link v-bind:to="{ name: 'home' }"><img
+          src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722957878/foxbutton_uilkmi.png" /></router-link>
+    </div>
+    <div id="headerText">
+      <p >Header Name</p>
+    </div>
+    <div id="favLog">
+      <p>favorite</p>
+      <p>|</p>
+      <p>logout</p>
+    </div>
+  </header>
+</template>
   
-  <script>
+<script>
 
 
-  export default {
+export default {
 
 }
-  </script>
+</script>
   
-  <style scoped>
-  #headerText {
-    
-    text-decoration:underline;
+<style scoped>
+#headerText {
 
-  }
-  header {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    
-    font-size: large;
-    background-color: lightblue;
-    text-align: center;
-  }
-  #homeLink {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 1%;
+  text-decoration: underline;
+
+}
+
+header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  font-size: large;
+  background-color: lightblue;
+  text-align: center;
+}
+
+#homeLink {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
 
 
 
-  }
- 
-  
-  </style>
+}
+#headerText {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+
+
+
+}
+#favLog {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1%;
+
+
+
+}
+</style>
