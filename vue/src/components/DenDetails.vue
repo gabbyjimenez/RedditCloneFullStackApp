@@ -5,11 +5,11 @@
   </div>
 
 
- 
+  <add-den-form />
 
   <div id="divCards">
-    <add-den-form />
-    <div class="card" style="width: 95;" v-for="den in filteredDens" v-bind:key="den.denName">
+     <add-den-form />
+    <div class="card" style="width: 100;" v-for="den in filteredDens" v-bind:key="den.denName">
       <div id="cards" class="card-body" v-on:click="
         $router.push({ name: 'den', params: { denName: den.denName } })
         ">
@@ -84,16 +84,21 @@ export default {
 #cards {
 
   display: flex;
+  flex-direction: column;
   padding: auto;
+text-align: center
+
 
 
 }
 
 #divCards {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  padding: auto;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  
 }
 </style>
 
