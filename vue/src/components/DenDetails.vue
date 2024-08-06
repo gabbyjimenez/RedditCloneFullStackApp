@@ -28,11 +28,11 @@ export default {
   components: { 
     // AddDenForm 
   },
-  props: {
-    dens: {
-      type: Array,
-    },
-  },
+  // props: {
+  //   dens: {
+  //     type: Array,
+  //   },
+  // },
 
   data() {
     return {
@@ -46,7 +46,7 @@ export default {
       // });
 
       const searchFilter = this.searchFilter.toLowerCase();
-      return this.dens.filter((den) => {
+      return this.$store.state.dens.filter((den) => {
         // Check if denName includes the searchFilter
         const nameMatch = den.denName.toLowerCase().includes(searchFilter);
 

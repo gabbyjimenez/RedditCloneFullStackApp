@@ -2,7 +2,8 @@
     <header>
       <router-link id="homeLink" v-bind:to="{ name: 'home' }">Home</router-link>
         <p id="headerText">Header Name</p>
-        <p>logout</p>
+       
+        <p>favorite|logout</p>
         
     </header>
   </template>

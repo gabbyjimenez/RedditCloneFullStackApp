@@ -26,15 +26,15 @@ export default {
 
   data() {
     return {
-      dens: []
-    }
+    //   dens: []
+     }
   },
 
   methods: {
 
     getDens() {
       DenService.getDens().then(response => {
-        this.dens = response.data
+        this.$store.state.dens = response.data
       }).catch(error => {
         console.log('You are out of luck')
       })
