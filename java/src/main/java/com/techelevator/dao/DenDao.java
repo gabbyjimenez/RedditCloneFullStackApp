@@ -1,5 +1,6 @@
 package com.techelevator.dao;
 
+import com.techelevator.model.CategoryDTO;
 import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
@@ -9,6 +10,8 @@ import java.util.List;
 public interface DenDao {
 
     List<DenDto> retrieveAllDens();
+
+    List<CategoryDTO> retrieveAllCategories();
 
     List<PostDto> retrievePostsByDenName(String denName);
 
@@ -20,8 +23,13 @@ public interface DenDao {
 
     DenDto createNewDen(DenDto newDen);
 
+    PostDto createNewPost(PostDto newPost);
+
     void deleteDenByDenName(String denName);
 
-    PostDto createNewPost(PostDto newPost);
+    void deletePostByPostId(int postId);
+
+    void deleteCommentByCommentId(int responseId);
+
 
 }

@@ -1,6 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
+import com.techelevator.model.CategoryDTO;
 import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
@@ -48,6 +49,28 @@ public class JdbcDenDao implements DenDao {
        }
 
        return dens;
+   }
+
+
+   @Override
+   public List<CategoryDTO> retrieveAllCategories() {
+       List<CategoryDTO> categories = new ArrayList<>();
+
+       String sql = "SELECT category_id, category_name FROM categories";
+
+       try{
+           SqlRowSet results = jdbcTemplate.queryForRowSet(sql);
+           while(results.next()){
+               CategoryDTO category = mapRowToCategory(results);
+               categories.add(category);
+           }
+
+       } catch(CannotGetJdbcConnectionException e){
+           throw new DaoException("Unable To Connect to Database", e);
+
+       }
+
+       return categories;
    }
 
     @Override
@@ -183,13 +206,49 @@ public class JdbcDenDao implements DenDao {
     @Override
     public void deleteDenByDenName(String denName) {
 
+        String sql = "DELETE FROM responses \n" +
+                "WHERE post_id IN (\n" +
+                "    SELECT post_id FROM  posts WHERE den_id = (\n" +
+                "        SELECT den_id FROM dens WHERE den_name = ?" +
+                "    )\n" +
+                ");";
 
-        //NEED IMPLEMENTATION FOR DELETING A POST
-        //MUST DELETE BOTTOM UP --> COMMENTS --> POSTS --> JOIN DATA --> DEN
+        String sqlTwo = "DELETE FROM posts\n" +
+                "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?);";
 
-        String sql = "";
+        String sqlThree = "DELETE FROM den_category\n" +
+                "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?);";
 
+        String sqlFour = "DELETE FROM dens \n" +
+                "WHERE den_name = ?;";
 
+        jdbcTemplate.update(sql, denName);
+        jdbcTemplate.update(sqlTwo, denName);
+        jdbcTemplate.update(sqlThree, denName);
+        jdbcTemplate.update(sqlFour, denName);
+
+    }
+
+    @Override
+    public void deletePostByPostId(int postId) {
+
+        String sql = "DELETE FROM responses\n" +
+                "WHERE post_id = ?";
+
+        String sqlTwo = "DELETE FROM posts\n" +
+                "WHERE post_id = ?";
+
+        jdbcTemplate.update(sql, postId);
+        jdbcTemplate.update(sqlTwo, postId);
+
+    }
+
+    @Override
+    public void deleteCommentByCommentId(int responseId) {
+
+        String sql = "DELETE FROM responses WHERE response_id = ?";
+
+        jdbcTemplate.update(sql, responseId);
 
     }
 
@@ -224,7 +283,12 @@ public class JdbcDenDao implements DenDao {
         return response;
     }
 
-
+    private CategoryDTO mapRowToCategory(SqlRowSet rowSet) {
+        CategoryDTO category = new CategoryDTO();
+        category.setCategoryId(rowSet.getInt("category_id"));
+        category.setCategoryName(rowSet.getString("category_name"));
+        return category;
+    }
 
     private PostDto mapRowToPost(SqlRowSet rowSet){
         PostDto post = new PostDto();
