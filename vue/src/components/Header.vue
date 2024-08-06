@@ -1,17 +1,15 @@
 <template>
   <header>
-    <div id="homeLink">
-      <router-link v-bind:to="{ name: 'home' }"><img
-          src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722957878/foxbutton_uilkmi.png" /></router-link>
+    <router-link id="homeLink" v-bind:to="{ name: 'home' }"><img
+        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722965836/foxbutton_j6yfhm.png" /></router-link>
+    
+    <div id ="searchBar" class="input-group rounded">
+      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        aria-describedby="search-addon" />
     </div>
-    <div id="headerText">
-      <p >Header Name</p>
-    </div>
-    <div id="favLog">
-      <p>favorite</p>
-      <p>|</p>
-      <p>logout</p>
-    </div>
+
+    <p>favorite|logout</p>
+
   </header>
 </template>
   
@@ -49,22 +47,12 @@ header {
 
 
 }
-#headerText {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1%;
-
-
-
-}
-#favLog {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1%;
-
-
+#searchBar{
+display: flex;
+width: 30%;
+height: 50%;
+justify-content: center;
+align-items: center;
 
 }
 </style>

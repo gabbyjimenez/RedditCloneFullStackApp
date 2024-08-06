@@ -5,8 +5,7 @@
   </div>
 
   <!-- <add-den-form/> -->
-
-  <div>
+  <!-- <div>
     <h4>Explore Dens</h4>
     <div class="den" v-for="den in filteredDens" v-bind:key="den.denName">
       <p
@@ -17,7 +16,17 @@
         {{ den.denId }} : {{ den.denName }} - {{ den.denCreatorUserName }}
       </p>
     </div>
+  </div> -->
+  <div  class="card" style="width: 18rem;" v-for="den in filteredDens" v-bind:key="den.denName">
+  <div id = "cards" class="card-body"  v-on:click="
+          $router.push({ name: 'den', params: { denName: den.denName } })
+        ">
+    <h5 class="card-title" >{{ den.denName }} {{ den.denCreatorUserName }}</h5>
+    <p2 class="card-subtitle mb-2 text-muted">User ID: {{ den.denId }}</p2>
+    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+  
   </div>
+</div>
 </template>
   
 <script>
@@ -61,4 +70,11 @@ export default {
 </script>
   
 <style>
+.card{
+  display: flex;
+justify-content: center;
+background-color: rgba(222, 222, 222, 0.504);
+
+}
+
 </style>
