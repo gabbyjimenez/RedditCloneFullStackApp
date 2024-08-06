@@ -2,6 +2,7 @@ package com.techelevator.controller;
 
 
 import com.techelevator.dao.DenDao;
+import com.techelevator.model.CategoryDTO;
 import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
@@ -10,6 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -33,16 +36,16 @@ public class DenController {
         return denDao.createNewDen(den);
     }
 
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    @DeleteMapping(path = "/{den}")
-    public void deleteDenByDenName(@PathVariable("den") String denName){
-
-    }
-
     @GetMapping (path = "/{den}/posts")
     public List<PostDto> retrievePostsByDenName(@PathVariable("den") String denName){
         List<PostDto> posts = denDao.retrievePostsByDenName(denName);
         return posts;
+    }
+
+    @GetMapping(path = "/categories")
+    public List<CategoryDTO> retrieveAllCategories() {
+        return denDao.retrieveAllCategories();
+
     }
 
 
@@ -63,7 +66,6 @@ public class DenController {
     }
 
 
-
     //MAY ALSO NEED TO LOOK AT PATHVARIABLE ANNOTATIONS BUT UNSURE WHAT THEY WOULD BE NEEDED FOR
     @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path = "/{den}/{id}/comments")
@@ -72,4 +74,27 @@ public class DenController {
     }
 
 
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{den}")
+    public void deleteDenByDenName(@PathVariable("den") String denName){
+
+        denDao.deleteDenByDenName(denName);
+
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{den}/{id}")
+    public void deletePostByPostId(@PathVariable("den") String denName, @PathVariable ("id") int postId){
+
+        denDao.deletePostByPostId(postId);
+
+    }
+
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    @DeleteMapping(path = "/{den}/{id}/comments/{commentId}")
+    public void deleteCommentByCommentId(@PathVariable("den") String denName, @PathVariable ("id") int postId, @PathVariable ("commentId") int commentId){
+
+        denDao.deleteCommentByCommentId(commentId);
+
+    }
 }
