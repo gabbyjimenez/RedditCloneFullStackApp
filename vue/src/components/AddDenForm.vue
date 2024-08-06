@@ -11,8 +11,19 @@
                 <input type="text" id="denName" name="denName" v-model="newDen.denName" required />
             </div>
             <div class="field">
-                <label for="lastName">Categories:</label>
-                <input type="text" id="categories" name="categories" v-model="newDen.categoryNames" required />
+                <!-- <label for="lastName">Categories:</label>
+                <input type="text" id="categories" name="categories" v-model="newDen.categoryNames" required /> -->
+
+                <tr v-for="category in categories" v-bind:key="category.id">
+                    <td>
+                        <input type="checkbox" v-bind:id="category.categoryName" v-bind:value="category.categoryName"
+                            v-model="newDen.categoryNames" />
+                    </td>
+                    <td>{{ category.categoryName }}</td>
+                </tr>
+
+
+
             </div>
             <div class="field">
                 <label for="username">Description:</label>
@@ -38,12 +49,14 @@ export default {
                 denName: "",
                 denCreatorId: 1,
                 denCreatorUserName: "user",
-                categoryNames: [
-                    "Sports"
-                ],
-                denDesc: "WE LOVE PLANse AHOY"
-            }, denOpen: false
+                categoryNames: [],
+                denDesc: ""
+            },
+            denOpen: false,
+            categories: []
+
         }
+
     },
 
     methods: {
@@ -63,7 +76,18 @@ export default {
         clearForm() {
             this.newDen = {};
         },
+        getCategories() {
+            DenService.getCategories().then(response => {
+                this.categories = response.data
+            }).catch(error => {
+                console.log('You are out of luck')
+            })
+        },
 
+    },
+
+    created() {
+        this.getCategories();
     }
 }
 </script>
