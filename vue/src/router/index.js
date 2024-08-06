@@ -6,8 +6,9 @@ import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
-import DenView from '../views/DenView.vue'
-import PostView from '../views/PostView.vue'
+import DenView from '../views/DenView.vue';
+
+
 
 /**
  * The Vue Router is used to "direct" the browser to render a specific view component
@@ -57,15 +58,8 @@ const routes = [
     meta: {
       requiresAuth: false
     }
-  },
-  {
-    path: "/:denName/:postId/comments",
-    name: "post",
-    component: PostView,
-    meta: {
-      requiresAuth: false
-    }
-  },
+  }
+  
  
 ];
 

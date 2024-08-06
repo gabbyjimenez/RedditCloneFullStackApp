@@ -5,6 +5,7 @@ import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 import org.apache.coyote.Response;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
@@ -22,13 +23,13 @@ public class JdbcDenDao implements DenDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    
+
     @Override
     public List<DenDto> retrieveAllDens(){
        List<DenDto> dens = new ArrayList<>();
 
 
-       String sql = "SELECT den_id, den_name, users.username AS creator_username, creator_id " +
+       String sql = "SELECT den_id, den_name, den_desc, users.username AS creator_username, creator_id " +
                "FROM dens " +
                "JOIN users ON dens.creator_id = users.user_id;";
 
@@ -76,6 +77,8 @@ public class JdbcDenDao implements DenDao {
         return posts;
     }
 
+
+
     @Override
     public List<ResponseDto> retrieveResponsesByPost(String denName, int postId) {
         List<ResponseDto> responses = new ArrayList<>();
@@ -100,6 +103,29 @@ public class JdbcDenDao implements DenDao {
     }
 
     @Override
+    public ResponseDto createNewResponse(ResponseDto newResponse) {
+
+        String sql = "INSERT INTO responses (response_desc, post_id, creator_id) " +
+                "VALUES (?, ?, ?) " +
+                "RETURNING response_id";
+
+
+        try{
+            int newResponseId = jdbcTemplate.queryForObject(sql, int.class, newResponse.getResponseDesc(), newResponse.getPostId(), newResponse.getCreatorId());
+            newResponse.setResponseId(newResponseId);
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return newResponse;
+
+    }
+
+
+    @Override
     public List<String> retrieveCategoriesForDen(int denId) {
 
         List<String> categories = new ArrayList<>();
@@ -120,6 +146,72 @@ public class JdbcDenDao implements DenDao {
         }
 
         return categories;
+    }
+
+    @Override
+    public DenDto createNewDen(DenDto newDen) {
+
+       String sqlDen = "INSERT INTO dens (den_name, den_desc, creator_id) " +
+               "VALUES (?, ?, ?) " +
+               "RETURNING den_id;";
+
+       String sqlJoin = "INSERT INTO den_category (den_id, category_id) " +
+               "VALUES (?, (SELECT category_id FROM categories WHERE category_name = ?)) " +
+               "RETURNING group_category_id;";
+
+
+        try{
+
+            //Get Everything from Den Object, Returning new ID
+            int newDenId = jdbcTemplate.queryForObject(sqlDen, int.class, newDen.getDenName(), newDen.getDenDesc(), newDen.getDenCreatorId());
+            newDen.setDenId(newDenId);
+
+            for(String category : newDen.getCategoryNames()){
+                int entryAddedId = jdbcTemplate.queryForObject(sqlJoin, int.class, newDen.getDenId(), category);
+            }
+
+
+            //Add to categories Join Table, Use newDen.getDenID to add to Join Table on category.
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return newDen;
+    }
+
+    @Override
+    public void deleteDenByDenName(String denName) {
+
+
+        //NEED IMPLEMENTATION FOR DELETING A POST
+        //MUST DELETE BOTTOM UP --> COMMENTS --> POSTS --> JOIN DATA --> DEN
+
+        String sql = "";
+
+
+
+    }
+
+    @Override
+    public PostDto createNewPost(PostDto newPost) {
+
+        String sql = "INSERT INTO posts (post_title, post_desc, den_id, creator_id) " +
+                "VALUES (?, ?, ?, ?) " +
+                "RETURNING post_id";
+
+        try{
+            int newPostId = jdbcTemplate.queryForObject(sql, int.class, newPost.getPostTitle(), newPost.getPostDesc(), newPost.getDenId(), newPost.getCreatorId());
+            newPost.setPostId(newPostId);
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return newPost;
     }
 
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
@@ -157,6 +249,7 @@ public class JdbcDenDao implements DenDao {
         den.setDenName(rowSet.getString("den_name"));
         den.setDenCreatorId(rowSet.getInt("creator_id"));
         den.setDenCreatorUserName(rowSet.getString("creator_username"));
+        den.setDenDesc(rowSet.getString("den_desc"));
         return den;
     }
 

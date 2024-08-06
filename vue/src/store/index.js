@@ -2,12 +2,17 @@ import { createStore as _createStore } from 'vuex';
 import axios from 'axios';
 
 export function createStore(currentToken, currentUser) {
+  let headerName;
   let store = _createStore({
     state: {
       token: currentToken || '',
-      user: currentUser || {}
+      user: currentUser || {},
+      dens: []
     },
+    
+
     mutations: {
+     
       SET_AUTH_TOKEN(state, token) {
         state.token = token;
         localStorage.setItem('token', token);
