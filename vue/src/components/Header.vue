@@ -8,9 +8,11 @@
         aria-describedby="search-addon" />
     </div>
     </div>
-
-    <p>favorite|logout</p>
-
+    <div id="favLog">
+    <p>favorite|</p>
+    
+    <p> logout</p>
+  </div>
   </header>
 </template>
   
@@ -55,6 +57,13 @@ width: 30%;
 justify-content: center;
 align-items: center;
 
+
+}
+#favLog{
+display: flex;
+flex-direction: row;
+
+align-items: center;
 
 }
 </style>
