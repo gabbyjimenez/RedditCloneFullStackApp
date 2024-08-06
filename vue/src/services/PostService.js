@@ -14,6 +14,10 @@ export default {
 
   deletePost(post){
     return axios.delete(`${post.denName}/${post.postId}`);
+  },
+
+  getComments(post){
+    return axios.get(`${post.denName}/${post.id}/comments`);
   }
 
 }

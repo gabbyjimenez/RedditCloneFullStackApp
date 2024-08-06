@@ -12,7 +12,7 @@
             <p>Desc</p>
             <p>{{ post.postDesc }}</p>
             <button v-on:click="DeletePost(post)">delete</button>
-
+            <comments-list/>
 
 
         </div>
@@ -21,8 +21,11 @@
 
 <script>
 import PostService from '../services/PostService';
+import CommentsList from '../components/CommentsList.vue';
 export default {
-
+    components:{
+        CommentsList
+    },
     props: {
         posts: {
             type: Array,
