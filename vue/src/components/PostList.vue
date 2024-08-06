@@ -11,6 +11,8 @@
             <label>{{ post.postTitle }} : {{ post.creatorUsername }}</label>
             <p>Desc</p>
             <p>{{ post.postDesc }}</p>
+            <button v-on:click="DeletePost(post)">delete</button>
+
 
 
         </div>
@@ -18,6 +20,7 @@
 </template>
 
 <script>
+import PostService from '../services/PostService';
 export default {
 
     props: {
@@ -41,6 +44,27 @@ export default {
 
 
         }
+    },
+    methods: {
+
+
+        DeletePost(post) {
+      console.log("bleep")
+      if (confirm("Are you sure you want to delete this message? This action cannot be undone.")) {
+
+        // TODO - Do a delete, then navigate to Topic Details on success
+        // For errors, call handleErrorResponse
+        console.log(post)
+        console.log("blorg")
+
+        PostService.deletePost(post).then(response => {
+          console.log("deleted")
+        }).catch(error => {
+          this.handleErrorResponse(error, 'deleting');
+        })
+
+      }
+    }
     }
 
 }
