@@ -77,6 +77,8 @@ public class JdbcDenDao implements DenDao {
         return posts;
     }
 
+
+
     @Override
     public List<ResponseDto> retrieveResponsesByPost(String denName, int postId) {
         List<ResponseDto> responses = new ArrayList<>();
@@ -162,11 +164,31 @@ public class JdbcDenDao implements DenDao {
 
         //NEED IMPLEMENTATION FOR DELETING A POST
         //MUST DELETE BOTTOM UP --> COMMENTS --> POSTS --> JOIN DATA --> DEN
-        
+
         String sql = "";
 
 
 
+    }
+
+    @Override
+    public PostDto createNewPost(PostDto newPost) {
+
+        String sql = "INSERT INTO posts (post_title, post_desc, den_id, creator_id) " +
+                "VALUES (?, ?, ?, ?) " +
+                "RETURNING post_id";
+
+        try{
+            int newPostId = jdbcTemplate.queryForObject(sql, int.class, newPost.getPostTitle(), newPost.getPostDesc(), newPost.getDenId(), newPost.getCreatorId());
+            newPost.setPostId(newPostId);
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return newPost;
     }
 
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){

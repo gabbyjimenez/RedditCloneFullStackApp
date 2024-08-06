@@ -45,6 +45,14 @@ public class DenController {
         return posts;
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path = "/{den}/posts")
+    public PostDto createNewPost(@RequestBody PostDto newPost){
+
+        return denDao.createNewPost(newPost);
+
+    }
+
     @GetMapping(path = "/{den}/{id}/comments")
     public List<ResponseDto> retrieveResponsesByPost(@PathVariable("den") String denName, @PathVariable("id") int postId){
         List<ResponseDto> responses = denDao.retrieveResponsesByPost(denName, postId);

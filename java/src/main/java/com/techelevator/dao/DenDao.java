@@ -20,4 +20,6 @@ public interface DenDao {
 
     void deleteDenByDenName(String denName);
 
+    PostDto createNewPost(PostDto newPost);
+
 }
