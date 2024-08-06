@@ -15,7 +15,10 @@ export default {
  getCategories(){
   return axios.get('/categories' );
 
- }
+ },
 
+ delete(den){
+  return axios.delete(`/${den.denName}`, den)
+}
 
 }

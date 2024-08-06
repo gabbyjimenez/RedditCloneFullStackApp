@@ -1,9 +1,10 @@
 <template>
-  <div class="home">
+  <div id="home" class="home">
     <theHeader id="header" />
+    <div id="body">
     <AddDenForm />
     <DenDetails id="dendetails" v-bind:dens="dens"/>
-    
+    </div>
     <p>You must be authenticated to see this</p>
   </div>
 </template>
@@ -26,7 +27,6 @@ export default {
 
   data() {
     return {
-    //   dens: []
      }
   },
 
@@ -47,8 +47,12 @@ export default {
 </script>
 
 <style>
-.home {
+#body {
+  display: flex;
+  flex-direction: column;
   text-align: center;
-
+  justify-content: center;
+  
 }
+
 </style>

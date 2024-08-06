@@ -1,8 +1,11 @@
 <template>
     <div id="main">
 
-
-        <button v-on:click="denOpen = true">+</button>
+        <div id="button" class="card"  style="width: 30%;" v-on:click="denOpen = true">
+  <div  class="card-body">
+    <h5 class="card-title">+</h5>
+  </div>
+</div>
 
 
         <form id="AddNewDen" v-on:submit.prevent="AddNewDen" v-show="denOpen == true">
@@ -11,8 +14,6 @@
                 <input type="text" id="denName" name="denName" v-model="newDen.denName" required />
             </div>
             <div class="field">
-                <!-- <label for="lastName">Categories:</label>
-                <input type="text" id="categories" name="categories" v-model="newDen.categoryNames" required /> -->
 
                 <tr v-for="category in categories" v-bind:key="category.id">
                     <td>
@@ -92,4 +93,14 @@ export default {
 }
 </script>
 
-<style></style>
+<style>
+#button{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    
+
+}
+
+</style>
