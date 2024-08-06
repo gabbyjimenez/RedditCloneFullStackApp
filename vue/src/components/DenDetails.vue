@@ -4,35 +4,29 @@
     <input type="text" name="denName" v-model="searchFilter" />
   </div>
 
-  <!-- <add-den-form/> -->
-
   <div>
     <h4>Explore Dens</h4>
     <div class="den" v-for="den in filteredDens" v-bind:key="den.denName">
-      <p
-        v-on:click="
-          $router.push({ name: 'den', params: { denName: den.denName } })
-        "
-      >
+      <p v-on:click="
+        $router.push({ name: 'den', params: { denName: den.denName } })
+        ">
         {{ den.denId }} : {{ den.denName }} - {{ den.denCreatorUserName }}
       </p>
+      <button v-on:click="DeleteDen(den)">delete</button>
+
     </div>
   </div>
 </template>
   
 <script>
-// import AddDenForm from './AddDenForm.vue';
+import { setBlockTracking } from 'vue';
+import DenService from '../services/DenService';
 
 
 export default {
-  components: { 
-    // AddDenForm 
+  components: {
   },
-  // props: {
-  //   dens: {
-  //     type: Array,
-  //   },
-  // },
+
 
   data() {
     return {
@@ -41,7 +35,7 @@ export default {
   },
   computed: {
     filteredDens() {
-     
+
       const searchFilter = this.searchFilter.toLowerCase();
       return this.$store.state.dens.filter((den) => {
         // Check if denName includes the searchFilter
@@ -56,9 +50,28 @@ export default {
         return searchFilter === "" ? true : nameMatch || categoryMatch;
       });
     },
+
   },
+  methods: {
+    DeleteDen(den) {
+      console.log("bleep")
+      if (confirm("Are you sure you want to delete this message? This action cannot be undone.")) {
+
+        // TODO - Do a delete, then navigate to Topic Details on success
+        // For errors, call handleErrorResponse
+        console.log(den)
+        console.log("blorg")
+
+        DenService.delete(den).then(response => {
+          console.log("deleted")
+        }).catch(error => {
+          this.handleErrorResponse(error, 'deleting');
+        })
+
+      }
+    }
+  }
 };
 </script>
   
-<style>
-</style>
+<style></style>
