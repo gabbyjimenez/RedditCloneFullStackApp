@@ -8,4 +8,9 @@ export default {
   },
 
 
+  addDen(den) {
+    return axios.post('/dens', den);
+ }
+
+
 }

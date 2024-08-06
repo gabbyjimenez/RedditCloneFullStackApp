@@ -25,19 +25,23 @@
 </template>
 
 <script>
+import DenService from '../services/DenService.js';
+
 
 
 
 export default {
-    
+
     data() {
         return {
             newDen: {
                 denName: "",
-                denCreatorId: "",
-                denCreatorUserName: "",
-                categoryNames: [],
-                denDesc: ""
+                denCreatorId: 1,
+                denCreatorUserName: "user",
+                categoryNames: [
+                    "Sports"
+                ],
+                denDesc: "WE LOVE PLANse AHOY"
             }, denOpen: false
         }
     },
@@ -45,17 +49,22 @@ export default {
     methods: {
 
         AddNewDen() {
+            console.log(this.newDen)
 
+            DenService.addDen(this.newDen).then((response) => {
+                console.log(response.data);
+                this.clearForm()
+                console.log(this.$store.state.dens)
 
-            this.$store.state.dens.unshift(this.newDen);
-            this.clearForm();
-            console.log('log')
+            }).catch((error) => {
+                console.log(error)
+            });
         },
         clearForm() {
             this.newDen = {};
         },
-    }
 
+    }
 }
 </script>
 

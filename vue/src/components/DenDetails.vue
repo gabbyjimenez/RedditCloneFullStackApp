@@ -41,10 +41,7 @@ export default {
   },
   computed: {
     filteredDens() {
-      // return this.dens.filter((den) => {
-      //     return this.searchFilter == '' ? true : den.denName.toLowerCase().includes(this.searchFilter.toLowerCase()) || den.categoryNames.toLowerCase().includes(this.searchFilter.toLowerCase());
-      // });
-
+     
       const searchFilter = this.searchFilter.toLowerCase();
       return this.$store.state.dens.filter((den) => {
         // Check if denName includes the searchFilter
