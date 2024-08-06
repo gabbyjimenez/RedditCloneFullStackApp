@@ -1,12 +1,12 @@
-<template>
+<template>  
     <div id="main">
-<div id="button">
-        <div id="button" class="card"  style="width: 30%;" v-on:click="denOpen = true">
-  <div  class="card-body">
-    <h5 class="card-title">+</h5>
-  </div>
-</div>
-</div>
+        <div id="button">
+            <div id="button" class="card" style="width: 50%;" v-on:click="denOpen = true">
+                <div class="card-body">
+                    <p class="card-title">+</p>
+                </div>
+            </div>
+        </div>
 
         <form id="AddNewDen" v-on:submit.prevent="AddNewDen" v-show="denOpen == true">
             <div class="field">
@@ -23,8 +23,6 @@
                     <td>{{ category.categoryName }}</td>
                 </tr>
 
-
-
             </div>
             <div class="field">
                 <label for="username">Description:</label>
@@ -37,10 +35,8 @@
 </template>
 
 <script>
+
 import DenService from '../services/DenService.js';
-
-
-
 
 export default {
 
@@ -72,19 +68,23 @@ export default {
 
             }).catch((error) => {
                 console.log(error)
+
             });
         },
+
         clearForm() {
             this.newDen = {};
+
         },
+
         getCategories() {
             DenService.getCategories().then(response => {
                 this.categories = response.data
             }).catch(error => {
-                console.log('You are out of luck')
+               console.log('You are out of luck')
+
             })
         },
-
     },
 
     created() {
@@ -94,12 +94,12 @@ export default {
 </script>
 
 <style>
-#button{
+#button {
     display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
-  padding: 1%;
-}
+    flex-direction: row;
+    justify-content: center;
+    margin: 1%;
 
+
+}
 </style>
