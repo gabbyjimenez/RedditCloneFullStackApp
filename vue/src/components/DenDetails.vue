@@ -4,12 +4,9 @@
     <input type="text" name="denName" v-model="searchFilter" />
   </div>
 
-<<<<<<< HEAD
-  <!-- <add-den-form/> -->
-  <!-- <div>
-=======
-  <div>
->>>>>>> 4baff22319f11a6a40577f1b641167d3d2640be9
+
+  <add-den-form/>
+  
     <h4>Explore Dens</h4>
     <div class="den" v-for="den in filteredDens" v-bind:key="den.denName">
       <p v-on:click="
@@ -20,7 +17,7 @@
       <button v-on:click="DeleteDen(den)">delete</button>
 
     </div>
-  </div> -->
+  
   <div  class="card" style="width: 18rem;" v-for="den in filteredDens" v-bind:key="den.denName">
   <div id = "cards" class="card-body"  v-on:click="
           $router.push({ name: 'den', params: { denName: den.denName } })
@@ -89,7 +86,6 @@ export default {
 };
 </script>
   
-<<<<<<< HEAD
 <style>
 .card{
   display: flex;
@@ -99,6 +95,4 @@ background-color: rgba(222, 222, 222, 0.504);
 }
 
 </style>
-=======
-<style></style>
->>>>>>> 4baff22319f11a6a40577f1b641167d3d2640be9
+
