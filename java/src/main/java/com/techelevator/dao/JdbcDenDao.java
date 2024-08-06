@@ -103,6 +103,29 @@ public class JdbcDenDao implements DenDao {
     }
 
     @Override
+    public ResponseDto createNewResponse(ResponseDto newResponse) {
+
+        String sql = "INSERT INTO responses (response_desc, post_id, creator_id) " +
+                "VALUES (?, ?, ?) " +
+                "RETURNING response_id";
+
+
+        try{
+            int newResponseId = jdbcTemplate.queryForObject(sql, int.class, newResponse.getResponseDesc(), newResponse.getPostId(), newResponse.getCreatorId());
+            newResponse.setResponseId(newResponseId);
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return newResponse;
+
+    }
+
+
+    @Override
     public List<String> retrieveCategoriesForDen(int denId) {
 
         List<String> categories = new ArrayList<>();

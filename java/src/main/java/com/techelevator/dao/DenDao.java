@@ -14,6 +14,8 @@ public interface DenDao {
 
     List<ResponseDto> retrieveResponsesByPost(String denName, int postId);
 
+    ResponseDto createNewResponse(ResponseDto newResponse);
+
     List<String> retrieveCategoriesForDen(int denId);
 
     DenDto createNewDen(DenDto newDen);
