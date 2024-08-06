@@ -61,7 +61,6 @@ public class JdbcDenDao implements DenDao {
                 "WHERE dens.den_name ILIKE ?";
 
 
-
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, denName);
             while(results.next()){
