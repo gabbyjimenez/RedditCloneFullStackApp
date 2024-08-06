@@ -10,6 +10,11 @@ export default {
 
   addDen(den) {
     return axios.post('/dens', den);
+ },
+
+ getCategories(){
+  return axios.get('/categories' );
+
  }
 
 
