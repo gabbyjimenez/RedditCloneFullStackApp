@@ -1,30 +1,28 @@
 <template>
   <div>
     <label for="">Search: </label>
-    <input type="text" name="denName" v-model="searchFilter" />
+    <input id="searchBar" type="text" name="denName" v-model="searchFilter" />
   </div>
 
 
- 
+  <add-den-form />
 
   <div id="divCards">
-    <add-den-form />
-    <div class="card" style="width: 95;" v-for="den in filteredDens" v-bind:key="den.denName">
+     <add-den-form />
+    <div class="card" style="width: 100;" v-for="den in filteredDens" v-bind:key="den.denName">
       <div id="cards" class="card-body" v-on:click="
         $router.push({ name: 'den', params: { denName: den.denName } })
         ">
         <h5 class="card-title">{{ den.denName }} {{ den.denCreatorUserName }}</h5>
         <p2 class="card-subtitle mb-2 text-muted">User ID: {{ den.denId }}</p2>
-        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's
-          content.</p>
-
-      </div>
-    </div>
+        <p class="card-text">{{den.denDesc}}</p>
+              </div>
+              <button v-on:click="DenService.delete(this.den)">delete</button>
+            </div>
   </div>
 </template>
   
 <script>
-import { setBlockTracking } from 'vue';
 import DenService from '../services/DenService';
 
 
@@ -84,16 +82,26 @@ export default {
 #cards {
 
   display: flex;
-  padding: auto;
+  flex-direction: column;
+  
+text-align: center;
+margin: 1%;
+
 
 
 }
 
 #divCards {
   display: flex;
-  flex-direction: row;
-  flex-wrap: wrap;
-  justify-content: center;
+  flex-direction: column;
+  padding: auto;
+  margin: 10%;
+  margin-top: 1%;
+
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  
 }
+
 </style>
 

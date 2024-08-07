@@ -10,6 +10,7 @@
             <p>Desc</p>
             <p>{{ post.postDesc }}</p>
             <button v-on:click="DeletePost(post)">delete</button>
+            <comments-list v-bind:post="post"/>
 
 
 
@@ -18,31 +19,33 @@
 </template>
 
 <script>
-import PostService from '../services/PostService';
+import PostService from "../services/PostService";
+import CommentsList from "../components/CommentsList.vue";
 export default {
-
-    props: {
-        posts: {
-            type: Array,
-        }
-
+  components: {
+    CommentsList,
+  },
+  props: {
+    posts: {
+      type: Array,
     },
+  },
 
-    data() {
-        return {
-            searchFilter: ''
-        }
+  data() {
+    return {
+      searchFilter: "",
+      
+    };
+  },
+  computed: {
+    filteredPosts() {
+      return this.posts.filter((post) => {
+        return this.searchFilter == ""
+          ? true
+          : post.postTitle.includes(this.searchFilter);
+      });
     },
-    computed: {
-        filteredPosts() {
-            return this.posts.filter((post) => {
-                return this.searchFilter == '' ? true : post.postTitle.includes(this.searchFilter);
-            });
-
-
-
-        }
-    },
+   
     methods: {
 
         DeletePost(post) {
@@ -62,15 +65,16 @@ export default {
         }
     }
 
+},
 }
 </script>
 
 <style scoped>
 .den {
-    border-bottom: 1px solid #f2f2f2;
-    display: block;
-    padding: 10px 20px;
-    background-color: #f2f2f2;
-    cursor: pointer;
+  border-bottom: 1px solid #f2f2f2;
+  display: block;
+  padding: 10px 20px;
+  background-color: #f2f2f2;
+  cursor: pointer;
 }
 </style>
