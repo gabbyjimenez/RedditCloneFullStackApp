@@ -49,6 +49,7 @@ export default {
   },
   created() {
     this.getPosts(this.$route.params.denName);
+    
   },
 };
 </script>

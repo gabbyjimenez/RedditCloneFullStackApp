@@ -23,7 +23,6 @@
 </template>
   
 <script>
-import { setBlockTracking } from 'vue';
 import DenService from '../services/DenService';
 
 
