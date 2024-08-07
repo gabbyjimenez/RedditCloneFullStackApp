@@ -1,7 +1,7 @@
 <template>  
     <div id="main">
         <div id="button">
-            <div id="button" class="card" style="width: 50%;" v-on:click="denOpen = true">
+            <div id="button" class="card" style="width: 50%;" v-on:click="(denOpen = !denOpen); clearForm();" >
                 <div class="card-body">
                     <p class="card-title">+</p>
                 </div>
