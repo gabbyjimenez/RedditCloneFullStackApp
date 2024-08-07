@@ -1,7 +1,7 @@
 <template>
   <div>
     <h4>Add Post:</h4>
-    <form v-on:submit.prevent="makeNewPost">
+    <form v-on:submit.prevent="makeNewPost" >
       <div class="field">
         <label for="denName">Post Title:</label>
         <input
@@ -22,13 +22,14 @@
         >
         </textarea>
       </div>
-      <button type="submit">Post</button>
+      <button type="submit" >Post</button>
     </form>
   </div>
 </template>
 
 <script>
 import PostService from "../services/PostService.js";
+import DenView from "../views/DenView.vue";
 export default {
   props: {
     dens: {
@@ -57,15 +58,34 @@ export default {
         .then((response) => {
           console.log(response.data);
           console.log(this.newPost);
+          this.getPosts(this.$route.params.denName);
           this.clearForm();
         })
         .catch((error) => {
           console.log(error);
         });
+
     },
+    getPosts(name) {
+      console.log("hit")
+      PostService.getPosts(name)
+        .then((response) => {
+          this.$store.state.posts = response.data;
+     
+        })
+        .catch((error) => {
+          console.log("You are out of luck");
+        });
+    },
+    
 
     clearForm() {
-      return (this.newPost = {});
+      return (this.newPost = {
+        creatorId: 1,
+        postTitle: "",
+        postDesc: "",
+        denName: this.$route.params.denName,
+      });
     }
         
 

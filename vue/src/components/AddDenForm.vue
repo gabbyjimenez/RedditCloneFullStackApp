@@ -38,6 +38,7 @@
 
 import DenService from '../services/DenService.js';
 
+
 export default {
 
     data() {
@@ -45,7 +46,7 @@ export default {
             newDen: {
                 denName: "",
                 denCreatorId: 1,
-                denCreatorUserName: "user",
+                denCreatorUserName: "",
                 categoryNames: [],
                 denDesc: ""
             },
@@ -62,6 +63,7 @@ export default {
             console.log(this.newDen)
 
             DenService.addDen(this.newDen).then((response) => {
+                this.getDens();
                 console.log(response.data);
                 this.clearForm()
                 console.log(this.$store.state.dens)
@@ -73,7 +75,13 @@ export default {
         },
 
         clearForm() {
-            this.newDen = {};
+            this.newDen = {
+                denName: "",
+                denCreatorId: 1,
+                denCreatorUserName: "user",
+                categoryNames: [],
+                denDesc: ""
+            };
 
         },
 
@@ -85,6 +93,13 @@ export default {
 
             })
         },
+        getDens() {
+      DenService.getDens().then(response => {
+        this.$store.state.dens = response.data
+      }).catch(error => {
+        console.log('You are out of luck')
+      })
+    },
     },
 
     created() {
