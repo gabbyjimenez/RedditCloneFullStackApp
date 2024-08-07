@@ -8,16 +8,18 @@
       v-bind:key="comment.postId"
     >
       <p>{{ comment.responseDesc }} {{ comment.creatorId }}</p>
+      <button v-on:click="deleteComment(comment)">delete comment</button>
     </div>
-    <form v-on:submit.prevent="addComment()">
+    <form v-on:submit.prevent="addComment(this.newComment)">
       <label for="newComment">Add Comment: </label>
       <textarea
         id="newComment"
         name="newComment"
         v-model="newComment.responseDesc"
       ></textarea>
+      <button type="submit">Comment</button>
+
     </form>
-    <button type="submit">Comment</button>
   </div>
 </template>
 
@@ -36,11 +38,11 @@ export default {
   data() {
     return {
       searchFilter: "",
-      comments:[],
+      comments: [],
 
       newComment: {
         responseDesc: "",
-        postId: 0,
+        postId: this.post.postId,
         creatorId: 1,
         denName: this.$route.params.denName,
       },
@@ -48,15 +50,12 @@ export default {
     };
   },
   computed: {
-    //Doesn't Do Anything. From Copy Paste
 
-    filteredComments() {
-      return this.comments.filter((comment) => {
-        return this.searchFilter == ""
-          ? true
-          : comment.responseDesc.includes(this.searchFilter);
-      });
+    freshComments(){
+      return this.comments
     },
+
+
   },
   methods:{
     
@@ -69,12 +68,51 @@ export default {
         })
         .catch((error) => {
           console.log(error);
-        });
-
-        
+        });       
       
         
+    },
+    addComment(newComment){
+      console.log(this.post.postId)
+      console.log("post id")
+      PostService.addComment(newComment)
+        .then((response) => {
+          this.getComments(this.post);
+          console.log(response.data);
+          console.log(this.newComment);
+          this.clearForm();
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    },
+
+
+    deleteComment(comment){
+      console.log("bleep")
+      if (confirm("Are you sure you want to delete this message? This action cannot be undone.")) {
+
+        console.log("blorg")
+
+        PostService.deleteComment(this.$route.params.denName, comment).then(response => {
+          this.getComments(this.post);
+          console.log("deleted")
+        }).catch(error => {
+          this.handleErrorResponse(error, 'deleting');
+        })
+
+      }
+  
+    },
+    clearForm(){
+      this.newComment = {
+        responseDesc: "",
+        postId: this.post.postId,
+        creatorId: 1,
+        denName: this.$route.params.denName,
+      }
     }
+
   },
 
   created(){

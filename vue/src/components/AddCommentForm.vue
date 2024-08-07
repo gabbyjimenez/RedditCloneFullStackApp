@@ -1,6 +1,6 @@
 <template>
     <div>
-        <form v-on:submit.prevent="">
+        <form v-on:submit.prevent="makeNewComment">
      
       <div class="field">
         <label for="responseDesc">Comment</label>
@@ -29,7 +29,6 @@ data() {
     return {
 
         newComment: {
-            
             responseDesc: '', 
             postId: 0,
             creatorId: 1,
@@ -54,9 +53,15 @@ methods: {
           console.log(error);
         });
     },
+    
 
     clearForm() {
-      return (this.newComment = {});
+      return (this.newComment = {
+        responseDesc: '', 
+            postId: 0,
+            creatorId: 1,
+            denName: ""
+      });
     }
 
 }

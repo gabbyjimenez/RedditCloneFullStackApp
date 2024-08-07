@@ -14,8 +14,9 @@
       <div id="cards" class="card-body" v-on:click="
         $router.push({ name: 'den', params: { denName: den.denName } })
         ">
-        <h5 class="card-title">{{ den.denName }} {{ den.denCreatorUserName }}</h5>
-        <p2 class="card-subtitle mb-2 text-muted">User ID: {{ den.denId }}</p2>
+        <h5 class="card-title">{{ den.denName }} </h5>
+      
+        <p2 class="card-subtitle mb-2 text-muted">created by: {{ den.denCreatorUserName }}</p2>
         <p class="card-text">{{ den.denDesc }}</p>
       </div>
       <div id="button">
@@ -71,12 +72,21 @@ export default {
         console.log("blorg")
 
         DenService.delete(den).then(response => {
+          this.getDens()
           console.log("deleted")
         }).catch(error => {
           this.handleErrorResponse(error, 'deleting');
         })
 
       }
+      
+    },
+    getDens() {
+      DenService.getDens().then(response => {
+        this.$store.state.dens = response.data
+      }).catch(error => {
+        console.log('You are out of luck')
+      })
     }
   }
 };

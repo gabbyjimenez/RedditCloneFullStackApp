@@ -18,6 +18,15 @@ export default {
 
   getComments(post){
     return axios.get(`${post.denName}/${post.postId}/comments`);
+  },
+
+  addComment(newComment){
+    return axios.post(`${newComment.denName}/${newComment.postId}/comments`, newComment)
+  },
+
+  deleteComment(denName, comment){
+    return axios.delete(`${denName}/${comment.postId}/comments/${comment.responseId}`, comment)
+
   }
 
 }

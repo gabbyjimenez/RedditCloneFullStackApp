@@ -20,22 +20,26 @@ export default {
   },
   data() {
     return {
-      posts: [],
       comments: [],
       denName: this.$route.params.denName,
     };
   },
 
   methods: {
+
     getPosts(name) {
       PostService.getPosts(name)
         .then((response) => {
-          this.posts = response.data;
+          this.$store.state.posts = response.data;
+          console.log("List")
+
+          console.log(response.data)
         })
         .catch((error) => {
           console.log("You are out of luck");
         });
     },
+  
 
     getComments(post) {
       PostService.getComments(post)
@@ -47,10 +51,7 @@ export default {
         });
     },
   },
-  created() {
-    this.getPosts(this.$route.params.denName);
-    
-  },
+ 
 };
 </script>
 
