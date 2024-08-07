@@ -17,7 +17,7 @@ export default {
   },
 
   getComments(post){
-    return axios.get(`${post.denName}/${post.id}/comments`);
+    return axios.get(`${post.denName}/${post.postId}/comments`);
   }
 
 }

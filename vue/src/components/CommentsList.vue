@@ -25,27 +25,29 @@ import PostService from "../services/PostService";
 
 export default {
   props: {
-    posts: {
-      type: Array,
+    post: {
+      type: Object,
     },
-    comments:{
-        type: Array,
-    }
+ 
   },
 
   data() {
     return {
       searchFilter: "",
+      comments:[],
+
       newComment: {
         responseDesc: "",
         postId: 0,
         creatorId: 1,
         denName: this.$route.params.denName,
       },
-      comments: [],
+      
     };
   },
   computed: {
+    //Doesn't Do Anything. From Copy Paste
+
     filteredComments() {
       return this.comments.filter((comment) => {
         return this.searchFilter == ""
@@ -54,6 +56,28 @@ export default {
       });
     },
   },
+  methods:{
+    
+    getComments(post) {
+        console.log("help");
+        PostService.getComments(post)
+        .then((response) => {
+          this.comments = response.data;
+          console.log(this.comments);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+
+        
+      
+        
+    }
+  },
+
+  created(){
+    this.getComments(this.post);
+  }
   
 };
 </script>
