@@ -1,25 +1,29 @@
 <template>
-  <div>
-    <label for="">Search: </label>
-    <input id="searchBar" type="text" name="denName" v-model="searchFilter" />
+
+  <div id="searchBar" >
+      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
+        aria-describedby="search-addon" v-model="searchFilter" />
   </div>
 
 
   <add-den-form />
 
-  <div id="divCards">
-     <add-den-form />
+  <li id="divCards">
+    <add-den-form />
     <div class="card" style="width: 100;" v-for="den in filteredDens" v-bind:key="den.denName">
       <div id="cards" class="card-body" v-on:click="
         $router.push({ name: 'den', params: { denName: den.denName } })
         ">
         <h5 class="card-title">{{ den.denName }} {{ den.denCreatorUserName }}</h5>
         <p2 class="card-subtitle mb-2 text-muted">User ID: {{ den.denId }}</p2>
-        <p class="card-text">{{den.denDesc}}</p>
-              </div>
-              <button v-on:click="DenService.delete(this.den)">delete</button>
-            </div>
-  </div>
+        <p class="card-text">{{ den.denDesc }}</p>
+      </div>
+      <div id="button">
+        <button id="button" v-on:click="DeleteDen(den)">delete</button>
+      </div>
+    </div>
+  </li>
+
 </template>
   
 <script>
@@ -29,6 +33,7 @@ import DenService from '../services/DenService';
 
 export default {
   components: {
+    
   },
 
 
@@ -80,13 +85,16 @@ export default {
   
 
 <style>
+#everything{
+
+}
+
 #cards {
 
   display: flex;
   flex-direction: column;
-  
-text-align: center;
-margin: 1%;
+  text-align: center;
+  margin: 1%;
 
 
 
@@ -95,14 +103,26 @@ margin: 1%;
 #divCards {
   display: flex;
   flex-direction: column;
-  padding: auto;
-  margin: 10%;
+   margin: 10%;
   margin-top: 1%;
-
   flex-wrap: nowrap;
   justify-content: space-around;
-  
+
 }
 
+#button {
+  display: flex;
+  flex-direction: row;
+  width: 30%;
+  justify-content: center;
+
+}
+#searchBar {
+display: flex;
+width: 30%;
+justify-content: center;
+margin: auto;
+
+}
 </style>
 

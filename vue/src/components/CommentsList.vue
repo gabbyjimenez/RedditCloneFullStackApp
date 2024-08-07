@@ -2,7 +2,7 @@
   <div>
     <div
       class="comment"
-      v-for="comment in posts.comments"
+      v-for="comment in this.comments"
       v-bind:key="comment.postId"
     >
       <p>{{ comment.responseDesc }} {{ comment.creatorId }}</p>

@@ -12,7 +12,7 @@
             <p>Desc</p>
             <p>{{ post.postDesc }}</p>
             <button v-on:click="DeletePost(post)">delete</button>
-            <comments-list/>
+            <CommentsList />
 
 
         </div>
