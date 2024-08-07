@@ -1,16 +1,14 @@
 <template>
   <div>
-    <!-- Displaying comments. Did not touch anything below this line-->
-    <p>Comments: </p>
-    <div class="comment" v-bind:id="post.postId">
-        <div
-          class="comment"
-          v-for="comment in comments"
-          v-bind:key="comment.postId"
-        >
-          <p> {{comment.responseDesc}} </p>
-        </div>
-      </div>
+    <label for="title">Comments: </label>
+
+    <div
+      class="comment"
+      v-for="comment in this.comments"
+      v-bind:key="comment.postId"
+    >
+      <p>{{ comment.responseDesc }} {{ comment.creatorId }}</p>
+    </div>
     <form v-on:submit.prevent="addComment()">
       <label for="newComment">Add Comment: </label>
       <textarea
