@@ -105,7 +105,7 @@ public class JdbcDenDao implements DenDao {
     public List<ResponseDto> retrieveResponsesByPost(String denName, int postId) {
         List<ResponseDto> responses = new ArrayList<>();
 
-        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name " +
+        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name, responses.upvotes, responses.downvotes " +
                 "FROM responses " +
                 "JOIN users ON responses.creator_id = users.user_id " +
                 "JOIN posts ON responses.post_id = posts.post_id " +
@@ -280,6 +280,8 @@ public class JdbcDenDao implements DenDao {
         response.setCreatorId(rowSet.getInt("creator_id"));
         response.setDenName(rowSet.getString("den_name"));
         response.setCreatorName(rowSet.getString("creator_name"));
+        response.setUpvotes(rowSet.getInt("upvotes"));
+        response.setDownvotes(rowSet.getInt("downvotes"));
         return response;
     }
 
