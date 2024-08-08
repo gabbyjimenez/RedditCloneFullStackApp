@@ -5,9 +5,10 @@
             <img id="image" class="card-img"
                 src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
             <div id="denLink" class="card-img-overlay">
-                <h5 class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get Started</button></router-link></h5>
-                <h15 class="card-title" >Not logged in? sign up here!</h15>    
-            </div>
+                <p class="text-white">Product description</p>
+                <h3  class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get Started</button></router-link></h3>
+                <h15 id="loginText" class="card-title" ><router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | Don't have a account? sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!</h15>    
+            </div> 
         </div>
 
 
@@ -15,7 +16,7 @@
 
             <!-- Left Panel -->
             <div id="panelLeft" class="card bg-dark text-white">
-                <img id="image" class="card-img"
+                <img id="image" class="img"
                     src="...">
                 <div class="card-img-overlay">
                     <h5 class="card-title">Features</h5>
@@ -68,17 +69,18 @@ export default {
 }
 
 #panelMain {
+    display: flex;
     height: 50%;
     flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
 
 }
 
 #denLink {
     flex-direction: column;
-    justify-content: center;
-    align-content: center;
     margin: auto;
-
+    
 }
 
 #infoPanels {
@@ -134,6 +136,9 @@ export default {
 h15 {
 color: red;
 font-size: 50%;
+font-weight: bold;
+
+
 }
 
 #panelA {
@@ -143,5 +148,9 @@ font-size: 50%;
 button {
    background-color: rgba(0, 0, 0, 0.584);
    border-color: rgba(240, 255, 250, 0);
+}
+p {
+    font-size: 300%;
+
 }
 </style>
