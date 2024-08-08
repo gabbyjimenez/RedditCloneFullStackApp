@@ -7,6 +7,7 @@ import LoginView from '../views/LoginView.vue';
 import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import DenView from '../views/DenView.vue';
+import LandingView from '../views/LandingView.vue'
 
 
 
@@ -22,7 +23,7 @@ const routes = [
   {
     path: '/',
     name: 'home',
-    component: HomeView,
+    component: LandingView,
     meta: {
       requiresAuth: false
     }
