@@ -1,6 +1,9 @@
 package com.techelevator.dao;
 
 import com.techelevator.model.ResponseDto;
+import com.techelevator.model.VotingDto;
+
+import java.security.Principal;
 
 public interface VotingDao {
 
@@ -11,8 +14,9 @@ public interface VotingDao {
             //If no Value exists, insert as true
             //If value exists, change to true
 
-   ResponseDto addUpvote(ResponseDto responseDto);
+   ResponseDto addUpvote(ResponseDto responseDto, Principal principal);
 
+   public VotingDto getVotingDtoForValidation (ResponseDto responseDto, Principal principal);
     //ADD DOWNVOTE TO RESPONSE
         //Put into responose table where
 
