@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h4>Add Post:</h4>
-    <form v-on:submit.prevent="makeNewPost" >
+    <button v-on:click = "(formOpen = !formOpen); clearForm();">Add Post:</button>
+    <form v-on:submit.prevent="makeNewPost" v-show="formOpen == true" >
       <div class="field">
         <label for="denName">Post Title:</label>
         <input
@@ -39,7 +39,9 @@ export default {
 
   data() {
     return {
-    
+
+    formOpen: false,
+
     newPost: {
         creatorId: 1,
         postTitle: "",
