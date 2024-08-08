@@ -1,11 +1,14 @@
 <template>
   <div>
-    <label for="title">Comments: </label>
+    <button v-on:click = "(commentOPen = !commentOPen);">Comments:</button>
+
+    <div v-show="commentOPen == true">
 
     <div
       class="comment"
       v-for="comment in this.comments"
       v-bind:key="comment.postId"
+    
     >
       <p>{{ comment.responseDesc }} {{ comment.creatorId }}</p>
       <button v-on:click="deleteComment(comment)">delete comment</button>
@@ -21,6 +24,7 @@
 
     </form>
   </div>
+</div>
 </template>
 
 <script>
@@ -39,6 +43,7 @@ export default {
     return {
       searchFilter: "",
       comments: [],
+      commentOPen: false,
 
       newComment: {
         responseDesc: "",
