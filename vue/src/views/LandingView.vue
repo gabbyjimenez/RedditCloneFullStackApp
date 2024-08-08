@@ -1,24 +1,38 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
-        <div id="container">
-            
-            <div id="callToAction">
-            <router-link id="denLink" v-bind:to="{ name: 'dens' }"><button id="button">Get Started!</button></router-link>
+
+        <div id="panelMain" class="panel">
+            <router-link id="denLink" v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get
+                    Started</button></router-link>
+        </div>
+
+        <div id="infoPanels">
+            <div id="panelFeatures" class="card bg-dark text-white">
+                <img class="card-img" src="..." alt="Card image">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">A</h5>
+
+                </div>
             </div>
-        <div id="infoPanels">    
-        
+
+            <div id="panelB" class="panel">B</div>
+            <div id="panelC" class="panel">C</div>
         </div>
-        </div>
+
+
+        <Footer></Footer>
     </div>
 </template>
 
 <script>
 import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
     components: {
-        Header
+        Header,
+        Footer
     }
 }
 </script>
@@ -27,57 +41,49 @@ export default {
 #page {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
+    /* Full viewport height */
 }
 
-#content {
+#panelMain {
+    height: 60%;
+    background-color: indigo;
+
+
+
+}
+
+#denLink {
+    justify-content: center;
+    align-content: center;
+}
+
+.panel {
     display: flex;
-    flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    align-items: center;     /* Center content horizontally */
-    flex-grow: 1;            /* Take up remaining space */
+    justify-content: center;
+    border-color: black;
+
 }
 
-#button {
-    margin-bottom: 20px;     /* Add some space between button and description */
-}
-
-#description {
-    height: 33%;              /* Take up one third of the screen */
-    width: 100%;              /* Full width */
+#infoPanels {
     display: flex;
-    align-items: center;     /* Center grid vertically */
-    justify-content: center; /* Center grid horizontally */
-    background-color: #f0f0f0; /* Optional: Add a background color for contrast */
+    flex-direction: row;
+    justify-content: space-evenly;
+    height: 40%;
+
 }
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
-    grid-template-rows: repeat(3, 1fr);    /* 3 rows of equal height */
-    gap: 10px;                            /* Space between grid items */
-    width: 80%;                           /* Adjust width as needed */
-    height: 80%;                          /* Adjust height as needed */
+#panelA {
+    background-color: red;
+    flex-grow: 1
 }
 
-.grid-item {
-    display: flex;
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    background-color: #e0e0e0; /* Optional: Add a background color for contrast */
-    border: 1px solid #ccc; /* Optional: Add a border */
+#panelB {
+    background-color: green;
+    flex-grow: 1;
 }
 
-.denLink{
-    width: 100%;
-    height: 100%;
-    color: #412d7a;
-    border-radius: 30px;
-    font-weight: 400;
-    letter-spacing: 1px;
-    text-decoration: none;
-    transition: 0.5s;
-    overflow: hidden;
-    backdrop-filter: blur(15px);
-}
-</style>
+#panelC {
+    background-color: blue;
+    flex-grow: 1
+}</style>
