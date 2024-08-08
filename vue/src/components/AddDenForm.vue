@@ -30,6 +30,8 @@
             </div>
 
             <button type="submit" class="btn save" v-on:click="denOpen = false">Save Den</button>
+            <p>{{this.$store.state.user.id}}  bleep</p>
+            <p>{{this.$store.state.user.username}}  bleep</p>
         </form>
     </div>
 </template>
@@ -45,8 +47,8 @@ export default {
         return {
             newDen: {
                 denName: "",
-                denCreatorId: 1,
-                denCreatorUserName: "",
+                denCreatorId: this.$store.state.user.id,
+                denCreatorUserName: this.$store.state.user.username,
                 categoryNames: [],
                 denDesc: ""
             },
@@ -77,8 +79,8 @@ export default {
         clearForm() {
             this.newDen = {
                 denName: "",
-                denCreatorId: 1,
-                denCreatorUserName: "user",
+                denCreatorId: this.$store.state.user.id,
+                denCreatorUserName: this.$store.state.user.username,
                 categoryNames: [],
                 denDesc: ""
             };

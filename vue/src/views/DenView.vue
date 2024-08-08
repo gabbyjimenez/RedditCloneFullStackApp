@@ -1,8 +1,8 @@
 <template>
   <div>
     <theHeader id="header" />
-    <add-post-form id="addPostForm" />
-    <PostList v-bind:posts="posts" />
+    <AddPostForm id="addPostForm" />
+    <PostList/>
   </div>
 </template>
 
@@ -31,9 +31,7 @@ export default {
       PostService.getPosts(name)
         .then((response) => {
           this.$store.state.posts = response.data;
-          console.log("List")
-
-          console.log(response.data)
+    
         })
         .catch((error) => {
           console.log("You are out of luck");

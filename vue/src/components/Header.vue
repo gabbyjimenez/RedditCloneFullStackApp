@@ -9,9 +9,11 @@
     </div>
     </div>
     <div id="favLog">
-    <p>favorite|</p>
     
-    <p> logout</p>
+    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
+    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link>
+
+
   </div>
   </header>
 </template>

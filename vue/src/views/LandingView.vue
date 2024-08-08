@@ -134,8 +134,11 @@ export default {
 h15 {
 color: red;
 font-size: 50%;
+}
 
-
+#panelA {
+    background-color: red;
+    flex-grow: 1
 }
 button {
    background-color: rgba(0, 0, 0, 0.584);
