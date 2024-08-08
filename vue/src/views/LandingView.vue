@@ -133,8 +133,12 @@ export default {
 }
 h15 {
 color: red;
-font-size: 30%;
+font-size: 50%;
 
 
+}
+button {
+   background-color: rgba(0, 0, 0, 0.584);
+   border-color: rgba(240, 255, 250, 0);
 }
 </style>
