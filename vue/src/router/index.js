@@ -59,7 +59,15 @@ const routes = [
     meta: {
       requiresAuth: false
     }
-  }
+  },
+  {
+    path: '/dens',
+    name: 'dens',
+    component: HomeView,
+    meta: {
+      requiresAuth: false
+    }
+  },
   
  
 ];

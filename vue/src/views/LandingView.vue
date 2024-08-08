@@ -1,21 +1,14 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
-        <div id="content">
-            <button id="button">Get Started</button>
-            <div id="description">
-                <div class="grid-container">
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                    <div class="grid-item">Apples</div>
-                </div>
+        <div id="container">
+            
+            <div id="callToAction">
+            <router-link id="denLink" v-bind:to="{ name: 'dens' }"><button id="button">Get Started!</button></router-link>
             </div>
+        <div id="infoPanels">    
+        
+        </div>
         </div>
     </div>
 </template>
