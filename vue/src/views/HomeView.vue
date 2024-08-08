@@ -1,5 +1,5 @@
 <template>
-  <div id="home" class="home">
+  <div id="Dens" class="Dens">
     <theHeader id="header" />
     <div id="body">
     <AddDenForm/>
