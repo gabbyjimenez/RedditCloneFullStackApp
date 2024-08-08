@@ -8,18 +8,39 @@ public class ResponseDto {
     private int creatorId;
     private String creatorName;
     private String denName;
+    private int upvotes;
+    private int downvotes;
 
     public ResponseDto(){
 
     }
 
-    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName) {
+    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes) {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.postId = postId;
         this.creatorId = creatorId;
         this.creatorName = creatorName;
         this.denName = denName;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
+
+    }
+
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
     }
 
     public int getResponseId() {
