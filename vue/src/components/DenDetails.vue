@@ -1,26 +1,24 @@
 <template>
 
-  <div id="searchBar" >
+  <div >
       <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
         aria-describedby="search-addon" v-model="searchFilter" />
   </div>
 
 
-  <add-den-form />
 
-  <li id="divCards">
-    <add-den-form />
+  <li>
     <div class="card" style="width: 100;" v-for="den in filteredDens" v-bind:key="den.denName">
       <div id="cards" class="card-body" v-on:click="
         $router.push({ name: 'den', params: { denName: den.denName } })
         ">
-        <h5 class="card-title">{{ den.denName }} </h5>
+        <h5>{{ den.denName }} </h5>
       
-        <p2 class="card-subtitle mb-2 text-muted">created by: {{ den.denCreatorUserName }}</p2>
-        <p class="card-text">{{ den.denDesc }}</p>
+        <p>created by: {{ den.denCreatorUserName }}</p>
+        <p>{{ den.denDesc }}</p>
       </div>
-      <div id="button">
-        <button id="button" v-on:click="DeleteDen(den)">delete</button>
+      <div>
+        <button v-if="den.denCreatorUserName == $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" id="button" v-on:click="DeleteDen(den)">delete</button>
       </div>
     </div>
   </li>

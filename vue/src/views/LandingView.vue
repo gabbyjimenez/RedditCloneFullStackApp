@@ -1,70 +1,156 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
-        <div id="container">
-            
-            <div id="callToAction">
-            <router-link id="denLink" v-bind:to="{ name: 'dens' }"><button id="button">Get Started!</button></router-link>
+        <div id="panelMain">
+            <img id="image" class="card-img"
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
+            <div id="denLink" class="card-img-overlay">
+                <p class="text-white">Product description</p>
+                <h3  class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get Started</button></router-link></h3>
+                <h15 id="loginText" class="card-title" ><router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | Don't have a account? sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!</h15>    
+            </div> 
+        </div>
+
+
+        <div id="infoPanels">
+
+            <!-- Left Panel -->
+            <div id="panelLeft" class="card bg-dark text-white">
+                <img id="image" class="img"
+                    src="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Features</h5>
+                </div>
             </div>
-        <div id="infoPanels">    
-        
+
+            <!-- Center Panel -->
+            <div id="panelCenter" class="card bg-dark text-white">
+                <img id="image" class="card-img"
+                    src="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Benefits</h5>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div id="panelRight" class="card bg-dark text-white">
+                <img id="image" class="card-img"
+                    src="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Purpose</h5>
+                </div>
+            </div>
         </div>
-        </div>
+        <Footer id="footer"></Footer>
+
     </div>
 </template>
 
 <script>
+
 import Header from '../components/Header.vue';
+import Footer from '../components/Footer.vue';
 
 export default {
     components: {
-        Header
+        Header,
+        Footer
     }
+
 }
 </script>
-
 <style scoped>
 #page {
     display: flex;
     flex-direction: column;
-    height: 100vh; /* Full viewport height */
+    height: 100vh;
+
+    /* Full viewport height */
 }
 
-#content {
+#panelMain {
+    display: flex;
+    height: 50%;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+
+}
+
+#denLink {
+    flex-direction: column;
+    margin: auto;
+    
+}
+
+#infoPanels {
+    display: flex;
+    flex-direction: row;
+    height: 30%;
+    flex-grow: 1;
+    justify-content: center;
+
+}
+
+#image {
+    object-fit: fill;
+    height: 100%;
+
+}
+
+.card-title {
+    align-content: center;
+    justify-content: center;
+
+}
+
+.card-img-overlay {
+    display: flex;
+    justify-content: center;
+
+}
+
+#panelLeft {
+    display: flex;
+    flex-grow: 1;
+
+}
+
+#panelCenter {
+    display: flex;
+    flex-grow: 1;
+
+}
+
+#panelRight {
+    display: flex;
+    flex-grow: 1;
+
+}
+
+#footer {
+    height: 10%;
     display: flex;
     flex-direction: column;
-    justify-content: center; /* Center content vertically */
-    align-items: center;     /* Center content horizontally */
-    flex-grow: 1;            /* Take up remaining space */
+}
+h15 {
+color: red;
+font-size: 50%;
+font-weight: bold;
+
+
 }
 
-#button {
-    margin-bottom: 20px;     /* Add some space between button and description */
+#panelA {
+    background-color: red;
+    flex-grow: 1
 }
-
-#description {
-    height: 33%;              /* Take up one third of the screen */
-    width: 100%;              /* Full width */
-    display: flex;
-    align-items: center;     /* Center grid vertically */
-    justify-content: center; /* Center grid horizontally */
-    background-color: #f0f0f0; /* Optional: Add a background color for contrast */
+button {
+   background-color: rgba(0, 0, 0, 0.584);
+   border-color: rgba(240, 255, 250, 0);
 }
+p {
+    font-size: 300%;
 
-.grid-container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 columns of equal width */
-    grid-template-rows: repeat(3, 1fr);    /* 3 rows of equal height */
-    gap: 10px;                            /* Space between grid items */
-    width: 80%;                           /* Adjust width as needed */
-    height: 80%;                          /* Adjust height as needed */
-}
-
-.grid-item {
-    display: flex;
-    align-items: center; /* Center content vertically */
-    justify-content: center; /* Center content horizontally */
-    background-color: #e0e0e0; /* Optional: Add a background color for contrast */
-    border: 1px solid #ccc; /* Optional: Add a border */
 }
 </style>

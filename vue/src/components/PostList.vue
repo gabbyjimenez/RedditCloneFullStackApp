@@ -9,8 +9,8 @@
       <label>{{ post.postTitle }} : {{ post.creatorUsername }}</label>
       <p>Desc</p>
       <p>{{ post.postDesc }}</p>
-      <button v-on:click="deletePost(post)">delete</button>
-      <comments-list v-bind:post="post" />
+      <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">delete</button>
+      <comments-list id="" v-bind:post="post" />
     </div>
   </div>
 </template>

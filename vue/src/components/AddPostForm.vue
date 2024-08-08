@@ -43,7 +43,8 @@ export default {
     formOpen: false,
 
     newPost: {
-        creatorId: 1,
+        creatorId: this.$store.state.user.id,
+        creatorUsername: this.$store.state.user.username,
         postTitle: "",
         postDesc: "",
         denName: this.$route.params.denName,
@@ -83,7 +84,8 @@ export default {
 
     clearForm() {
       return (this.newPost = {
-        creatorId: 1,
+        creatorId: this.$store.state.user.id,
+        creatorUsername: this.$store.state.user.username,
         postTitle: "",
         postDesc: "",
         denName: this.$route.params.denName,

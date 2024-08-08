@@ -2,16 +2,18 @@
   <header>
     <router-link id="homeLink" v-bind:to="{ name: 'home' }"><img
         src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722965836/foxbutton_j6yfhm.png" /></router-link>
-    <div id="container">
-    <div  class="input-group rounded" id ="searchBar">
+    <div id="searchContainer">
+    <!-- <div  class="input-group rounded" id ="searchBar">
       <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
         aria-describedby="search-addon" />
-    </div>
+    </div> -->
     </div>
     <div id="favLog">
-    <p>favorite|</p>
     
-    <p> logout</p>
+    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
+    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link>
+
+
   </div>
   </header>
 </template>
@@ -50,7 +52,7 @@ header {
 
 
 }
-#container{
+#searchContainer{
 display: flex;
 width: 30%;
 
