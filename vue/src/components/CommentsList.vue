@@ -4,14 +4,14 @@
 
     <div v-show="commentOPen == true">
 
-    <div
+    <div 
       class="comment"
       v-for="comment in this.comments"
       v-bind:key="comment.postId"
     
     >
-      <p>{{ comment.responseDesc }} {{ comment.creatorId }}</p>
-      <button v-on:click="deleteComment(comment)">delete comment</button>
+      <p> {{comment.creatorName}}: {{ comment.responseDesc }} </p>
+      <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">delete comment</button>
     </div>
     <form v-on:submit.prevent="addComment(this.newComment)">
       <label for="newComment">Add Comment: </label>
@@ -48,7 +48,8 @@ export default {
       newComment: {
         responseDesc: "",
         postId: this.post.postId,
-        creatorId: 1,
+        creatorId: this.$store.state.user.id,
+        creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
       },
       
@@ -113,7 +114,8 @@ export default {
       this.newComment = {
         responseDesc: "",
         postId: this.post.postId,
-        creatorId: 1,
+        creatorId: this.$store.state.id,
+        creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
       }
     }
@@ -132,7 +134,9 @@ export default {
   border-bottom: 1px solid #f2f2f2;
   display: flex;
   padding: 10px 20px;
-  background-color: #f2f2f2;
+  width: 20%;
+justify-content: center;
+  background-color: #c6bebe;
   cursor: pointer;
 }
 </style>

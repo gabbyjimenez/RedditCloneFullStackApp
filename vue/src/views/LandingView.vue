@@ -67,4 +67,17 @@ export default {
     background-color: #e0e0e0; /* Optional: Add a background color for contrast */
     border: 1px solid #ccc; /* Optional: Add a border */
 }
+
+.denLink{
+    width: 100%;
+    height: 100%;
+    color: #412d7a;
+    border-radius: 30px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    text-decoration: none;
+    transition: 0.5s;
+    overflow: hidden;
+    backdrop-filter: blur(15px);
+}
 </style>

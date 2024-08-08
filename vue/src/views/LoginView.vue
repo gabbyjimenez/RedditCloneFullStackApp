@@ -32,7 +32,7 @@ export default {
     return {
       user: {
         username: "",
-        password: ""
+        password: "",
       },
       invalidCredentials: false
     };
