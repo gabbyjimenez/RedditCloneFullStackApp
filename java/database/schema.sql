@@ -47,6 +47,8 @@ CREATE TABLE posts (
 	post_desc TEXT NOT NULL,
 	den_id int NOT NULL,
 	creator_id int NOT NULL,
+	upvotes int DEFAULT 0,
+	downvotes int DEFAULT 0,
 	
 	
 	CONSTRAINT PK_post_id PRIMARY KEY (post_id),
@@ -61,10 +63,13 @@ CREATE TABLE responses (
 	response_desc TEXT NOT NULL,
 	post_id int,
 	creator_id int,
+	upvotes int DEFAULT 0,
+	downvotes int DEFAULT 0,
 	
 	CONSTRAINT PK_response_id PRIMARY KEY (response_id),
 	CONSTRAINT FK_users_responses FOREIGN KEY (creator_id) REFERENCES users(user_id),
 	CONSTRAINT FK_responses_posts FOREIGN KEY (post_id) REFERENCES posts(post_id)
+	
 	
 );
 
