@@ -1,8 +1,8 @@
 <template>
-    <footer>
-<div></div>
+   
+<div>"social media links"</div>
 
-    </footer>
+   
   </template>
     
   <script>
@@ -15,7 +15,7 @@
   </script>
     
   <style scoped>
-  footer {
+  div {
   
    background-color: lightblue;;
   
