@@ -1,31 +1,52 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
-
-        <div id="panelMain" class="panel">
-            <router-link id="denLink" v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get
-                    Started</button></router-link>
+        <div id="panelMain">
+            <img id="image" class="card-img"
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
+            <div id="denLink" class="card-img-overlay">
+                <h5 class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get Started</button></router-link></h5>
+                <h15 class="card-title" >Not logged in? sign up here!</h15>    
+            </div>
         </div>
 
-        <div id="infoPanels">
-            <div id="panelFeatures" class="card bg-dark text-white">
-                <img class="card-img" src="..." alt="Card image">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">A</h5>
 
+        <div id="infoPanels">
+
+            <!-- Left Panel -->
+            <div id="panelLeft" class="card bg-dark text-white">
+                <img id="image" class="card-img"
+                    src="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Features</h5>
                 </div>
             </div>
 
-            <div id="panelB" class="panel">B</div>
-            <div id="panelC" class="panel">C</div>
+            <!-- Center Panel -->
+            <div id="panelCenter" class="card bg-dark text-white">
+                <img id="image" class="card-img"
+                    src="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Benefits</h5>
+                </div>
+            </div>
+
+            <!-- Right Panel -->
+            <div id="panelRight" class="card bg-dark text-white">
+                <img id="image" class="card-img"
+                    src="...">
+                <div class="card-img-overlay">
+                    <h5 class="card-title">Purpose</h5>
+                </div>
+            </div>
         </div>
+        <Footer id="footer"></Footer>
 
-
-        <Footer></Footer>
     </div>
 </template>
 
 <script>
+
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 
@@ -34,56 +55,90 @@ export default {
         Header,
         Footer
     }
+
 }
 </script>
-
 <style scoped>
 #page {
     display: flex;
     flex-direction: column;
     height: 100vh;
+
     /* Full viewport height */
 }
 
 #panelMain {
-    height: 60%;
-    background-color: indigo;
-
-
+    height: 50%;
+    flex-wrap: wrap;
 
 }
 
 #denLink {
+    flex-direction: column;
     justify-content: center;
     align-content: center;
-}
-
-.panel {
-    display: flex;
-    justify-content: center;
-    border-color: black;
+    margin: auto;
 
 }
 
 #infoPanels {
     display: flex;
     flex-direction: row;
-    justify-content: space-evenly;
-    height: 40%;
+    height: 30%;
+    flex-grow: 1;
+    justify-content: center;
 
 }
+
+#image {
+    object-fit: fill;
+    height: 100%;
+
+}
+
+.card-title {
+    align-content: center;
+    justify-content: center;
+
+}
+
+.card-img-overlay {
+    display: flex;
+    justify-content: center;
+
+}
+
+#panelLeft {
+    display: flex;
+    flex-grow: 1;
+
+}
+
+#panelCenter {
+    display: flex;
+    flex-grow: 1;
+
+}
+
+#panelRight {
+    display: flex;
+    flex-grow: 1;
+
+}
+
+#footer {
+    height: 10%;
+    display: flex;
+    flex-direction: column;
+}
+h15 {
+color: red;
+font-size: 30%;
+}
+
 
 #panelA {
     background-color: red;
     flex-grow: 1
 }
-
-#panelB {
-    background-color: green;
-    flex-grow: 1;
-}
-
-#panelC {
-    background-color: blue;
-    flex-grow: 1
-}</style>
+</style>
