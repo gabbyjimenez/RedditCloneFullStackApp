@@ -131,9 +131,10 @@ export default {
   border-bottom: 1px solid #f2f2f2;
   display: flex;
   padding: 10px 20px;
-  width: 20%;
+  width: 100%;
 justify-content: center;
   background-color: #c6bebe;
   cursor: pointer;
 }
+
 </style>

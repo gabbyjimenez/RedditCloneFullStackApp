@@ -5,11 +5,11 @@
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
-    <div id="postHeader" v-bind="post">
-      <label id="postTitle">{{ post.postTitle }} : {{ post.creatorUsername }}</label>
-      <p id="postDescription">Desc</p>
+    <div id="postBody" v-bind="post">
+      <label for="postLabel"><p id="postTitle">{{ post.postTitle }}</p><p id="postUser">{{ post.creatorUsername }}</p></label>
+      <p id="postDescription">Description: </p>
       <p>{{ post.postDesc }}</p>
-      <button id="deleteButton" v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">delete</button>
+      <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
       <comments-list id="" v-bind:post="post" />
     </div>
   </div>
@@ -83,10 +83,64 @@ export default {
 
 <style scoped>
 .den {
-  border-bottom: 1px solid #f2f2f2;
+  border-bottom: 1px solid #f2f2f200;
   display: block;
   padding: 10px 20px;
   background-color: #f2f2f2;
   cursor: pointer;
 }
+#postBody{
+  flex-direction: column;
+  display: flex;
+  font-size: larger;
+}
+label[for=postLabel]{
+display: flex;
+flex-direction: row;
+border:1px solid rgba(0, 0, 0, 0);
+background-color: rgba(217, 217, 217, 0.76);
+
+}
+#postTitle {
+display: flex;
+width: 100%;
+justify-content: flex-start;
+font-size: x-large;
+
+}
+#postUser { 
+display: flex;
+justify-content: flex-end;
+width: 100%;
+}
+p {
+ display: flex;
+ justify-content: flex-start;
+ width: 100%;
+ padding: 1%;
+ font-size: larger;
+}
+#postDescription {
+  display: flex;
+ justify-content: flex-start;
+ width: 100%;
+ padding: 0%;
+ font-size: small;
+
+}
+
+#searchPost {
+  display: flex;
+  margin: auto;
+  justify-content: center;
+}
+button {
+display: flex;
+width: 6%;
+margin: auto;
+justify-content: center;
+
+  
+}
+
 </style>

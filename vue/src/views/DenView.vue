@@ -57,4 +57,8 @@ export default {
 div {
   text-align: center;
 }
+#addPostForm {
+padding: 1%;
+
+}
 </style>
