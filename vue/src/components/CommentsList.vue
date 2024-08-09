@@ -11,13 +11,16 @@
       v-bind:key="comment.postId"
     
     > 
-
+    
       <p  id="commentUsername">{{comment.creatorName}}:</p> 
       <p id="commentMessage"> {{ comment.responseDesc }}</p>
       <div id="commentButtons">
       <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">Delete</button>
-      <button >Upvote</button>
-      <button >DownVote</button>
+      <button v-on:click.prevent="getVotesInfo(comment)">info </button>
+      <button v-on:click.prevent="upVote(comment), getComments(this.post), getVotesInfo(comment), console.log(comment.responseId)">Upvote #{{comment.upvotes}}</button>
+      <button v-on:click.prevent="downVote(comment), getComments(this.post), getVotesInfo(comment)" >DownVote #{{comment.downvotes}}</button>
+
+      <!-- {{getVotesInfo(comment)}} -->
 
       </div>
     </div>
@@ -75,11 +78,9 @@ export default {
   methods:{
     
     getComments(post) {
-        console.log("help");
         PostService.getComments(post)
         .then((response) => {
           this.comments = response.data;
-          console.log(this.comments);
         })
         .catch((error) => {
           console.log(error);
@@ -131,14 +132,35 @@ export default {
     },
 
     getVotesInfo(comment){
-      console.log("votes")
       VotingService.retrieveVoteInformationForComments(comment).then(response => {
         console.log(response.data);
+        if(response.data.objectId == 0){
+          console.log("found")
+        } else {
+          console.log("not")
+
+        }
       }).catch(error => {
         console.log(error)
       })
 
-    }
+    },
+    upVote(comment){
+      VotingService.upvoteCommentForResponse(comment).then(response => {
+        console.log('upvote')
+        console.log(response.data);
+      
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    downVote(comment){
+      VotingService.downvoteCommentForResponse(comment).then(response => {
+        console.log(response.data);
+      }).catch(error => {
+        console.log(error)
+      })
+    },
 
   },
 
