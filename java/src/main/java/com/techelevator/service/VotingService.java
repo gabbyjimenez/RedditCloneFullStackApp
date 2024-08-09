@@ -111,4 +111,19 @@ public class VotingService implements IVotingService{
         return votingDto;
     }
 
+    public VotingDto addDownvoteForPost(PostDto postDto, Principal principal){
+
+        VotingDto votingDto = jdbcPostVotingDao.getVotingDtoForValidation(postDto, principal);
+
+        if(votingDto.getResponseUserId() == 0){
+            jdbcPostVotingDao.addEntryAndIncrementDownvote(postDto, principal);
+            return votingDto;
+        } else if (votingDto.getResponseUserId() != 0 && postDto.getPostId() == votingDto.getObjectId()) {
+            jdbcPostVotingDao.deleteEntryAndDecrementDownvote(postDto, principal);
+            return votingDto;
+        }
+
+        return votingDto;
+    }
+
 }

@@ -61,7 +61,14 @@ public class VotingController {
     public VotingDto makeUpvoteForPost(@RequestBody PostDto postDto, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId){
 
         return votingService.addUpvoteForPost(postDto, principal);
-        
+
+    }
+
+    @PostMapping(path = "/{den}/{id}/downvote")
+    public VotingDto makeDownvoteForPost(@RequestBody PostDto postDto, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId){
+
+        return votingService.addDownvoteForPost(postDto, principal);
+
     }
 
 
