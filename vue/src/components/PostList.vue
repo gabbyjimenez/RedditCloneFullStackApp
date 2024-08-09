@@ -139,6 +139,8 @@ button {
 display: flex;
 width: 6%;
 margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
 justify-content: center;
 
   

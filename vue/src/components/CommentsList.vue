@@ -5,20 +5,21 @@
     <div v-show="commentOPen == true">
 
     <div 
+    id="commentContainer"
       class="comment"
       v-for="comment in this.comments"
       v-bind:key="comment.postId"
     
     > 
 
-      <p> {{comment.creatorName}}: {{ comment.responseDesc }} </p>
+      <p  id="commentUsername">{{comment.creatorName}}:</p> 
+      <p id="commentMessage"> {{ comment.responseDesc }}</p>
+      <div id="commentButtons">
+      <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">Delete</button>
+      <button >Upvote</button>
+      <button >DownVote</button>
 
-      <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">delete comment</button>
-      <!-- v-bind:class="{ selectedButton: user. === '' }" -->
-      <button id="upvote" v-on:click="getVotesInfo(comment)">Upvote</button>
-    <button id="downvote">Downvote</button>
-
-
+      </div>
     </div>
 
     <form v-on:submit.prevent="addComment(this.newComment)">
@@ -149,14 +150,39 @@ export default {
 </script>
 
 <style scoped>
+#commentContainer {
+  display: flex;
+  height: 5%;
+  width: 100%;
+  margin: 1%;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #9696966c;
+}
+#commentUsername{
+  font-weight: bold;
+  align-items: baseline;
+}
+#commentButtons {
+  display: flex;
+  height:10%;
+  justify-content: space-evenly;
+
+}
 .comment {
   border-bottom: 1px solid #f2f2f2;
   display: flex;
   padding: 10px 20px;
   width: 100%;
-justify-content: center;
+  justify-content: center;
   background-color: #c6bebe;
   cursor: pointer;
+}
+#commentMessage {
+display: flex;
+flex-direction: row;
+align-items: center;
+
 }
 
 
