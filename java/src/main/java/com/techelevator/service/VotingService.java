@@ -38,6 +38,29 @@ public class VotingService implements IVotingService{
         return votingDto;
     }
 
+    @Override
+    public VotingDto upvoteCommentByObject(ResponseDto responseDto, Principal principal) {
+
+
+        //Rework for return types
+        VotingDto votingDto = jdbcVotingDao.getVotingDtoForValidation(responseDto, principal);
+        if(votingDto.getResponseUserId() == 0){
+            //If this hits, no entry for comment.
+            ResponseDto newResponseDto = jdbcVotingDao.addEntryAndIncrementUpvote(responseDto, principal);
+            return votingDto;
+
+        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) &&
+                    votingDto.isVoteStatus() == true){
+            //If entry exists and matches responseId, delete entry from database
+            ResponseDto newResponseDto = jdbcVotingDao.deleteEntryAndDecrementUpvote(responseDto, principal);
+            return votingDto;
+
+
+        }
+        return votingDto;
+
+    }
+
     //This is where the thing goes to make sure we are good to go generally speaking
 
 

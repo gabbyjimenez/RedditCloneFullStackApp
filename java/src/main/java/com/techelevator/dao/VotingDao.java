@@ -14,7 +14,9 @@ public interface VotingDao {
             //If no Value exists, insert as true
             //If value exists, change to true
 
-   ResponseDto addUpvote(ResponseDto responseDto, Principal principal);
+   ResponseDto addEntryAndIncrementUpvote(ResponseDto responseDto, Principal principal);
+
+   ResponseDto deleteEntryAndDecrementUpvote(ResponseDto responseDto, Principal principal);
 
    public VotingDto getVotingDtoForValidation (ResponseDto responseDto, Principal principal);
     //ADD DOWNVOTE TO RESPONSE

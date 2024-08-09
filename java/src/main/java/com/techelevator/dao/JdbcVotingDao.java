@@ -22,13 +22,13 @@ public class JdbcVotingDao implements VotingDao{
     }
 
     @Override
-    public ResponseDto addUpvote(ResponseDto upvotedResponse, Principal principal) {
+    public ResponseDto addEntryAndIncrementUpvote(ResponseDto upvotedResponse, Principal principal) {
 
 
 
         //RAW ADD NO VALIDATION
         String sqlAddToJoin = "INSERT INTO response_user_vote (toggle_status, response_id, user_id) " +
-                "VALUES (true, ?, (SELECT user_id FROM users WHERE username = ?) RETURNING response_user_vote_id;";
+                "VALUES (true, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING response_user_vote_id;";
         String sqlIncrementResponseUpvote = "UPDATE responses " +
                 "SET upvotes = upvotes+1 " +
                 "WHERE response_id = ?;";
@@ -46,34 +46,26 @@ public class JdbcVotingDao implements VotingDao{
         return upvotedResponse;
     }
 
+    @Override
+    public ResponseDto deleteEntryAndDecrementUpvote(ResponseDto responseDto, Principal principal) {
+        String sqlDeleteFromJoin= "DELETE FROM response_user_vote \n" +
+                "WHERE response_id = ? AND user_id = (SELECT user_id FROM users WHERE username = ?);";
+        String sqlDecrementResponseUpvote = "UPDATE responses " +
+                "SET upvotes = upvotes-1 " +
+                "WHERE response_id = ?;";
+        try{
+            //Insert new entry into the join with a value of TRUE
+             jdbcTemplate.update(sqlDeleteFromJoin, responseDto.getResponseId(), principal.getName());
+            //decrement upvotes by 1
+            jdbcTemplate.update(sqlDecrementResponseUpvote, responseDto.getResponseId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        return responseDto;
+    }
 
 
     //Gets voting DTO for validaiton in service class

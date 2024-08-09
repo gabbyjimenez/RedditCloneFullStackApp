@@ -20,17 +20,23 @@ public class VotingController {
     @Autowired
     private VotingService votingService;
 
-    @PostMapping(path = "/{den}/{id}/comments/{responseId}/upvote")
-    public VotingDto addUpvoteToResponse(@RequestBody ResponseDto responseToUpvote, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("responseId") int responseId){
+    @GetMapping(path = "/{den}/{id}/comments/{responseId}/votes")
+    public VotingDto retrieveVoteInformationForComments(@RequestBody ResponseDto responseDto, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("responseId") int responseId){
 
+        //KEY GETTER FOR COMMENT UPVOTE AND DOWNVOTE INFORMATION
 
-
-        return votingService.getVoteStatusByObject(responseToUpvote, principal);
-
-
-
+        return votingService.getVoteStatusByObject(responseDto, principal);
+        //Main filter is by responseStatusId. If 0, entry has not been made into database yet.
     }
 
+    @PostMapping(path = "/{den}/{id}/comments/{responseId}/upvote")
+    public VotingDto upvoteCommentForResponse(@RequestBody ResponseDto responseToUpvote, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("responseId") int responseId){
+
+
+
+        return votingService.upvoteCommentByObject(responseToUpvote, principal);
+
+    }
 
 
 
