@@ -7,7 +7,7 @@
         <div id="panelMain">
             <img id="image" class="card-img"
             src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
-            <div id="overlayContainer" class="card-img-overlay">
+            <div id="overlayContainer" class="card-img-overlay">z
                 <p class="text-white">Product description</p>
                 <h3 class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button"
                             class="btn btn-primary">Get Started</button></router-link></h3>

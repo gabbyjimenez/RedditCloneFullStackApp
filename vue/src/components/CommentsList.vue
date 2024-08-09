@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button v-on:click = "(commentOPen = !commentOPen);">Comments:</button>
+    <button id="commentsButton" v-on:click = "(commentOPen = !commentOPen);">Comments:</button>
 
     <div v-show="commentOPen == true">
 
@@ -188,6 +188,15 @@ align-items: center;
 
 #selectedButton{
   background-color: aqua;
+}
+#commentsButton {
+  display: flex;
+width: 8%;
+margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
+justify-content: center;
+
 }
 
 

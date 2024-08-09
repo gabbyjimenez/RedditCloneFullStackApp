@@ -30,9 +30,7 @@
             </div>
 
             <button type="submit" class="btn save" v-on:click="denOpen = false">Save Den</button>
-            <p>{{this.$store.state.user.id}}  bleep</p>
-            <p>{{this.$store.state.user.username}}  bleep</p>
-            <p>{{this.$store.state.user}}</p>
+        
         </form>
     </div>
 </template>
@@ -115,9 +113,12 @@ export default {
 #button {
     display: flex;
     flex-direction: row;
+    width: 70%;
     justify-content: center;
-    margin: 1%;
-
+    margin: auto;
+    margin-top: 1%;
+    margin-bottom: 1%;
+    font-weight: bolder;
 
 }
 </style>
