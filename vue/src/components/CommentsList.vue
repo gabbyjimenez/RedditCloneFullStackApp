@@ -133,13 +133,7 @@ export default {
 
     getVotesInfo(comment){
       VotingService.retrieveVoteInformationForComments(comment).then(response => {
-        console.log(response.data);
-        if(response.data.objectId == 0){
-          console.log("found")
-        } else {
-          console.log("not")
-
-        }
+        this.getComments(this.post)
       }).catch(error => {
         console.log(error)
       })
@@ -149,6 +143,8 @@ export default {
       VotingService.upvoteCommentForResponse(comment).then(response => {
         console.log('upvote')
         console.log(response.data);
+        this.getComments(this.post)
+
       
       }).catch(error => {
         console.log(error)
@@ -157,6 +153,8 @@ export default {
     downVote(comment){
       VotingService.downvoteCommentForResponse(comment).then(response => {
         console.log(response.data);
+        this.getComments(this.post)
+
       }).catch(error => {
         console.log(error)
       })
