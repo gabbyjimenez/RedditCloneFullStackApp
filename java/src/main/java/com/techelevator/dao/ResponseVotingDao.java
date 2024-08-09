@@ -5,7 +5,7 @@ import com.techelevator.model.VotingDto;
 
 import java.security.Principal;
 
-public interface VotingDao {
+public interface ResponseVotingDao {
 
     //ADD UPVOTE TO RESPONSE
         //Put into responses table where responseId = x --> increment upvote by 1

@@ -1,7 +1,5 @@
 package com.techelevator.model;
 
-import com.techelevator.dao.VotingDao;
-
 public class VotingDto {
 
     private int responseUserId;

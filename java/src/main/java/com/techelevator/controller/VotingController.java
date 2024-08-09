@@ -1,10 +1,8 @@
 package com.techelevator.controller;
 
 
-import com.techelevator.dao.VotingDao;
 import com.techelevator.model.ResponseDto;
 import com.techelevator.model.VotingDto;
-import com.techelevator.service.IVotingService;
 import com.techelevator.service.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;

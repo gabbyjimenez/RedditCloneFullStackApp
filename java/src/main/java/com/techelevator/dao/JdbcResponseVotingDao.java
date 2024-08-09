@@ -1,7 +1,6 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 import com.techelevator.model.VotingDto;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -13,11 +12,11 @@ import org.springframework.stereotype.Component;
 import java.security.Principal;
 
 @Component
-public class JdbcVotingDao implements VotingDao{
+public class JdbcResponseVotingDao implements ResponseVotingDao {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public JdbcVotingDao(JdbcTemplate jdbcTemplate) {
+    public JdbcResponseVotingDao(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
