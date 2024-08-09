@@ -12,6 +12,8 @@
       <button id="deleteButton" v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">delete</button>
       <comments-list id="" v-bind:post="post" />
     </div>
+    <button id="upvote">Upvote</button>
+    <button id="downvote">Downvote</button>
   </div>
 </template>
 
