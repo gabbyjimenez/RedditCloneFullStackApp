@@ -20,7 +20,7 @@ public class VotingController {
     @Autowired
     private VotingService votingService;
 
-    @GetMapping(path = "/{den}/{id}/comments/{responseId}/votes")
+    @PostMapping(path = "/{den}/{id}/comments/{responseId}/votes")
     public VotingDto retrieveVoteInformationForComments(@RequestBody ResponseDto responseDto, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("responseId") int responseId){
 
         //KEY GETTER FOR COMMENT UPVOTE AND DOWNVOTE INFORMATION
