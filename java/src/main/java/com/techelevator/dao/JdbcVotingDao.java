@@ -85,6 +85,7 @@ public class JdbcVotingDao implements VotingDao{
         return votingDto;
     }
 
+
     @Override
     public ResponseDto addEntryAndIncrementDownvote(ResponseDto downvotedResponse, Principal principal) {
 
@@ -128,6 +129,7 @@ public class JdbcVotingDao implements VotingDao{
 
     }
     
+
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
 
         VotingDto votingDto = new VotingDto();
