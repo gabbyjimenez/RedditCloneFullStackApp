@@ -128,7 +128,18 @@ public class JdbcVotingDao implements VotingDao{
         return responseDto;
 
     }
-    
+
+
+
+
+
+
+
+
+
+
+
+
 
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
 
