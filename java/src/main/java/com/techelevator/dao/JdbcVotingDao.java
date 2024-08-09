@@ -24,8 +24,6 @@ public class JdbcVotingDao implements VotingDao{
     @Override
     public ResponseDto addEntryAndIncrementUpvote(ResponseDto upvotedResponse, Principal principal) {
 
-
-
         //RAW ADD NO VALIDATION
         String sqlAddToJoin = "INSERT INTO response_user_vote (toggle_status, response_id, user_id) " +
                 "VALUES (true, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING response_user_vote_id;";
@@ -42,7 +40,6 @@ public class JdbcVotingDao implements VotingDao{
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-
         return upvotedResponse;
     }
 
@@ -63,10 +60,8 @@ public class JdbcVotingDao implements VotingDao{
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
-
         return responseDto;
     }
-
 
     //Gets voting DTO for validaiton in service class
     public VotingDto getVotingDtoForValidation (ResponseDto responseDto, Principal principal){
@@ -88,13 +83,9 @@ public class JdbcVotingDao implements VotingDao{
             throw new DaoException("Data integrity violation", e);
         }
         return votingDto;
-
     }
 
-
-
-
-
+    
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
 
         VotingDto votingDto = new VotingDto();
