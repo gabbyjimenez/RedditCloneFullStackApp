@@ -10,11 +10,12 @@
       v-bind:key="comment.postId"
     
     > 
-    <p>{{getVotesInfo(comment)}}</p>
 
       <p> {{comment.creatorName}}: {{ comment.responseDesc }} </p>
 
       <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">delete comment</button>
+      <button >{{getVotesInfo(comment)}}</button>
+
     </div>
 
     <form v-on:submit.prevent="addComment(this.newComment)">
@@ -127,7 +128,6 @@ export default {
     getVotesInfo(comment){
       console.log("votes")
       VotingService.retrieveVoteInformationForComments(comment).then(response => {
-        console.log("retrieved")
         console.log(response.data);
       }).catch(error => {
         console.log(error)
@@ -149,7 +149,6 @@ export default {
   border-bottom: 1px solid #f2f2f2;
   display: flex;
   padding: 10px 20px;
-  width: 20%;
 justify-content: center;
   background-color: #c6bebe;
   cursor: pointer;
