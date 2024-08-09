@@ -1,6 +1,7 @@
 package com.techelevator.controller;
 
 
+import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 import com.techelevator.model.VotingDto;
 import com.techelevator.service.VotingService;
@@ -46,6 +47,16 @@ public class VotingController {
         return votingService.downvoteCommentByObject(responseToDownvote, principal);
 
     }
+
+    @PostMapping(path = "/{den}/{id}/votes")
+    public VotingDto retrieveVoteInformationForPosts(@RequestBody PostDto postDto, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId){
+
+
+        return votingService.getVoteStatusByPost(postDto, principal);
+
+
+    }
+
 
 
 
