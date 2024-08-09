@@ -1,14 +1,19 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
+        
+        
+            <!--main panel-->
         <div id="panelMain">
             <img id="image" class="card-img"
-                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
-            <div id="denLink" class="card-img-overlay">
+            src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
+            <div id="overlayContainer" class="card-img-overlay">
                 <p class="text-white">Product description</p>
-                <h3  class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get Started</button></router-link></h3>
-                <h15 id="loginText" class="card-title" ><router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | Don't have a account? sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!</h15>    
-            </div> 
+                <h3 class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button"
+                            class="btn btn-primary">Get Started</button></router-link></h3>
+                <h15 id="loginText"><router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | Don't
+                    have a account? sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!</h15>
+            </div>
         </div>
 
 
@@ -16,8 +21,7 @@
 
             <!-- Left Panel -->
             <div id="panelLeft" class="card bg-dark text-white">
-                <img id="image" class="img"
-                    src="...">
+                <img id="image" class="img" src="...">
                 <div class="card-img-overlay">
                     <h5 class="card-title">Features</h5>
                 </div>
@@ -25,8 +29,7 @@
 
             <!-- Center Panel -->
             <div id="panelCenter" class="card bg-dark text-white">
-                <img id="image" class="card-img"
-                    src="...">
+                <img id="image" class="card-img" src="...">
                 <div class="card-img-overlay">
                     <h5 class="card-title">Benefits</h5>
                 </div>
@@ -34,8 +37,7 @@
 
             <!-- Right Panel -->
             <div id="panelRight" class="card bg-dark text-white">
-                <img id="image" class="card-img"
-                    src="...">
+                <img id="image" class="card-img" src="...">
                 <div class="card-img-overlay">
                     <h5 class="card-title">Purpose</h5>
                 </div>
@@ -71,16 +73,20 @@ export default {
 #panelMain {
     display: flex;
     height: 50%;
-    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
+    
 
 }
 
-#denLink {
+#overlayContainer {
+    display: flex;
     flex-direction: column;
-    margin: auto;
-    
+    height: 70%;
+    justify-content: center;
+    align-items: center;
+ 
+
 }
 
 #infoPanels {
@@ -133,10 +139,11 @@ export default {
     display: flex;
     flex-direction: column;
 }
+
 h15 {
-color: red;
-font-size: 50%;
-font-weight: bold;
+    color: red;
+    font-size: 50%;
+    font-weight: bold;
 
 
 }
@@ -145,10 +152,12 @@ font-weight: bold;
     background-color: red;
     flex-grow: 1
 }
+
 button {
-   background-color: rgba(0, 0, 0, 0.584);
-   border-color: rgba(240, 255, 250, 0);
+    background-color: rgba(0, 0, 0, 0.584);
+    border-color: rgba(240, 255, 250, 0);
 }
+
 p {
     font-size: 300%;
 
