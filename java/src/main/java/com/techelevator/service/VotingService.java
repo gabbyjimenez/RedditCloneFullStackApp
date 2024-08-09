@@ -1,6 +1,8 @@
 package com.techelevator.service;
 
+import com.techelevator.dao.JdbcPostVotingDao;
 import com.techelevator.dao.JdbcResponseVotingDao;
+import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 import com.techelevator.model.VotingDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +17,9 @@ public class VotingService implements IVotingService{
 
     @Autowired
     private JdbcResponseVotingDao jdbcResponseVotingDao;
+
+    @Autowired
+    private JdbcPostVotingDao jdbcPostVotingDao;
 
     private final JdbcTemplate jdbcTemplate;
 
@@ -81,8 +86,15 @@ public class VotingService implements IVotingService{
 
     }
 
+    @Override
+    public VotingDto getVoteStatusByPost(PostDto postDto, Principal principal) {
+
+        VotingDto votingDto = jdbcPostVotingDao.getVotingDtoForValidation(postDto, principal);
 
 
+        return votingDto;
+
+    }
 
 
 }
