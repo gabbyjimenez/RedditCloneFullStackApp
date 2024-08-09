@@ -86,6 +86,50 @@ public class JdbcVotingDao implements VotingDao{
     }
 
 
+    @Override
+    public ResponseDto addEntryAndIncrementDownvote(ResponseDto downvotedResponse, Principal principal) {
+
+        //RAW ADD NO VALIDATION
+        String sqlAddToJoin = "INSERT INTO response_user_vote (toggle_status, response_id, user_id) " +
+                "VALUES (false, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING response_user_vote_id;";
+        String sqlIncrementResponseUpvote = "UPDATE responses " +
+                "SET downvotes = downvotes+1 " +
+                "WHERE response_id = ?;";
+        try{
+            //Insert new entry into the join with a value of FALSE
+            int newJoinId = jdbcTemplate.queryForObject(sqlAddToJoin, int.class, downvotedResponse.getResponseId(), principal.getName());
+            //Increment downvotes by 1
+            jdbcTemplate.update(sqlIncrementResponseUpvote, downvotedResponse.getResponseId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return downvotedResponse;
+    }
+
+    @Override
+    public ResponseDto deleteEntryAndDecrementDownvote(ResponseDto responseDto, Principal principal) {
+        String sqlDeleteFromJoin = "DELETE FROM response_user_vote \n" +
+                "WHERE response_id = ? AND user_id = (SELECT user_id FROM users WHERE username = ?);";
+        String sqlDecrementResponseUpvote = "UPDATE responses " +
+                "SET downvotes = downvotes-1 " +
+                "WHERE response_id = ?;";
+        try {
+            //Delete entry
+            jdbcTemplate.update(sqlDeleteFromJoin, responseDto.getResponseId(), principal.getName());
+            //decrement downvotes by 1
+            jdbcTemplate.update(sqlDecrementResponseUpvote, responseDto.getResponseId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return responseDto;
+
+    }
+    
+
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
 
         VotingDto votingDto = new VotingDto();

@@ -1,15 +1,15 @@
 <template>
-  <div>
+  <div id="searchPost">
     <label for="">Search: </label>
     <input type="text" name="denName" v-model="searchFilter" />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
-    <div v-bind="post">
-      <label>{{ post.postTitle }} : {{ post.creatorUsername }}</label>
-      <p>Desc</p>
+    <div id="postHeader" v-bind="post">
+      <label id="postTitle">{{ post.postTitle }} : {{ post.creatorUsername }}</label>
+      <p id="postDescription">Desc</p>
       <p>{{ post.postDesc }}</p>
-      <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">delete</button>
+      <button id="deleteButton" v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">delete</button>
       <comments-list id="" v-bind:post="post" />
     </div>
   </div>
