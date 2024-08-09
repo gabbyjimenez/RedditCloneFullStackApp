@@ -18,14 +18,12 @@ public interface VotingDao {
 
    ResponseDto deleteEntryAndDecrementUpvote(ResponseDto responseDto, Principal principal);
 
-   public VotingDto getVotingDtoForValidation (ResponseDto responseDto, Principal principal);
-    //ADD DOWNVOTE TO RESPONSE
-        //Put into responose table where
+   VotingDto getVotingDtoForValidation (ResponseDto responseDto, Principal principal);
 
 
+   ResponseDto addEntryAndIncrementDownvote(ResponseDto downvotedResponse, Principal principal);
 
-
-    //DELETE UPVOTE FROM RESPONSE
+   ResponseDto deleteEntryAndDecrementDownvote(ResponseDto responseDto, Principal principal);
 
 
 
