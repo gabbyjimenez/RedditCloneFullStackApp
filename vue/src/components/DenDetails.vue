@@ -1,8 +1,8 @@
 <template>
 
-  <div >
-      <input type="search" class="form-control rounded" placeholder="Search" aria-label="Search"
-        aria-describedby="search-addon" v-model="searchFilter" />
+  <div id="searchBar">
+      <input type="search" class="form-control rounded" placeholder="Search dens or catagories" aria-label="Search"
+         v-model="searchFilter" />
   </div>
 
 
@@ -16,9 +16,10 @@
       
         <p>created by: {{ den.denCreatorUserName }}</p>
         <p>{{ den.denDesc }}</p>
+        <button id="deleteButton" v-if="den.denCreatorUserName == $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" v-on:click="DeleteDen(den)">delete</button>
       </div>
       <div>
-        <button v-if="den.denCreatorUserName == $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" id="button" v-on:click="DeleteDen(den)">delete</button>
+
       </div>
     </div>
 
@@ -104,7 +105,9 @@ export default {
   flex-direction: column;
   text-align: center;
   margin: 1%;
-
+  font-size: larger;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
+  
 
 
 }
@@ -112,7 +115,7 @@ export default {
 #divCards {
   display: flex;
   flex-direction: column;
-   margin: 10%;
+  margin: 10%;
   margin-top: 1%;
   flex-wrap: nowrap;
   justify-content: space-around;
@@ -131,7 +134,25 @@ display: flex;
 width: 30%;
 justify-content: center;
 margin: auto;
+}
+#deleteButton {
+  display: flex;
+width: 7%;
+margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
+justify-content: center;
 
+}
+
+#searchBar {
+  display: flex;
+width: 20%;
+margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
+justify-content: center;
+color: aqua;
 }
 </style>
 

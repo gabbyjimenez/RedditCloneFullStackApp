@@ -87,13 +87,16 @@ export default {
   border-bottom: 1px solid #f2f2f200;
   display: block;
   padding: 10px 20px;
-  background-color: #f2f2f2;
+  background-color: white;
   cursor: pointer;
 }
 #postBody{
+  display: flex;
   flex-direction: column;
   display: flex;
   font-size: larger;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
+  border-top: black;
 }
 label[for=postLabel]{
 display: flex;
@@ -107,6 +110,7 @@ display: flex;
 width: 100%;
 justify-content: flex-start;
 font-size: x-large;
+color: rgba(0, 0, 0, 0.64);
 
 }
 #postUser { 
@@ -125,7 +129,7 @@ p {
   display: flex;
  justify-content: flex-start;
  width: 100%;
- padding: 0%;
+ margin-left: 0.1%;
  font-size: small;
 
 }
