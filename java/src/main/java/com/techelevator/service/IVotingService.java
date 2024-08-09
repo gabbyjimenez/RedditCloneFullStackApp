@@ -10,7 +10,7 @@ public interface IVotingService {
 
      VotingDto getVoteStatusByObject(ResponseDto responseDto, Principal principal);
 
-
+     VotingDto upvoteCommentByObject(ResponseDto responseDto, Principal principal);
 
 
 
