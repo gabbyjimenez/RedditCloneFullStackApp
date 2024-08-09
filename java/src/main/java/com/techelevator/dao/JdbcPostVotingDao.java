@@ -138,6 +138,7 @@ public class JdbcPostVotingDao implements PostVotingDao {
         votingDto.setResponseUserId(rowSet.getInt("post_user_vote_id"));
         votingDto.setUserId(rowSet.getInt("user_id"));
 
+
         return votingDto;
 
     }

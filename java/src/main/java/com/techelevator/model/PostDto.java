@@ -10,11 +10,15 @@ public class PostDto {
     private String postDesc;
     private String denName;
 
+    private int upvotes;
+
+    private int downvotes;
+
     public PostDto (){
 
     }
 
-    public PostDto(int postId, int creatorId, String creatorUsername, int denId, String postTitle, String postDesc, String denName) {
+    public PostDto(int postId, int creatorId, String creatorUsername, int denId, String postTitle, String postDesc, String denName, int upvotes, int downvotes) {
         this.postId = postId;
         this.creatorId = creatorId;
         this.creatorUsername = creatorUsername;
@@ -22,6 +26,8 @@ public class PostDto {
         this.postTitle = postTitle;
         this.postDesc = postDesc;
         this.denName = denName;
+        this.upvotes = upvotes;
+        this.downvotes = downvotes;
     }
 
     public int getPostId() {
@@ -78,5 +84,21 @@ public class PostDto {
 
     public void setDenName(String denName) {
         this.denName = denName;
+    }
+
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
     }
 }

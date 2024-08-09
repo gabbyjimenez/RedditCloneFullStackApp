@@ -10,7 +10,11 @@
       <p id="postDescription">Description: </p>
       <p>{{ post.postDesc }}</p>
       <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
-      <comments-list id="" v-bind:post="post" />
+      <comments-list id="" v-bind:post="post"/>
+      <button v-on:click.prevent="getVotesInfo(post)">info </button>
+      <button v-on:click.prevent="upVote(post), getVotesInfo(post)">Upvote #{{post.upvotes}}</button>
+      <button v-on:click.prevent="downVote(post), getVotesInfo(post)" >DownVote #{{post.downvotes}}</button>
+
     </div>
     
   </div>
@@ -19,15 +23,12 @@
 <script>
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
+import VotingService from "../services/VotingService.js";
 export default {
   components: {
     CommentsList,
   },
-  props: {
-    posts: {
-      type: Array,
-    },
-  },
+ 
 
   data() {
     return {
@@ -74,6 +75,32 @@ export default {
           console.log("You are out of luck");
         });
     },
+    
+    getVotesInfo(post){
+      VotingService.retrieveVoteInformationForPosts(post).then(response => {
+      }).catch(error => {
+        console.log(error)
+      })
+
+    },
+    upVote(post){
+      VotingService.makeUpvoteForPost(post).then(response => {
+        this.getPosts(this.$route.params.denName)
+        console.log('upvote')
+        console.log(response.data);
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+    downVote(post){
+      VotingService.makeDownvoteForPost(post).then(response => {
+        this.getPosts(this.$route.params.denName)
+        console.log(response.data);
+      }).catch(error => {
+        console.log(error)
+      })
+    },
+
   },
   created(){
     this.getPosts(this.$route.params.denName)

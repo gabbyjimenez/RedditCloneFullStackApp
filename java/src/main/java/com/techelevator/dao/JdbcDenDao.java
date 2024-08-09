@@ -78,7 +78,7 @@ public class JdbcDenDao implements DenDao {
 
         List<PostDto> posts = new ArrayList<>();
 
-        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id FROM posts " +
+        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id, upvotes, downvotes FROM posts " +
                 "JOIN users ON posts.creator_id = users.user_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
                 "WHERE dens.den_name ILIKE ?";
@@ -301,6 +301,8 @@ public class JdbcDenDao implements DenDao {
         post.setDenName(rowSet.getString("post_den_name"));
         post.setCreatorId(rowSet.getInt("post_creator_id"));
         post.setCreatorUsername(rowSet.getString("creator_name"));
+        post.setUpvotes(rowSet.getInt("upvotes"));
+        post.setDownvotes(rowSet.getInt("downvotes"));
 
         return post;
     }

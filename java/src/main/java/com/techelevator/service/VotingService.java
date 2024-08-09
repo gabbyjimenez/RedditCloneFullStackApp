@@ -49,8 +49,7 @@ public class VotingService implements IVotingService{
             ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementUpvote(responseDto, principal);
             return votingDto;
 
-        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) &&
-                    votingDto.isVoteStatus() == true){
+        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true){
             //If entry exists and matches responseId, delete entry from database
             ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementUpvote(responseDto, principal);
             return votingDto;
@@ -103,12 +102,26 @@ public class VotingService implements IVotingService{
         if(votingDto.getResponseUserId() == 0){
             jdbcPostVotingDao.addEntryAndIncrementUpvote(postDto, principal);
             return votingDto;
-        } else if (votingDto.getResponseUserId() != 0 && postDto.getPostId() == votingDto.getObjectId()) {
+        } else if ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == true){
             jdbcPostVotingDao.deleteEntryAndDecrementUpvote(postDto, principal);
             return votingDto;
         }
 
         return votingDto;
+//        VotingDto votingDto = jdbcResponseVotingDao.getVotingDtoForValidation(responseDto, principal);
+//        if(votingDto.getResponseUserId() == 0){
+//            //If this hits, no entry for comment.
+//            ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementUpvote(responseDto, principal);
+//            return votingDto;
+//
+//        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true){
+//            //If entry exists and matches responseId, delete entry from database
+//            ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementUpvote(responseDto, principal);
+//            return votingDto;
+//
+//
+//        }
+//        return votingDto;
     }
 
     public VotingDto addDownvoteForPost(PostDto postDto, Principal principal){
@@ -118,12 +131,26 @@ public class VotingService implements IVotingService{
         if(votingDto.getResponseUserId() == 0){
             jdbcPostVotingDao.addEntryAndIncrementDownvote(postDto, principal);
             return votingDto;
-        } else if (votingDto.getResponseUserId() != 0 && postDto.getPostId() == votingDto.getObjectId()) {
+        } else if  ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == false){
             jdbcPostVotingDao.deleteEntryAndDecrementDownvote(postDto, principal);
             return votingDto;
         }
 
         return votingDto;
     }
+//    VotingDto votingDto = jdbcResponseVotingDao.getVotingDtoForValidation(responseDto, principal);
+//        if(votingDto.getResponseUserId() == 0){
+//        //If this hits, no entry for comment.
+//        ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementDownvote(responseDto, principal);
+//        return votingDto;
+//
+//    } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == false){
+//        //If entry exists and matches responseId, delete entry from database
+//        ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementDownvote(responseDto, principal);
+//        return votingDto;
+//
+//
+//    }
+//        return votingDto;
 
 }

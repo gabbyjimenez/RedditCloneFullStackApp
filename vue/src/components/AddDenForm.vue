@@ -30,11 +30,7 @@
             </div>
 
             <button type="submit" class="btn save" v-on:click="denOpen = false">Save Den</button>
-<<<<<<< HEAD
            
-=======
-        
->>>>>>> f8f92fd57d0262fce7a37815567e07c684e0ae17
         </form>
     </div>
 </template>
