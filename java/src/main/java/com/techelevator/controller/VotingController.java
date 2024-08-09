@@ -39,7 +39,15 @@ public class VotingController {
     }
 
 
+    @PostMapping(path = "/{den}/{id}/comments/{responseId}/downvote")
+    public VotingDto downvoteCommentForResponse(@RequestBody ResponseDto responseToDownvote, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("responseId") int responseId){
 
+
+
+//        return votingService.upvoteCommentByObject(responseToUpvote, principal);
+        return votingService.downvoteCommentByObject(responseToDownvote, principal);
+
+    }
 
 
 
