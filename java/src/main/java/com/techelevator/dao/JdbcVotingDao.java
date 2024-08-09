@@ -85,7 +85,7 @@ public class JdbcVotingDao implements VotingDao{
         return votingDto;
     }
 
-    
+
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
 
         VotingDto votingDto = new VotingDto();
