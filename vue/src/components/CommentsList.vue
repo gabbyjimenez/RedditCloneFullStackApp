@@ -9,10 +9,15 @@
       v-for="comment in this.comments"
       v-bind:key="comment.postId"
     
-    >
+    > 
+
       <p> {{comment.creatorName}}: {{ comment.responseDesc }} </p>
+
       <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">delete comment</button>
+      <button >{{getVotesInfo(comment)}}</button>
+
     </div>
+
     <form v-on:submit.prevent="addComment(this.newComment)">
       <label for="newComment">Add Comment: </label>
       <textarea
@@ -29,6 +34,7 @@
 
 <script>
 import PostService from "../services/PostService";
+import VotingService from "../services/VotingService";
 
 
 export default {
@@ -46,6 +52,7 @@ export default {
       commentOPen: false,
 
       newComment: {
+        responseId: 0,
         responseDesc: "",
         postId: this.post.postId,
         creatorId: this.$store.state.user.id,
@@ -101,7 +108,7 @@ export default {
           this.getComments(this.post);
           console.log("deleted")
         }).catch(error => {
-          this.handleErrorResponse(error, 'deleting');
+          console.log(error)
         })
 
       }
@@ -109,12 +116,23 @@ export default {
     },
     clearForm(){
       this.newComment = {
+        responseId: 0,
         responseDesc: "",
         postId: this.post.postId,
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
       }
+    },
+
+    getVotesInfo(comment){
+      console.log("votes")
+      VotingService.retrieveVoteInformationForComments(comment).then(response => {
+        console.log(response.data);
+      }).catch(error => {
+        console.log(error)
+      })
+
     }
 
   },

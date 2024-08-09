@@ -1,10 +1,8 @@
 package com.techelevator.controller;
 
 
-import com.techelevator.dao.VotingDao;
 import com.techelevator.model.ResponseDto;
 import com.techelevator.model.VotingDto;
-import com.techelevator.service.IVotingService;
 import com.techelevator.service.VotingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -20,7 +18,7 @@ public class VotingController {
     @Autowired
     private VotingService votingService;
 
-    @GetMapping(path = "/{den}/{id}/comments/{responseId}/votes")
+    @PostMapping(path = "/{den}/{id}/comments/{responseId}/votes")
     public VotingDto retrieveVoteInformationForComments(@RequestBody ResponseDto responseDto, Principal principal, @PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("responseId") int responseId){
 
         //KEY GETTER FOR COMMENT UPVOTE AND DOWNVOTE INFORMATION
