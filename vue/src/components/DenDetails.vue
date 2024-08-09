@@ -21,6 +21,8 @@
         <button v-if="den.denCreatorUserName == $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" id="button" v-on:click="DeleteDen(den)">delete</button>
       </div>
     </div>
+
+  
   </li>
 
 </template>
@@ -92,6 +94,8 @@ export default {
   
 
 <style>
+
+
 
 
 #cards {

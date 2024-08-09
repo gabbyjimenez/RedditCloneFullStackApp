@@ -57,9 +57,6 @@ export default {
   },
   computed: {
 
-    freshComments(){
-      return this.comments
-    },
 
 
   },
@@ -114,7 +111,7 @@ export default {
       this.newComment = {
         responseDesc: "",
         postId: this.post.postId,
-        creatorId: this.$store.state.id,
+        creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
       }
