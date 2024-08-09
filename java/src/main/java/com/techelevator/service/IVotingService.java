@@ -1,5 +1,6 @@
 package com.techelevator.service;
 
+import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 import com.techelevator.model.VotingDto;
 
@@ -13,9 +14,8 @@ public interface IVotingService {
      VotingDto upvoteCommentByObject(ResponseDto responseDto, Principal principal);
 
      VotingDto downvoteCommentByObject(ResponseDto responseDto, Principal principal);
-
-
-
+     
+     VotingDto getVoteStatusByPost(PostDto postDto, Principal principal);
 
 
 

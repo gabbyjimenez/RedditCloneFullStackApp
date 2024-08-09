@@ -86,12 +86,12 @@ CREATE TABLE response_user_vote (
 );
 
 CREATE TABLE post_user_vote (
-	response_user_vote_id SERIAL,
+	post_user_vote_id SERIAL,
 	toggle_status BOOLEAN,
 	post_id int,
 	user_id int,
 	
-	CONSTRAINT PK_post_user_vote_id PRIMARY KEY (response_user_vote_id),
+	CONSTRAINT PK_post_user_vote_id PRIMARY KEY (post_user_vote_id),
 	CONSTRAINT FK_post_user_vote_post FOREIGN KEY (post_id) REFERENCES posts(post_id),
 	CONSTRAINT FK_post_user_vote_users FOREIGN KEY (user_id) REFERENCES users(user_id)
 
