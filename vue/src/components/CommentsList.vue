@@ -14,7 +14,10 @@
       <p> {{comment.creatorName}}: {{ comment.responseDesc }} </p>
 
       <button v-if="comment.creatorId == $store.state.user.id"  v-on:click="deleteComment(comment)">delete comment</button>
-      <button >{{getVotesInfo(comment)}}</button>
+      <!-- v-bind:class="{ selectedButton: user. === '' }" -->
+      <button id="upvote" v-on:click="getVotesInfo(comment)">Upvote</button>
+    <button id="downvote">Downvote</button>
+
 
     </div>
 
@@ -49,6 +52,7 @@ export default {
     return {
       searchFilter: "",
       comments: [],
+      votes:[],
       commentOPen: false,
 
       newComment: {
@@ -154,5 +158,11 @@ justify-content: center;
   background-color: #c6bebe;
   cursor: pointer;
 }
+
+
+#selectedButton{
+  background-color: aqua;
+}
+
 
 </style>
