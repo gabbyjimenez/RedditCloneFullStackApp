@@ -12,6 +12,8 @@ public interface IVotingService {
 
      VotingDto upvoteCommentByObject(ResponseDto responseDto, Principal principal);
 
+     VotingDto downvoteCommentByObject(ResponseDto responseDto, Principal principal);
+
 
 
 
