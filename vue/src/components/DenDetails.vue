@@ -20,8 +20,6 @@
       <div>
         <button v-if="den.denCreatorUserName == $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" id="button" v-on:click="DeleteDen(den)">delete</button>
       </div>
-      <button id="upvote">Upvote</button>
-      <button id="downvote">Downvote</button>
     </div>
 
   
@@ -97,10 +95,7 @@ export default {
 
 <style>
 
-.upvote {
-  width: 20%;
-  background-color: aquamarine;
-}
+
 
 
 #cards {
