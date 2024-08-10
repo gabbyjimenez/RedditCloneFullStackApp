@@ -1,25 +1,59 @@
 <template>
   <div id="searchPost">
-    <label for="">Search: </label>
-    <input type="text" name="denName" v-model="searchFilter" />
+    <label for="searchFilter">Search: </label>
+    <input type="text" id="searchFilter" name="denName" v-model="searchFilter" />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
-      <label for="postLabel"><p id="postTitle">{{ post.postTitle }}</p><p id="postUser">{{ post.creatorUsername }}</p></label>
-      <p id="postDescription">Description: </p>
-      <p>{{ post.postDesc }}</p>
-      <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
-      <comments-list id="" v-bind:post="post"/>
-      <button v-on:click.prevent="getVotesInfo(post)">info </button>
-      <button v-on:click.prevent="upVote(post), getVotesInfo(post)">Upvote #{{post.upvotes}}</button>
-      <button v-on:click.prevent="downVote(post), getVotesInfo(post)" >DownVote #{{post.downvotes}}</button>
+      <!-- TEMPLATE START -->
 
+      <div class="container mt-5 mb-5">
+        <div class="d-flex justify-content-center row">
+          <div class="d-flex flex-column col-md-8">
+            <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
+              <div class="profile-image">
+                <img class="rounded-circle" src="https://i.imgur.com/t9toMAQ.jpg" width="70" />
+              </div>
+              <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
+                <i class="fa fa-sort-up fa-2x hit-voting"></i><span>{{ post.upvotes - post.downvotes }}</span>
+                <i class="fa fa-sort-down fa-2x hit-voting"></i>
+              </div>
+              <div class="d-flex flex-column ml-3">
+                <div class="d-flex flex-row post-title">
+                  <h5>{{ post.postTitle }}</h5>
+                  <span class="ml-2">{{ post.creatorUsername }}</span>
+                </div>
+                <div class="d-flex flex-row align-items-center align-content-center post-title">
+                  <span class="bdge mr-1">Question</span>
+                  <span class="mr-2 dot"></span><span> Timestamp </span>
+                </div>
+                 <div>
+              <h6 id="postDesc">{{ post.postDesc }}</h6>
+            </div>
+                <div class="button-container">
+                  <button class="image-button upvote" v-on:click.prevent="upVote(post)">
+                    <img class="upvoteIcon" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723313591/icons8-scroll-up-48_wdtyrj.png" alt="Upvote" />
+                  </button>
+                  <span class="ml-2">{{ post.upvotes - post.downvotes }}</span>
+                  <button class="image-button downvote" v-on:click.prevent="downVote(post)">
+                    <img class="downvoteIcon" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723313580/icons8-scroll-down-48_kj3aqm.png" alt="Downvote" />
+                  </button>
+                </div>
+                <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
+              </div> 
+              <span class="mr-2 comments">Comment Number &nbsp;</span>
+            </div>
+           
+          </div>
+        </div>
+      </div>
+
+      <!-- TEMPLATE END -->
+      <comments-list v-bind:post="post"/>
     </div>
-    
   </div>
 </template>
-
 <script>
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
@@ -107,74 +141,83 @@ export default {
   }
 
 };
-</script>
 
+
+</script>
 <style scoped>
-.den {
-  border-bottom: 1px solid #f2f2f200;
-  display: block;
-  padding: 10px 20px;
-  background-color: white;
+/* Remove default button styling */
+.image-button {
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  padding: 0; /* Remove default button padding */
+  margin: 0; /* Remove default button margin */
+  cursor: pointer; /* Change cursor to pointer */
+  display: inline-flex; /* Make sure buttons are inline with other content */
+}
+
+/* Ensure images inside buttons fit well */
+.image-button img {
+  display: block; /* Remove extra space below image */
+  width: 1rem; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Additional styles for button container */
+.button-container {
+  display: flex;
+  flex-flow: row;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+.upvoteIcon:hover {
+  filter: invert(77%) sepia(15%) saturate(756%) hue-rotate(47deg) brightness(94%) contrast(87%);
+}
+
+.downvoteIcon:hover {
+  filter: invert(62%) sepia(46%) saturate(3893%) hue-rotate(341deg) brightness(105%) contrast(99%);
+}
+
+.dot {
+  height: 7px;
+  width: 7px;
+  margin-top: 3px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hit-voting {
   cursor: pointer;
 }
-#postBody{
+
+.hit-voting:hover {
+  color: blue;
+}
+
+#postDesc {
+  margin: 5%;
+  justify-content: flex-start;
+}
+
+body {
+  background-color: #eee;
   display: flex;
-  flex-direction: column;
-  display: flex;
-  font-size: larger;
-  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
-  border-top: black;
-}
-label[for=postLabel]{
-display: flex;
-flex-direction: row;
-border:1px solid rgba(0, 0, 0, 0);
-background-color: rgba(217, 217, 217, 0.76);
-
-}
-#postTitle {
-display: flex;
-width: 100%;
-justify-content: flex-start;
-font-size: x-large;
-color: rgba(0, 0, 0, 0.64);
-
-}
-#postUser { 
-display: flex;
-justify-content: flex-end;
-width: 100%;
-}
-p {
- display: flex;
- justify-content: flex-start;
- width: 100%;
- padding: 1%;
- font-size: larger;
-}
-#postDescription {
-  display: flex;
- justify-content: flex-start;
- width: 100%;
- margin-left: 0.1%;
- font-size: small;
-
 }
 
-#searchPost {
-  display: flex;
-  margin: auto;
-  justify-content: center;
-}
-button {
-display: flex;
-width: 6%;
-margin: auto;
-margin-top: 0.1%;
-margin-bottom: 0.1%;
-justify-content: center;
-
-  
+.bdge {
+  height: 21px;
+  background-color: orange;
+  color: #fff;
+  font-size: 11px;
+  padding: 8px;
+  border-radius: 4px;
+  line-height: 3px;
 }
 
+.comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
 </style>
