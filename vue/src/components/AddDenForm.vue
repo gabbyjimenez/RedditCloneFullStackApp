@@ -1,39 +1,36 @@
 <template>  
     <div id="main">
         <div id="button">
-            <div id="button" class="card" style="width: 50%;" v-on:click="(denOpen = !denOpen); clearForm();" >
+            <div class="card expandable-card" v-on:click="(denOpen = !denOpen); clearForm();">
                 <div class="card-body">
-                    <p class="card-title">+</p>
+                    <p class="card-title">+ Create a Group</p>
                 </div>
             </div>
         </div>
 
-        <form id="AddNewDen" v-on:submit.prevent="AddNewDen" v-show="denOpen == true">
-            <div class="field">
+        <form id="AddNewDen" v-on:submit.prevent="AddNewDen" v-show="denOpen">
+            <div class="form-group">
                 <label for="denName">Den Name:</label>
                 <input type="text" id="denName" name="denName" v-model="newDen.denName" required />
             </div>
-            <div class="field">
-
-                <tr v-for="category in categories" v-bind:key="category.id">
-                    <td>
-                        <input type="checkbox" v-bind:id="category.categoryName" v-bind:value="category.categoryName"
-                            v-model="newDen.categoryNames" />
-                    </td>
-                    <td>{{ category.categoryName }}</td>
-                </tr>
-
+            <div class="form-group">
+                <label>Categories:</label>
+                <div class="categories-list">
+                    <div v-for="category in categories" :key="category.id" class="category-item">
+                        <input type="checkbox" :id="category.categoryName" :value="category.categoryName" v-model="newDen.categoryNames" />
+                        <label :for="category.categoryName">{{ category.categoryName }}</label>
+                    </div>
+                </div>
             </div>
-            <div class="field">
-                <label for="username">Description:</label>
+            <div class="form-group">
+                <label for="denDesc">Description:</label>
                 <input type="text" id="denDesc" name="denDesc" v-model="newDen.denDesc" required />
             </div>
-
-            <button type="submit" class="btn save" v-on:click="denOpen = false">Save Den</button>
-           
+            <button type="submit" class="btn save">Save Den</button>
         </form>
     </div>
 </template>
+
 
 <script>
 
@@ -108,17 +105,91 @@ export default {
     }
 }
 </script>
-
 <style>
-#button {
-    display: flex;
-    flex-direction: row;
-    width: 70%;
-    justify-content: center;
-    margin: auto;
-    margin-top: 1%;
-    margin-bottom: 1%;
-    font-weight: bolder;
+/* Overall styling for the button and form container */
+#main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+}
 
+/* Card styling for the expandable button */
+.expandable-card {
+  max-width: 400px;
+  background-color: #007bff; /* Primary color */
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  text-align: center;
+  color: #fff;
+}
+
+.expandable-card .card-body {
+  padding: 20px;
+}
+
+.expandable-card .card-title {
+  font-size: 36px;
+  margin: 0;
+}
+
+/* Form styling */
+#AddNewDen {
+  width: 50%;
+  max-width: 400px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+.form-group input[type="text"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.categories-list {
+  display: flex;
+  flex-direction: column;
+}
+
+.category-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.category-item input[type="checkbox"] {
+  margin-right: 10px;
+}
+
+.btn.save {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  background-color: #007bff; /* Primary color */
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: center;
+}
+
+.btn.save:hover {
+  background-color: #0056b3; /* Darker shade on hover */
 }
 </style>

@@ -1,55 +1,53 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
-        
-        
-            <!--main panel-->
-        <div id="panelMain">
-            <img id="image" class="card-img"
-            src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
-            <div id="overlayContainer" class="card-img-overlay">z
-                <p class="text-white">Product description</p>
-                <h3 class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button"
-                            class="btn btn-primary">Get Started</button></router-link></h3>
-                <h15 id="loginText"><router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | Don't
-                    have a account? sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!</h15>
+
+        <!-- Main panel -->
+        <div id="mainPanel">
+            <img id="heroImage" src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Hero Image">
+            <div id="overlayContainer" class="card-img-overlay">
+                <p class="text-white">Discover the amazing features of our app and how it can benefit you.</p>
+                <h3 class="card-title">
+                    <router-link v-bind:to="{ name: 'dens' }">
+                        <button type="button" class="btn btn-primary">Get Started</button>
+                    </router-link>
+                </h3>
+                <h15 id="loginText">
+                    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | 
+                    Don't have an account? Sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!
+                </h15>
             </div>
         </div>
 
+        <!-- Main content sections -->
+        <div id="content">
+            <section class="contentSection">
+                <h2>Features</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dolor vitae nulla laoreet interdum. Vivamus dapibus, purus vel convallis pharetra, elit felis efficitur quam, nec dictum urna dui eu neque.</p>
+            </section>
 
-        <div id="infoPanels">
+            <section class="contentSection">
+                <h2>Benefits</h2>
+                <p>Praesent sit amet est non purus fringilla tincidunt. Integer tincidunt purus eu leo dictum, sed feugiat nunc dapibus. Donec non arcu a nulla blandit consectetur non et ligula.</p>
+            </section>
 
-            <!-- Left Panel -->
-            <div id="panelLeft" class="card bg-dark text-white">
-                <img id="image" class="img" src="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Features</h5>
-                </div>
-            </div>
+            <section class="contentSection">
+                <h2>Purpose</h2>
+                <p>Cras ullamcorper magna sed tellus volutpat, at ultricies eros placerat. Sed id ex id velit accumsan consectetur. Fusce vel nulla ut sem suscipit condimentum.</p>
+            </section>
 
-            <!-- Center Panel -->
-            <div id="panelCenter" class="card bg-dark text-white">
-                <img id="image" class="card-img" src="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Benefits</h5>
-                </div>
-            </div>
-
-            <!-- Right Panel -->
-            <div id="panelRight" class="card bg-dark text-white">
-                <img id="image" class="card-img" src="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Purpose</h5>
-                </div>
-            </div>
+            <section class="contentSection">
+                <h2>Our Team</h2>
+                <p>Meet our dedicated team of professionals who are committed to providing you with the best experience. Our team brings together a wealth of knowledge and expertise to deliver exceptional results.</p>
+            </section>
         </div>
+
+        <!-- Footer -->
         <Footer id="footer"></Footer>
-
     </div>
 </template>
 
 <script>
-
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 
@@ -58,108 +56,97 @@ export default {
         Header,
         Footer
     }
-
 }
 </script>
+
 <style scoped>
+/* Ensure full viewport height and flexible layout */
 #page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-
-    /* Full viewport height */
+    min-height: 100vh;
+    margin: 0;
 }
 
-#panelMain {
-    display: flex;
-    height: 50%;
-    justify-content: center;
-    align-items: center;
-    
+#header {
+    flex-shrink: 0; /* Ensure the header doesn't shrink */
+}
 
+#mainPanel {
+    position: relative;
+    height: 25vh; /* Reduced height for the image */
+    overflow: hidden;
+}
+
+#heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Ensure image covers the container */
 }
 
 #overlayContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
     flex-direction: column;
-    height: 70%;
     justify-content: center;
     align-items: center;
- 
-
+    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    color: white;
+    text-align: center;
+    padding: 2rem; /* Responsive padding */
 }
 
-#infoPanels {
-    display: flex;
-    flex-direction: row;
-    height: 30%;
-    flex-grow: 1;
-    justify-content: center;
-
+#content {
+    flex: 1; /* Allow content to expand and push footer to the bottom */
+    padding: 2rem; /* Responsive padding */
+    background-color: #f4f4f4;
 }
 
-#image {
-    object-fit: fill;
-    height: 100%;
-
+.contentSection {
+    margin-bottom: 2rem; /* Responsive margin */
 }
 
-.card-title {
-    align-content: center;
-    justify-content: center;
-
+.contentSection h2 {
+    margin-bottom: 1rem; /* Responsive margin */
+    font-size: 1.5rem; /* Responsive font size */
 }
 
-.card-img-overlay {
-    display: flex;
-    justify-content: center;
-
-}
-
-#panelLeft {
-    display: flex;
-    flex-grow: 1;
-
-}
-
-#panelCenter {
-    display: flex;
-    flex-grow: 1;
-
-}
-
-#panelRight {
-    display: flex;
-    flex-grow: 1;
-
+.contentSection p {
+    font-size: 1rem; /* Responsive font size */
+    line-height: 1.6;
 }
 
 #footer {
-    height: 10%;
-    display: flex;
-    flex-direction: column;
+    background: #333;
+    color: white;
+    padding: 1rem; /* Responsive padding */
+    text-align: center;
+}
+
+#footer p {
+    margin: 0;
 }
 
 h15 {
     color: red;
-    font-size: 50%;
+    font-size: 0.8rem;
     font-weight: bold;
-
-
-}
-
-#panelA {
-    background-color: red;
-    flex-grow: 1
 }
 
 button {
-    background-color: rgba(0, 0, 0, 0.584);
-    border-color: rgba(240, 255, 250, 0);
+    background-color: rgba(0, 0, 0, 0.7);
+    border: none;
+    color: white;
+    padding: 0.75rem 1.5rem; /* Responsive padding */
+    font-size: 1rem; /* Responsive font size */
+    cursor: pointer;
 }
 
-p {
-    font-size: 300%;
-
+button:hover {
+    background-color: rgba(0, 0, 0, 0.9);
 }
 </style>
