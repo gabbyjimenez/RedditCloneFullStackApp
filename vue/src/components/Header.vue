@@ -30,7 +30,7 @@ header {
   align-items: center;
   padding: 0 1rem;
   font-size: large;
-  background: linear-gradient(90deg, rgba(137,220,255,1) 5%, rgba(0,167,236,1) 41%, rgba(20,159,231,1) 67%, rgba(120,213,253,1) 100%, rgba(9,170,237,1) 100%);
+  background: linear-gradient(90deg, rgba(97, 155, 138,1) 5%, rgba(161, 193, 129,1) 41%, rgba(161, 193, 129,1) 67%, rgba(97, 155, 138,1) 100%, rgba(97, 155, 138,1) 100%);
 }
 
 #homeLink {
