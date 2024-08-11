@@ -1,77 +1,88 @@
 <template>
   <div id="searchPost">
     <label for="searchFilter">Search: </label>
-    <input type="text" id="searchFilter" name="denName" v-model="searchFilter" />
+    <input
+      type="text"
+      id="searchFilter"
+      name="denName"
+      v-model="searchFilter"
+    />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
-      
-      
       <!-- TEMPLATE START -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
       <!-- TEMPLATE END -->
-    
-      
+
       <!-- OLD CODE -->
 
-      <div class="container mt-5 mb-5">
-        <div class="d-flex justify-content-center row">
-          <div class="d-flex flex-column col-md-8">
-            <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
-              <div class="profile-image">
-                <img class="rounded-circle" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
-              </div>
-              <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
-                <i class="fa fa-sort-up fa-2x hit-voting"></i><span>{{ post.upvotes - post.downvotes }}</span>
-                <i class="fa fa-sort-down fa-2x hit-voting"></i>
-              </div>
-              <div class="d-flex flex-column ml-3">
-                <div class="d-flex flex-row post-title">
-                  <h5>{{ post.postTitle }}</h5>
-                  <span class="ml-2">{{ post.creatorUsername }}</span>
-                </div>
-                <div class="d-flex flex-row align-items-center align-content-center post-title">
-                  <span class="bdge mr-1">Question</span>
-                  <span class="mr-2 dot"></span><span> Timestamp </span>
-                </div>
-                 <div>
-              <h6 id="postDesc">{{ post.postDesc }}</h6>
+      <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-8 second-container border-bottom">
+          <div
+            class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
+          >
+            <div class="profile-image">
+              <img
+                class="rounded-circle"
+                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
+                width="70"
+              />
             </div>
-                <div class="button-container">
-                  <button class="image-button upvote" v-on:click.prevent="upVote(post)">
-                    <img class="upvoteIcon" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723313591/icons8-scroll-up-48_wdtyrj.png" alt="Upvote" />
-                  </button>
-                  <span class="ml-2">{{ post.upvotes - post.downvotes }}</span>
-                  <button class="image-button downvote" v-on:click.prevent="downVote(post)">
-                    <img class="downvoteIcon" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723313580/icons8-scroll-down-48_kj3aqm.png" alt="Downvote" />
-                  </button>
-                </div>
-                <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
-              </div> 
-              <span class="mr-2 comments">Comment Number &nbsp;</span>
+            <div
+              class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
+            >
+              <i
+                class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
+                v-on:click.prevent="upVote(post)"
+              ></i
+              ><span>{{ post.upvotes - post.downvotes }}</span>
+              <i
+                class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
+                v-on:click.prevent="downVote(post)"
+              ></i>
             </div>
-           
+            <div class="d-flex flex-column ml-3">
+              <div class="d-flex flex-row post-title">
+                <h5>{{ post.postTitle }}</h5>
+                <span class="ml-2">{{ post.creatorUsername }}</span>
+              </div>
+              <div
+                class="d-flex flex-row align-items-center align-content-center post-title"
+              >
+                <span class="bdge mr-1">Question</span>
+                <span class="mr-2 dot"></span><span> Timestamp </span>
+              </div>
+              <div>
+                <h6 id="postDesc">{{ post.postDesc }}</h6>
+              </div>
+              <div class="delete">
+                <button
+                  v-if="post.creatorUsername == $store.state.user.username"
+                  v-on:click="deletePost(post)"
+                >
+                  Delete
+                </button>
+              </div>
+            </div>
           </div>
+          
+          <p
+            class="mr-2 comments"
+            id="commentsButton"
+            v-on:click.prevent="commentOPen = !commentOPen"
+          >
+            Comments
+          </p>
         </div>
       </div>
 
       <!-- TEMPLATE END -->
-      <comments-list v-bind:post="post" class="comments-list"/>
+      <comments-list
+        v-bind:post="post"
+        class="comments-list"
+        v-show="commentOPen"
+      />
     </div>
   </div>
 </template>
@@ -83,22 +94,25 @@ export default {
   components: {
     CommentsList,
   },
- 
 
   data() {
     return {
       searchFilter: "",
+      commentOPen: false,
     };
   },
   computed: {
-    filteredPosts() {
-      return this.$store.state.posts.filter((post) => {
-        return this.searchFilter == ""
-          ? true
-          : post.postTitle.includes(this.searchFilter);
-      });
-    },
+  filteredPosts() {
+    const searchFilter = this.searchFilter.toLowerCase();
+    return this.$store.state.posts.filter((post) => {
+      const nameMatch = post.postTitle.toLowerCase().includes(searchFilter);
+      const contentMatch = post.postDesc.toLowerCase().includes(searchFilter);
+      
+      // Return true if either condition matches or searchFilter is empty
+      return searchFilter === "" ? true : nameMatch || contentMatch;
+    });
   },
+},
 
   methods: {
     deletePost(post) {
@@ -113,7 +127,7 @@ export default {
 
         PostService.deletePost(post)
           .then((response) => {
-            this.getPosts(this.$route.params.denName)
+            this.getPosts(this.$route.params.denName);
             console.log("deleted");
           })
           .catch((error) => {
@@ -130,40 +144,40 @@ export default {
           console.log("You are out of luck");
         });
     },
-    
-    getVotesInfo(post){
-      VotingService.retrieveVoteInformationForPosts(post).then(response => {
-      }).catch(error => {
-        console.log(error)
-      })
 
+    getVotesInfo(post) {
+      VotingService.retrieveVoteInformationForPosts(post)
+        .then((response) => {})
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    upVote(post){
-      VotingService.makeUpvoteForPost(post).then(response => {
-        this.getPosts(this.$route.params.denName)
-        console.log('upvote')
-        console.log(response.data);
-      }).catch(error => {
-        console.log(error)
-      })
+    upVote(post) {
+      VotingService.makeUpvoteForPost(post)
+        .then((response) => {
+          this.getPosts(this.$route.params.denName);
+          console.log("upvote");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    downVote(post){
-      VotingService.makeDownvoteForPost(post).then(response => {
-        this.getPosts(this.$route.params.denName)
-        console.log(response.data);
-      }).catch(error => {
-        console.log(error)
-      })
+    downVote(post) {
+      VotingService.makeDownvoteForPost(post)
+        .then((response) => {
+          this.getPosts(this.$route.params.denName);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-
   },
-  created(){
-    this.getPosts(this.$route.params.denName)
-  }
-
+  created() {
+    this.getPosts(this.$route.params.denName);
+  },
 };
-
-
 </script>
 <style scoped>
 /* Remove default button styling */
@@ -192,17 +206,18 @@ export default {
 }
 
 .upvoteIcon:hover {
-  filter: invert(77%) sepia(15%) saturate(756%) hue-rotate(47deg) brightness(94%) contrast(87%);
+  color: #A1C181;
 }
 
 .downvoteIcon:hover {
-  filter: invert(62%) sepia(46%) saturate(3893%) hue-rotate(341deg) brightness(105%) contrast(99%);
+  color: #FE7F2D;
 }
 
+/* DOT */
 .dot {
-  height: .5rem;
-  width: .5rem;
-  margin: .5rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  margin: 0.5rem;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
@@ -212,11 +227,11 @@ export default {
   cursor: pointer;
 }
 
-.hit-voting:hover {
+/* .hit-voting:hover {
   color: blue;
-}
+} */
 
-img{
+img {
   justify-content: flex-start;
 }
 
@@ -239,17 +254,27 @@ body {
   border-radius: 4px;
   line-height: 3px;
 }
-
+.delete {
+  display: flex;
+  justify-content: flex-end;
+}
 .comments {
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
 }
-.comments-list{
+.comments-list {
   display: flex;
   flex-flow: column;
   justify-content: flex-start;
   align-items: center;
 }
 
+.second-container{
+  border-top: solid #619B8A 1px;
+}
+
+#searchPost{
+  padding-bottom: 1rem;
+}
 </style>

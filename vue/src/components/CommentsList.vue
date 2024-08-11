@@ -1,14 +1,10 @@
 <template>
   <div>
-    <button id="commentsButton" v-on:click="commentOPen = !commentOPen">
-      Comments:
-    </button>
+    
     <div class="comment-bottom bg-white p-2 px-4">
-      <div class="d-flex flex-row add-comment-section mt-4 mb-4">
-        <!-- Your existing content -->
-      </div>
+      
 
-      <div v-show="commentOPen" class="main-container">
+      <div class="main-container">
         
         <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="38"> 
           
@@ -333,9 +329,8 @@ body {
   justify-content: center;
 }
 
-body {
-    background-color: #eee;
-    
+.add-comment-section{
+  margin-top: 0%;
 }
 
 .bdge {
@@ -363,26 +358,42 @@ body {
 
 
 
-.comment-bottom, .add-comment-section, .main-container{
-  display:flex-row;
-  width:80%;
+.comment-bottom, .add-comment-section, .main-container, #commentContainer{
+  display:flex;
+  flex-flow: column;
+  width:70%;
   justify-content: center;
+  align-content: center;
 }
 .dot {
-  height: 7px;
-  width: 7px;
-  margin-top: 3px;
+  height: .5rem;
+  width: .5rem;
+  margin: .5rem;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
+  align-self: center;
 }
 
+#commentContainer > div > div{
+  align-content: center;
+}
+
+#commentContainer > div{
+  width:80%;
+  justify-self: center;
+}
 .hit-voting:hover {
   color: blue;
 }
 
 .hit-voting {
   cursor: pointer;
+}
+#commentContainer{
+  width:100%;
+  border-top: solid blueviolet 1px;
+  border-bottom: solid blueviolet 1px;
 }
 
 /* Your other existing styles */
