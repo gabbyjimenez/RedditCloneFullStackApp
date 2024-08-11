@@ -8,8 +8,10 @@
         <!-- Your existing content -->
       </div>
 
-      <div v-show="commentOPen">
-        <form v-on:submit.prevent="addComment(newComment)">
+      <div v-show="commentOPen" class="main-container">
+        
+        <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="38"> 
+          
           <input
             id="newComment"
             name="newComment"
@@ -17,9 +19,11 @@
             type="text"
             class="form-control mr-3"
             placeholder="Add comment"
+            
           />
-          <button type="submit" class="btn btn-primary">Comment</button>
-        </form>
+          <button type="button" class="btn btn-primary" v-on:click.prevent="addComment(newComment)">Comment</button>
+        </div>
+       
 
         <div
           id="commentContainer"
@@ -27,9 +31,46 @@
           v-for="comment in comments"
           :key="comment.postId"
         >
+         <!-- TEMPLATE START -->
 
+         <div class="comment-bottom bg-white p-2 px-4">
+                    
+                    <div
+                        class="commented-section mt-2">
+                        <div class="d-flex flex-row align-items-center commented-user">
+                            <h5 class="mr-2">{{comment.creatorName}}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span></div>
+                        <div class="comment-text-sm"><span>{{comment.responseDesc}}</span></div>
+                        <div
+                            class="reply-section">
+                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
+                            </div>
+                        </div>
+                    </div>
+                    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- TEMPLATE END -->
+    
+      
+      <!-- OLD CODE -->
         <!-- comment userName and Timestamp -->
-          <div class="commented-section mt-2">
+          <!-- <div class="commented-section mt-2">
             <div class="d-flex flex-row align-items-center commented-user">
               <h5 class="mr-2">{{ comment.creatorName }}</h5>
               <span class="dot mb-1"></span>
@@ -66,10 +107,11 @@
                 </button>
               </div>
             </div>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>
+  </div>
   </div>
 </template>
 
@@ -288,24 +330,12 @@ export default {
 body {
   background-color: #eee;
   display: flex;
+  justify-content: center;
 }
 
-#commentContainer {
-  display: flex;
-  height: 5%;
-  width: 80%;
-  margin: 1%;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff8f86c;
-  border:2px solid black;
-
-}
-
-.commented-section{
-  padding-left: 2%;
-  display: flex;
-  justify-content: flex-start;
+body {
+    background-color: #eee;
+    
 }
 
 .bdge {
@@ -317,63 +347,27 @@ body {
   border-radius: 4px;
   line-height: 3px;
 }
-.image-button {
-  background: none; /* Remove default button background */
-  border: none; /* Remove default button border */
-  padding: 0; /* Remove default button padding */
-  margin: 0; /* Remove default button margin */
-  cursor: pointer; /* Change cursor to pointer */
-  display: inline-flex; /* Make sure buttons are inline with other content */
-}
 
-/* Ensure images inside buttons fit well */
-.image-button img {
-  display: block; /* Remove extra space below image */
-  width: 1rem; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
-}
-
-/* Additional styles for button container */
-.button-container {
-  display: flex;
-  flex-flow: row;
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
-}
-
-.upvoteIcon:hover {
-  filter: invert(77%) sepia(15%) saturate(756%) hue-rotate(47deg) brightness(94%) contrast(87%);
-}
-
-.downvoteIcon:hover {
-  filter: invert(62%) sepia(46%) saturate(3893%) hue-rotate(341deg) brightness(105%) contrast(99%);
-}
-
-
-
-.arrow-button {
-  background: none;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #007bff; /* Adjust color as needed */
-  padding: 5px;
-}
-
-.arrow-button:hover {
-  color: #0056b3; /* Adjust hover color as needed */
-}
-
-/* Other existing styles */
-.comment-bottom {
-  /* Your existing styles */
-}
 .comments {
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
+  justify-content: center;
 }
 
+#postBody > div:nth-child(2), #postBody > div:nth-child(2) > div, #postBody > div:nth-child(2) > div > div.main-container {
+  
+  justify-content: center;
+  align-items: center;
+}
+
+
+
+.comment-bottom, .add-comment-section, .main-container{
+  display:flex-row;
+  width:80%;
+  justify-content: center;
+}
 .dot {
   height: 7px;
   width: 7px;
@@ -389,27 +383,6 @@ body {
 
 .hit-voting {
   cursor: pointer;
-}
-
-.upvoteIcon, .downvoteIcon{
-  width:1rem;
-  height:auto;
-  
-}
-
-.upvoteIcon:hover{
-  filter: invert(77%) sepia(15%) saturate(756%) hue-rotate(47deg) brightness(94%) contrast(87%);
-}
-
-.downvoteIcon:hover{
-  filter: invert(62%) sepia(46%) saturate(3893%) hue-rotate(341deg) brightness(105%) contrast(99%);
-}
-
-.align-items-center{
-  display:flex;
-  justify-content: center;
-  align-content: center;
-  text-align: center;
 }
 
 /* Your other existing styles */

@@ -6,14 +6,35 @@
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
+      
+      
       <!-- TEMPLATE START -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+      <!-- TEMPLATE END -->
+    
+      
+      <!-- OLD CODE -->
 
       <div class="container mt-5 mb-5">
         <div class="d-flex justify-content-center row">
           <div class="d-flex flex-column col-md-8">
             <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white border-bottom px-4">
               <div class="profile-image">
-                <img class="rounded-circle" src="https://i.imgur.com/t9toMAQ.jpg" width="70" />
+                <img class="rounded-circle" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
               </div>
               <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
                 <i class="fa fa-sort-up fa-2x hit-voting"></i><span>{{ post.upvotes - post.downvotes }}</span>
@@ -50,7 +71,7 @@
       </div>
 
       <!-- TEMPLATE END -->
-      <comments-list v-bind:post="post"/>
+      <comments-list v-bind:post="post" class="comments-list"/>
     </div>
   </div>
 </template>
@@ -179,9 +200,9 @@ export default {
 }
 
 .dot {
-  height: 7px;
-  width: 7px;
-  margin-top: 3px;
+  height: .5rem;
+  width: .5rem;
+  margin: .5rem;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
@@ -195,8 +216,12 @@ export default {
   color: blue;
 }
 
+img{
+  justify-content: flex-start;
+}
+
 #postDesc {
-  margin: 5%;
+  margin: 2%;
   justify-content: flex-start;
 }
 
@@ -220,4 +245,11 @@ body {
   text-underline-position: under;
   cursor: pointer;
 }
+.comments-list{
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
 </style>
