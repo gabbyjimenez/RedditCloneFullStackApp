@@ -48,16 +48,16 @@ public class VotingService implements IVotingService {
         } if(votingDto.getResponseUserId() == 0 && isUpvote == true){
             jdbcResponseVotingDao.addEntryAndIncrementVote(responseDto, principal, true);
             //Case 3: User has previously downvoted & has clicked the downvote button again
-        } else if  ((votingDto.getObjectId() == responseDto.getPostId()) && votingDto.isVoteStatus() == false && isUpvote == false){
+        } else if  ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == false && isUpvote == false){
             jdbcResponseVotingDao.deleteEntryAndDecrement(responseDto, principal,1, false,false,false);
             // Case 4: User has previously upvoted & has clicked the downvote button
-        } else if  ((votingDto.getObjectId() == responseDto.getPostId()) && votingDto.isVoteStatus() == true && isUpvote == false) {
+        } else if  ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true && isUpvote == false) {
             jdbcResponseVotingDao.deleteEntryAndDecrement(responseDto, principal,1, true,true,false);
             // Case 5: User has previously upvoted & has clicked the upvote button again
-        } else if ((votingDto.getObjectId() == responseDto.getPostId()) && votingDto.isVoteStatus() == true && isUpvote == true){
+        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true && isUpvote == true){
             jdbcResponseVotingDao.deleteEntryAndDecrement(responseDto, principal,1, true,false,false);
             // Case 6: User has previously downvoted & has clicked the upvote button
-        } else if ((votingDto.getObjectId() == responseDto.getPostId()) && votingDto.isVoteStatus() == false && isUpvote == true) {
+        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == false && isUpvote == true) {
             jdbcResponseVotingDao.deleteEntryAndDecrement(responseDto, principal,1, false,false,true);
 
         }

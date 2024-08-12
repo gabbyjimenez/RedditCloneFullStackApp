@@ -33,7 +33,7 @@ public class JdbcResponseVotingDao implements ResponseVotingDao {
                     "SET upvotes = upvotes +1 " +
                     "WHERE response_id = ?;";
         } else{
-            sqlAddToJoin = "INSERT INTO post_user_vote (toggle_status, response_id, user_id) " +
+            sqlAddToJoin = "INSERT INTO response_user_vote (toggle_status, response_id, user_id) " +
                     "VALUES (false, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING response_user_vote_id;";
             sqlIncrementResponseUpvote = "UPDATE responses " +
                     "SET downvotes = downvotes +1 " +
