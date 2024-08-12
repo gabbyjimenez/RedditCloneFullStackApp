@@ -22,6 +22,7 @@
           <div
             class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
           >
+          
             <div class="profile-image">
               <img
                 class="rounded-circle"
@@ -34,8 +35,6 @@
             >
               <i
                 class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
-                v-on:mouseenter="upvoteHovering = true" v-on:mouseleave="upvoteHovering = false"
-                v-bind:class="{'fa-shake': upvoteHovering}"
                 v-on:click.prevent="upVote(post)"
               ></i
               ><span>{{ post.upvotes - post.downvotes }}</span>
@@ -45,40 +44,52 @@
                 v-on:click.prevent="downVote(post)"
               ></i>
             </div>
+            
             <div class="d-flex flex-column ml-3">
               <div class="d-flex flex-row post-title">
                 <h5>{{ post.postTitle }}</h5>
+                <i
+                  v-if="post.creatorUsername == $store.state.user.username"
+                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" id="trashCanIcon"
+                >
+          </i>
+        
                 
               </div>
+              
               <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
+              
               <div
                 class="d-flex flex-row align-items-center align-content-center post-title"
               >
                 <span class="bdge mr-1">Question</span>
                 <span class="mr-2 dot"></span><span> Timestamp </span>
+                
               </div>
+              
               
              
               
             </div>
-            <i
-                  v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" 
-                >
-          </i>
+            
+            
           </div>
+          
           <div class="delete" id="postDesc">
                
                 <h6 >{{ post.postDesc }}</h6>
+                
               
                 
               </div>
-          
+              
+              
           <comments-list
         v-bind:post="post"
         class="comments-list"
         
       />
+    
         </div>
 
       </div>
@@ -293,12 +304,12 @@ body {
 }
 .delete {
   width: 80%;
-  margin: .5rem;
   margin-left: 59px;
   display: inline-block;
   word-wrap: break-word;
   justify-content: center;
   text-align: justify;
+
 
 }
 .comments {
@@ -333,8 +344,21 @@ h5{
 h6 {
   display: inline-block;
   width: 100%;
+  margin-bottom:0%;
   text-wrap: break-word;
 }
 
+#trashCanIcon{
+  display: flex;
+  justify-content: flex-start; 
+  padding-left: .5rem;
+  align-content: end;
+}
+
+#trashCanIcon{
+  display: inline-block;
+  align-content: center;
+  justify-content: center;
+}
 
 </style>
