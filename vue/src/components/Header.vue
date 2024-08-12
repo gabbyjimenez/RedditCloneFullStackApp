@@ -30,7 +30,6 @@ header {
   display: flex;
   justify-content: space-between;
   font-family: 'Segoe UI';
-  height: 1%;
   align-items: center;
   padding: 0 1rem;
   font-size: large;
@@ -55,7 +54,8 @@ border-radius: 10%;
 }
 
 img {
-  height: 40px; /* Adjust height as needed */
+  height: auto;
+  max-height: 65px;
 }
 
 #headerText {

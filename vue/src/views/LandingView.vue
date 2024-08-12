@@ -72,6 +72,7 @@ export default {
 
 #header {
     flex-shrink: 0; /* Ensure the header doesn't shrink */
+    height: 1%;
 }
 
 #mainPanel {
