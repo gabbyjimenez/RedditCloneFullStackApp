@@ -49,6 +49,7 @@ CREATE TABLE posts (
 	creator_id int NOT NULL,
 	upvotes int DEFAULT 0,
 	downvotes int DEFAULT 0,
+	pinned boolean DEFAULT false,
 	
 	
 	CONSTRAINT PK_post_id PRIMARY KEY (post_id),
@@ -65,6 +66,7 @@ CREATE TABLE responses (
 	creator_id int,
 	upvotes int DEFAULT 0,
 	downvotes int DEFAULT 0,
+	pinned boolean DEFAULT false,
 	
 	CONSTRAINT PK_response_id PRIMARY KEY (response_id),
 	CONSTRAINT FK_users_responses FOREIGN KEY (creator_id) REFERENCES users(user_id),

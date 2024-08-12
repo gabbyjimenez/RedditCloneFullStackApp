@@ -13,12 +13,13 @@ public class PostDto {
     private int upvotes;
 
     private int downvotes;
+    private boolean pinned;
 
     public PostDto (){
 
     }
 
-    public PostDto(int postId, int creatorId, String creatorUsername, int denId, String postTitle, String postDesc, String denName, int upvotes, int downvotes) {
+    public PostDto(int postId, int creatorId, String creatorUsername, int denId, String postTitle, String postDesc, String denName, int upvotes, int downvotes, boolean pinned) {
         this.postId = postId;
         this.creatorId = creatorId;
         this.creatorUsername = creatorUsername;
@@ -28,10 +29,19 @@ public class PostDto {
         this.denName = denName;
         this.upvotes = upvotes;
         this.downvotes = downvotes;
+        this.pinned = pinned;
     }
 
     public int getPostId() {
         return postId;
+    }
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 
     public void setPostId(int postId) {
