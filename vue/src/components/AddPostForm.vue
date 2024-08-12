@@ -45,6 +45,7 @@ export default {
         postTitle: "",
         postDesc: "",
         denName: this.$route.params.denName,
+        isPinned: false
       },
     };
   },
@@ -85,6 +86,7 @@ export default {
         postTitle: "",
         postDesc: "",
         denName: this.$route.params.denName,
+        isPinned: false
       };
     },
   },

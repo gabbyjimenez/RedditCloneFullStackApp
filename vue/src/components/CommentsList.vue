@@ -98,13 +98,13 @@
                 </button>
                 
               </div>
-              <div id="commentButtons">
-                <button
-                  v-if="comment.creatorId == $store.state.user.id"
-                  v-on:click="deleteComment(comment)"
-                >
-                  Delete
-                </button>
+              <div class="comment-text-sm"><span>{{ comment.responseDesc }}</span></div>
+              <div class="reply-section">
+                <div class="d-flex flex-row align-items-center voting-icons"><i
+                    class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i
+                    class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span
+                    class="dot ml-2"></span>
+                </div>
               </div>
             </div>
           </div> -->
@@ -141,6 +141,7 @@ export default {
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
+        isPinned: false
       },
     };
   },
@@ -197,6 +198,7 @@ export default {
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
+        isPinned: false
       };
     },
 
@@ -412,6 +414,7 @@ body {
   width: 80%;
   justify-self: center;
 }
+
 .hit-voting:hover {
   color: blue;
 }
@@ -423,28 +426,40 @@ body {
   width: 100%;
   border-top: solid blueviolet 1px;
 }
+
 .image-button {
-  background: none; /* Remove default button background */
-  border: none; /* Remove default button border */
-  padding: 0; /* Remove default button padding */
-  margin: 0; /* Remove default button margin */
-  cursor: pointer; /* Change cursor to pointer */
-  display: inline-flex; /* Make sure buttons are inline with other content */
+  background: none;
+  /* Remove default button background */
+  border: none;
+  /* Remove default button border */
+  padding: 0;
+  /* Remove default button padding */
+  margin: 0;
+  /* Remove default button margin */
+  cursor: pointer;
+  /* Change cursor to pointer */
+  display: inline-flex;
+  /* Make sure buttons are inline with other content */
 }
 
 /* Ensure images inside buttons fit well */
 .image-button img {
-  display: block; /* Remove extra space below image */
-  width: 1rem; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
+  display: block;
+  /* Remove extra space below image */
+  width: 1rem;
+  /* Adjust width as needed */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 /* Additional styles for button container */
 .button-container {
   display: flex;
   flex-flow: row;
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
+  align-items: center;
+  /* Center items vertically */
+  justify-content: center;
+  /* Center items horizontally */
 }
 
 .upvoteIcon:hover {
@@ -512,6 +527,7 @@ body {
   border-radius: 4px;
   line-height: 3px;
 }
+
 .delete {
   width: 80%;
   margin: 0.5rem;
@@ -521,11 +537,13 @@ body {
   justify-content: center;
   text-align: justify;
 }
+
 .comments {
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
 }
+
 .comments-list {
   display: flex;
   flex-flow: column;
@@ -547,6 +565,5 @@ h6 {
   /* text-wrap: wrap; */
 }
 
-/* Your other existing styles */
-</style>
+/* Your other existing styles */</style>
 
