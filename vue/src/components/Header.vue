@@ -64,7 +64,7 @@ img {
 #headerText {
   font-family: 'Roboto', sans-serif; /* Professional font */
   font-weight: 700; /* Bold text */
-  color: #fff; /* White text for contrast */
+  color: rgba(252,202,70,1); /* White text for contrast */
   font-size: 1.5rem; /* Adjust size as needed */
 }
 
@@ -74,7 +74,7 @@ img {
 }
 
 .auth-link {
-  color: #fff;
+  color:rgba(252,202,70,1);
   text-decoration: none; /* Remove underline from links */
   margin-left: 1rem;
   padding: 0.5rem 1rem;

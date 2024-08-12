@@ -1,120 +1,46 @@
 <template>
   <div>
-    <p
-            class="mr-2 comments"
-            id="commentsButton"
-            v-on:click.prevent="commentOPen = !commentOPen"
-          >
-            Comments
-          </p>
+    <p class="mr-2 comments" id="commentsButton" v-on:click.prevent="commentOPen = !commentOPen">
+      Comments
+    </p>
     <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
-      
+
 
       <div class="main-container">
-        
-        <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="38"> 
-          
-          <input
-            id="newComment"
-            name="newComment"
-            v-model="newComment.responseDesc"
-            type="text"
-            class="form-control mr-3"
-            placeholder="Add comment"
-            
-          />
+
+        <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img
+            class="img-fluid img-responsive rounded-circle mr-2"
+            src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="38">
+
+          <input id="newComment" name="newComment" v-model="newComment.responseDesc" type="text" class="form-control mr-3"
+            placeholder="Add comment" />
           <button type="button" class="btn btn-primary" v-on:click.prevent="addComment(newComment)">Comment</button>
         </div>
-       
-
-        <div
-          id="commentContainer"
-          class="comment"
-          v-for="comment in comments"
-          :key="comment.postId"
-          
-        >
-         <!-- TEMPLATE START -->
-
-         <div class="comment-bottom bg-white p-2 px-4">
-                    
-                    <div
-                        class="commented-section mt-2">
-                        <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">{{comment.creatorName}}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span></div>
-                        <div class="comment-text-sm"><span>{{comment.responseDesc}}</span></div>
-                        <div
-                            class="reply-section">
-                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
 
 
+        <div id="commentContainer" class="comment" v-for="comment in comments" :key="comment.postId">
+          <!-- TEMPLATE START -->
 
+          <div class="comment-bottom bg-white p-2 px-4">
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <!-- TEMPLATE END -->
-    
-      
-      <!-- OLD CODE -->
-        <!-- comment userName and Timestamp -->
-          <!-- <div class="commented-section mt-2">
-            <div class="d-flex flex-row align-items-center commented-user">
-              <h5 class="mr-2">{{ comment.creatorName }}</h5>
-              <span class="dot mb-1"></span>
-              <span class="mb-1 ml-2">4 hours ago</span>
-            </div>
-            <div class="comment-text-sm">
-              <span>{{ comment.responseDesc }}</span>
-            </div>
-            <div class="reply-section">
-              <div class="d-flex flex-row align-items-center voting-icons">
-                <button
-                  class="arrow-button upvote"
-                  v-on:click.prevent="upVote(comment)"
-                >
-                  <img class="upvoteIcon" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723313591/icons8-scroll-up-48_wdtyrj.png">
-                </button>
-                <span class="ml-2">{{ comment.upvotes - comment.downvotes }}</span>
-                
-                <h6 class="ml-2 mt-1"></h6>
-                <button
-                  class="arrow-button downvote"
-                  v-on:click.prevent="downVote(comment)"
-                >
-                <img class="downvoteIcon" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723313580/icons8-scroll-down-48_kj3aqm.png">
-                </button>
-                
+            <div class="commented-section mt-2">
+              <div class="d-flex flex-row align-items-center commented-user">
+                <h5 class="mr-2">{{ comment.creatorName }}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours
+                  ago</span>
               </div>
-              <div id="commentButtons">
-                <button
-                  v-if="comment.creatorId == $store.state.user.id"
-                  v-on:click="deleteComment(comment)"
-                >
-                  Delete
-                </button>
+              <div class="comment-text-sm"><span>{{ comment.responseDesc }}</span></div>
+              <div class="reply-section">
+                <div class="d-flex flex-row align-items-center voting-icons"><i
+                    class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i
+                    class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span
+                    class="dot ml-2"></span>
+                </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -144,6 +70,7 @@ export default {
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
+        isPinned: false
       },
     };
   },
@@ -200,6 +127,7 @@ export default {
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
+        isPinned: false
       };
     },
 
@@ -336,7 +264,7 @@ body {
   justify-content: center;
 }
 
-.add-comment-section{
+.add-comment-section {
   margin-top: 0%;
 }
 
@@ -357,8 +285,10 @@ body {
   justify-content: center;
 }
 
-#postBody > div:nth-child(2), #postBody > div:nth-child(2) > div, #postBody > div:nth-child(2) > div > div.main-container {
-  
+#postBody>div:nth-child(2),
+#postBody>div:nth-child(2)>div,
+#postBody>div:nth-child(2)>div>div.main-container {
+
   justify-content: center;
   align-items: center;
 }
@@ -382,14 +312,15 @@ body {
   align-self: center;
 }
 
-#commentContainer > div > div{
+#commentContainer>div>div {
   align-content: center;
 }
 
-#commentContainer > div{
-  width:80%;
+#commentContainer>div {
+  width: 80%;
   justify-self: center;
 }
+
 .hit-voting:hover {
   color: blue;
 }
@@ -397,33 +328,46 @@ body {
 .hit-voting {
   cursor: pointer;
 }
-#commentContainer{
-  width:100%;
+
+#commentContainer {
+  width: 100%;
   border-top: solid blueviolet 1px;
-  
+
 }
+
 .image-button {
-  background: none; /* Remove default button background */
-  border: none; /* Remove default button border */
-  padding: 0; /* Remove default button padding */
-  margin: 0; /* Remove default button margin */
-  cursor: pointer; /* Change cursor to pointer */
-  display: inline-flex; /* Make sure buttons are inline with other content */
+  background: none;
+  /* Remove default button background */
+  border: none;
+  /* Remove default button border */
+  padding: 0;
+  /* Remove default button padding */
+  margin: 0;
+  /* Remove default button margin */
+  cursor: pointer;
+  /* Change cursor to pointer */
+  display: inline-flex;
+  /* Make sure buttons are inline with other content */
 }
 
 /* Ensure images inside buttons fit well */
 .image-button img {
-  display: block; /* Remove extra space below image */
-  width: 1rem; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
+  display: block;
+  /* Remove extra space below image */
+  width: 1rem;
+  /* Adjust width as needed */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 /* Additional styles for button container */
 .button-container {
   display: flex;
   flex-flow: row;
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
+  align-items: center;
+  /* Center items vertically */
+  justify-content: center;
+  /* Center items horizontally */
 }
 
 .upvoteIcon:hover {
@@ -452,19 +396,19 @@ body {
   color: blue;
 } */
 
-.votings{
+.votings {
   padding: .5rem;
 
 }
 
-.username{
+.username {
   display: flex;
   text-align: bottom;
   padding-left: .5rem;
   margin-bottom: 8px;
   vertical-align: bottom;
-  
-  
+
+
 }
 
 img {
@@ -494,6 +438,7 @@ body {
   border-radius: 4px;
   line-height: 3px;
 }
+
 .delete {
   width: 80%;
   margin: .5rem;
@@ -504,11 +449,13 @@ body {
   text-align: justify;
 
 }
+
 .comments {
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
 }
+
 .comments-list {
   display: flex;
   flex-flow: column;
@@ -516,11 +463,11 @@ body {
   align-items: center;
 }
 
-.second-container{
+.second-container {
   border-top: solid #619B8A 1px;
 }
 
-#searchPost{
+#searchPost {
   padding-bottom: 1rem;
 }
 
@@ -530,6 +477,5 @@ h6 {
   /* text-wrap: wrap; */
 }
 
-/* Your other existing styles */
-</style>
+/* Your other existing styles */</style>
 

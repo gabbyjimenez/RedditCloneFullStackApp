@@ -1,7 +1,5 @@
 <template>
   <div class="container">
-    
-
     <div id="searchBar">
       <input type="search" class="form-control rounded" placeholder="Search dens or categories" aria-label="Search" v-model="searchFilter" />
     </div>
@@ -11,6 +9,7 @@
         <div class="card">
           <div class="card-header">
             <h5>{{ den.denName }}</h5>
+            <p>{{den.isFavorite}}</p>
             <p>Created by: {{ den.denCreatorUserName }}</p>
           </div>
           <div class="card-body" v-on:click="$router.push({ name: 'den', params: { denName: den.denName } })">
@@ -23,17 +22,10 @@
   </div>
 </template>
 
-  
 <script>
 import DenService from '../services/DenService';
 
-
 export default {
-  components: {
-    
-  },
-
-
   data() {
     return {
       searchFilter: "",
@@ -41,53 +33,48 @@ export default {
   },
   computed: {
     filteredDens() {
-
       const searchFilter = this.searchFilter.toLowerCase();
-      return this.$store.state.dens.filter((den) => {
-        // Check if denName includes the searchFilter
+      
+      // Filter dens based on searchFilter
+      const filtered = this.$store.state.dens.filter((den) => {
         const nameMatch = den.denName.toLowerCase().includes(searchFilter);
-
-        // Check if any categoryName includes the searchFilter
         const categoryMatch = den.categoryNames.some((category) =>
           category.toLowerCase().includes(searchFilter)
         );
-
-        // Return true if either condition matches or searchFilter is empty
         return searchFilter === "" ? true : nameMatch || categoryMatch;
       });
-    },
 
+      // Sort dens with isFavorite at the top
+      return filtered.sort((a, b) => {
+        if (a.isFavorite && !b.isFavorite) return -1;
+        if (!a.isFavorite && b.isFavorite) return 1;
+        return 0;
+      });
+    },
   },
   methods: {
     DeleteDen(den) {
-      console.log("bleep")
+      console.log("bleep");
       if (confirm("Are you sure you want to delete this message? This action cannot be undone.")) {
-
-        // TODO - Do a delete, then navigate to Topic Details on success
-        // For errors, call handleErrorResponse
-        console.log(den)
-        console.log("blorg")
-
         DenService.delete(den).then(response => {
-          this.getDens()
-          console.log("deleted")
+          this.getDens();
+          console.log("deleted");
         }).catch(error => {
           this.handleErrorResponse(error, 'deleting');
-        })
-
+        });
       }
-      
     },
     getDens() {
       DenService.getDens().then(response => {
-        this.$store.state.dens = response.data
+        this.$store.state.dens = response.data;
       }).catch(error => {
-        console.log('You are out of luck')
-      })
+        console.log('You are out of luck');
+      });
     }
   }
 };
 </script>
+
 
 <style>
 /* Overall page container */

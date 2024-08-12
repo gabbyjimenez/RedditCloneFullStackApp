@@ -11,11 +11,6 @@
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
-      <!-- TEMPLATE START -->
-
-      <!-- TEMPLATE END -->
-
-      <!-- OLD CODE -->
 
       <div class="d-flex justify-content-center row">
         <div class="d-flex flex-column col-md-8 second-container border-bottom">
@@ -38,7 +33,7 @@
                 v-bind:class="{'fa-shake': upvoteHovering}"
                 v-on:click.prevent="upVote(post)"
               ></i
-              ><span>{{ post.upvotes - post.downvotes }}</span>
+              ><span>{{ post.upvotes - post.downvotes }}  </span>
               <i
                 class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
                 
@@ -47,8 +42,7 @@
             </div>
             <div class="d-flex flex-column ml-3">
               <div class="d-flex flex-row post-title">
-                <h5>{{ post.postTitle }}</h5>
-                
+                <h5>{{ post.postTitle }} </h5>
               </div>
               <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
               <div
@@ -65,6 +59,8 @@
                   v-if="post.creatorUsername == $store.state.user.username"
                   v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" 
                 >
+                <i class="fa-solid fa-flag" v-if="post.isPinned =true" v-bind:class="flagged"></i>                
+
           </i>
           </div>
           <div class="delete" id="postDesc">
@@ -83,7 +79,6 @@
 
       </div>
 
-      <!-- TEMPLATE END -->
       
     </div>
   </div>
@@ -107,14 +102,24 @@ export default {
   computed: {
   filteredPosts() {
     const searchFilter = this.searchFilter.toLowerCase();
-    return this.$store.state.posts.filter((post) => {
+    
+    // Filter posts based on searchFilter
+    const filtered = this.$store.state.posts.filter((post) => {
       const nameMatch = post.postTitle.toLowerCase().includes(searchFilter);
       const contentMatch = post.postDesc.toLowerCase().includes(searchFilter);
       
       // Return true if either condition matches or searchFilter is empty
       return searchFilter === "" ? true : nameMatch || contentMatch;
     });
-  },
+    
+    // Sort posts: pinned posts first, then the rest
+    return filtered.sort((a, b) => {
+      if (a.isPinned === b.isPinned) {
+        return 0; // No change in order if both posts have the same isPinned value
+      }
+      return a.isPinned ? -1 : 1; // Pinned posts (-1) come before unpinned posts (1)
+    });
+  }
 },
 
   methods: {
@@ -317,9 +322,7 @@ body {
   cursor: pointer;
 }
 
-.fa-shake{
-  
-}
+
 .comments-list {
   display: flex;
   flex-flow: column;
@@ -344,6 +347,14 @@ h6 {
   display: inline-block;
   width: 100%;
   text-wrap: break-word;
+}
+
+.unlfagged{
+  color: #bbb;
+}
+
+.flagged{
+  color: #FE7F2D;
 }
 
 
