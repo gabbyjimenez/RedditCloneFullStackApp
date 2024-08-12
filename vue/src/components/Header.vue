@@ -2,7 +2,7 @@
   <header>
     <div  id="homeLink">
     <router-link v-bind:to="{ name: 'home' }"><img
-        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723319000/foxtrot_logov1_spsifm.svg" /></router-link>
+        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723470949/foxtrot_logo_fin_uqpezm.png" /></router-link>
  </div>
   
     
@@ -41,8 +41,8 @@ header {
 #homeLink {
   display: flex;
   align-items: center;
-  padding: 1%;
-  height: 1%;
+  
+  height: 5%;
 
 
 
