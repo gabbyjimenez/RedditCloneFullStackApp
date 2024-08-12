@@ -10,14 +10,14 @@
                 <p class="subtitle">Discover the amazing features and benefits we offer.</p>
                 <div class="action-buttons">
                     <router-link v-bind:to="{ name: 'dens' }">
-                        <button type="button" class="btn btn-primary">Get Started</button>
+                        <button id="buttonsOfACtion" type="button" class="btn btn-primary">Get Started</button>
                     </router-link>
-                    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">
+                    <!-- <router-link id="LoginLink" v-bind:to="{ name: 'login' }">
                         <button type="button" class="btn btn-outline-light">Login</button>
-                    </router-link>
+                    </router-link> -->
                 </div>
                 <p class="signup-text">
-                    Don't have an account? <router-link v-bind:to="{ name: 'register' }">Sign up here!</router-link>
+                    Don't have an account? <router-link id="signUpLink" v-bind:to="{ name: 'register' }">Sign up here!</router-link>
                 </p>
             </div>
         </div>
@@ -181,5 +181,15 @@ button {
 
 #footer p {
     margin: 0;
+}
+#buttonsOfACtion{
+    background-color: rgba(0, 0, 0, 0.50);
+}
+#buttonsOfACtion:hover {
+    background-color:  rgba(97, 155, 138,  0.50);
+}
+#signUpLink:hover {
+color: rgba(255, 255, 255, 0.5);
+
 }
 </style>

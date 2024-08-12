@@ -58,12 +58,12 @@
              
               
             </div>
-            <button
+            <i
                   v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)"
+                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" v-on:mouseenter="isHovering = true" v-on:mouseleave="isHovering = false" 
+                  v-bind:class="{'fa-shake': isHovering}"
                 >
-                  Delete
-                </button>
+          </i>
           </div>
           <div class="delete" id="postDesc">
                
@@ -98,6 +98,7 @@ export default {
   data() {
     return {
       searchFilter: "",
+      isHovering: false,
       
     };
   },
@@ -213,6 +214,10 @@ export default {
   color: #FE7F2D;
 }
 
+.fa-trash:hover{
+  color: #FE7F2D;
+}
+
 /* DOT */
 .dot {
   height: 0.5rem;
@@ -287,6 +292,10 @@ body {
   text-underline-position: under;
   cursor: pointer;
 }
+
+.fa-shake{
+  
+}
 .comments-list {
   display: flex;
   flex-flow: column;
@@ -304,6 +313,7 @@ body {
 
 h5{
   margin-bottom:0%;
+  margin-top: 0%;
 }
 
 h6 {
@@ -311,20 +321,6 @@ h6 {
   width: 100%;
   text-wrap: break-word;
 }
-
-#postBody > div > div > div.d-flex.flex-row.align-items-center.text-left.comment-top.p-2.bg-white.px-4{
-  padding-top: 1.5rem;
-  padding-bottom: 1.5rem;
-}
-
-#postBody > div > div > div.d-flex.flex-row.align-items-center.text-left.comment-top.p-2.bg-white.px-4 > div.d-flex.flex-column.ml-3{
-  padding-top: 1rem;
-  padding-bottom: 1rem;
-}
-
-
-
-
 
 
 </style>
