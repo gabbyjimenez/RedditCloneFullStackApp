@@ -22,6 +22,7 @@
           <div
             class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
           >
+          
             <div class="profile-image">
               <img
                 class="rounded-circle"
@@ -39,44 +40,56 @@
               ><span>{{ post.upvotes - post.downvotes }}</span>
               <i
                 class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
+                
                 v-on:click.prevent="downVote(post)"
               ></i>
             </div>
+            
             <div class="d-flex flex-column ml-3">
               <div class="d-flex flex-row post-title">
                 <h5>{{ post.postTitle }}</h5>
+                <i
+                  v-if="post.creatorUsername == $store.state.user.username"
+                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" id="trashCanIcon"
+                >
+          </i>
+        
                 
               </div>
+              
               <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
+              
               <div
                 class="d-flex flex-row align-items-center align-content-center post-title"
               >
                 <span class="bdge mr-1">Question</span>
                 <span class="mr-2 dot"></span><span> Timestamp </span>
+                
               </div>
+              
               
              
               
             </div>
-            <i
-                  v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" v-on:mouseenter="isHovering = true" v-on:mouseleave="isHovering = false" 
-                  v-bind:class="{'fa-shake': isHovering}"
-                >
-          </i>
+            
+            
           </div>
+          
           <div class="delete" id="postDesc">
                
                 <h6 >{{ post.postDesc }}</h6>
+                
               
                 
               </div>
-          
+              
+              
           <comments-list
         v-bind:post="post"
         class="comments-list"
         
       />
+    
         </div>
 
       </div>
@@ -98,7 +111,7 @@ export default {
   data() {
     return {
       searchFilter: "",
-      isHovering: false,
+      
       
     };
   },
@@ -154,6 +167,7 @@ export default {
         });
     },
     upVote(post) {
+      if(this.$store.state.user.userId != 0){
       VotingService.makeUpvoteForPost(post)
         .then((response) => {
           this.getPosts(this.$route.params.denName);
@@ -163,8 +177,13 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+
+      }
     },
     downVote(post) {
+      if(this.$store.state.user.userId != 0){
       VotingService.makeDownvoteForPost(post)
         .then((response) => {
           this.getPosts(this.$route.params.denName);
@@ -173,6 +192,10 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+
+      }
     },
   },
   created() {
@@ -208,14 +231,26 @@ export default {
 
 .upvoteIcon:hover {
   color: #A1C181;
+  animation-name: fa-shake;
+    animation-duration: var(--fa-animation-duration,1s);
+    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+    animation-timing-function: var(--fa-animation-timing,linear)
 }
 
 .downvoteIcon:hover {
   color: #FE7F2D;
+  animation-name: fa-shake;
+    animation-duration: var(--fa-animation-duration,1s);
+    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+    animation-timing-function: var(--fa-animation-timing,linear)
 }
 
 .fa-trash:hover{
   color: #FE7F2D;
+  animation-name: fa-shake;
+    animation-duration: var(--fa-animation-duration,1s);
+    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+    animation-timing-function: var(--fa-animation-timing,linear)
 }
 
 /* DOT */
@@ -279,12 +314,12 @@ body {
 }
 .delete {
   width: 80%;
-  margin: .5rem;
   margin-left: 59px;
   display: inline-block;
   word-wrap: break-word;
   justify-content: center;
   text-align: justify;
+
 
 }
 .comments {
@@ -319,8 +354,21 @@ h5{
 h6 {
   display: inline-block;
   width: 100%;
+  margin-bottom:0%;
   text-wrap: break-word;
 }
 
+#trashCanIcon{
+  display: flex;
+  justify-content: flex-start; 
+  padding-left: .5rem;
+  align-content: end;
+}
+
+#trashCanIcon{
+  display: inline-block;
+  align-content: center;
+  justify-content: center;
+}
 
 </style>
