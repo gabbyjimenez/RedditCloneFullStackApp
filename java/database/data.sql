@@ -51,7 +51,7 @@ VALUES('Hiking', 'Test Description', 1);
 
 
 INSERT INTO posts (post_title, post_desc, den_id, creator_id)
-VALUES('', 'Hello World 1', 1, 1);
+VALUES('Hello World', 'Hello World 1', 1, 1);
 
 INSERT INTO posts (post_title, post_desc, den_id, creator_id)
 VALUES('Playing Defense against CPU', 'Any tips for stopping the cpu on defense? They are dotting me up regardless of any defense I run. Offense is so much fun but getting shredded on defense by instant laser passes thrown perfectly is no fun at all. It is lame to sim the defense all the time but honestly it’s to that point right now unless I can find a way to get consistent stops without it just being dumb luck that I force a punt lol Thanks in advance got any tips!', 2, 1);

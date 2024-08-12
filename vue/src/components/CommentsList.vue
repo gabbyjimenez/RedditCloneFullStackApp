@@ -44,7 +44,7 @@
           <div class="comment-bottom bg-white p-2 px-4">
             <div class="commented-section mt-2">
               <div class="d-flex flex-row align-items-center commented-user">
-                <h5 class="mr-2">{{ comment.creatorName }}</h5>
+                <h5 class="mr-2 commentCreatorName">@{{ comment.creatorName }}</h5>
                 <span class="dot mb-1"></span
                 ><span class="mb-1 ml-2">4 hours ago</span>
               </div>
@@ -342,6 +342,11 @@ body {
   padding: 8px;
   border-radius: 4px;
   line-height: 3px;
+}
+
+.commentCreatorName{
+  text-decoration: underline;
+  font-weight: bold;
 }
 
 .comments {
