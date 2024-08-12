@@ -1,19 +1,21 @@
 <template>
   <div>
     <p
-            class="mr-2 comments"
-            id="commentsButton"
-            v-on:click.prevent="commentOPen = !commentOPen"
-          >
-            Comments
-          </p>
+      class="mr-2 comments"
+      id="commentsButton"
+      v-on:click.prevent="commentOPen = !commentOPen"
+    >
+      Comments
+    </p>
     <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
-      
-
       <div class="main-container">
-        
-        <div class="d-flex flex-row add-comment-section mt-4 mb-4"><img class="img-fluid img-responsive rounded-circle mr-2" src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="38"> 
-          
+        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+          <img
+            class="img-fluid img-responsive rounded-circle mr-2"
+            src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
+            width="38"
+          />
+
           <input
             id="newComment"
             name="newComment"
@@ -21,59 +23,54 @@
             type="text"
             class="form-control mr-3"
             placeholder="Add comment"
-            
           />
-          <button type="button" class="btn btn-primary" v-on:click.prevent="addComment(newComment)">Comment</button>
+          <button
+            type="button"
+            class="btn btn-primary"
+            v-on:click.prevent="addComment(newComment)"
+          >
+            Comment
+          </button>
         </div>
-       
 
         <div
           id="commentContainer"
           class="comment"
           v-for="comment in comments"
           :key="comment.postId"
-          
         >
-         <!-- TEMPLATE START -->
+          <!-- TEMPLATE START -->
 
-         <div class="comment-bottom bg-white p-2 px-4">
-                    
-                    <div
-                        class="commented-section mt-2">
-                        <div class="d-flex flex-row align-items-center commented-user">
-                            <h5 class="mr-2">{{comment.creatorName}}</h5><span class="dot mb-1"></span><span class="mb-1 ml-2">4 hours ago</span></div>
-                        <div class="comment-text-sm"><span>{{comment.responseDesc}}</span></div>
-                        <div
-                            class="reply-section">
-                            <div class="d-flex flex-row align-items-center voting-icons"><i class="fa fa-sort-up fa-2x mt-3 hit-voting"></i><i class="fa fa-sort-down fa-2x mb-3 hit-voting"></i><span class="ml-2">10</span><span class="dot ml-2"></span>
-                            </div>
-                        </div>
-                    </div>
-                    
+          <div class="comment-bottom bg-white p-2 px-4">
+            <div class="commented-section mt-2">
+              <div class="d-flex flex-row align-items-center commented-user">
+                <h5 class="mr-2">{{ comment.creatorName }}</h5>
+                <span class="dot mb-1"></span
+                ><span class="mb-1 ml-2">4 hours ago</span>
+              </div>
+              <div class="comment-text-sm">
+                <span>{{ comment.responseDesc }}</span>
+              </div>
+              <div class="reply-section">
+                <div class="d-flex flex-row align-items-center voting-icons">
+                  <i
+                    class="fa fa-sort-up fa-2x upvoteIcon"
+                    v-on:click.prevent="upVote(comment)"
+                  ></i
+                  ><i
+                    class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
+                    v-on:click.prevent="downVote(comment)"
+                  ></i
+                  ><span class="dot ml-2"></span><span class="ml-2">{{comment.upvotes - comment.downvotes}}</span>
+                </div>
+              </div>
+            </div>
 
+            <!-- TEMPLATE END -->
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-      <!-- TEMPLATE END -->
-    
-      
-      <!-- OLD CODE -->
-        <!-- comment userName and Timestamp -->
-          <!-- <div class="commented-section mt-2">
+            <!-- OLD CODE -->
+            <!-- comment userName and Timestamp -->
+            <!-- <div class="commented-section mt-2">
             <div class="d-flex flex-row align-items-center commented-user">
               <h5 class="mr-2">{{ comment.creatorName }}</h5>
               <span class="dot mb-1"></span>
@@ -111,10 +108,10 @@
               </div>
             </div>
           </div> -->
+          </div>
         </div>
       </div>
     </div>
-  </div>
   </div>
 </template>
 
@@ -326,9 +323,6 @@ export default {
   cursor: pointer;
 } */
 
-
-
-
 /* General styles */
 body {
   background-color: #eee;
@@ -336,7 +330,7 @@ body {
   justify-content: center;
 }
 
-.add-comment-section{
+.add-comment-section {
   margin-top: 0%;
 }
 
@@ -357,13 +351,36 @@ body {
   justify-content: center;
 }
 
-#postBody > div:nth-child(2), #postBody > div:nth-child(2) > div, #postBody > div:nth-child(2) > div > div.main-container {
-  
+#postBody > div:nth-child(2),
+#postBody > div:nth-child(2) > div,
+#postBody > div:nth-child(2) > div > div.main-container {
   justify-content: center;
   align-items: center;
 }
 
+.upvoteIcon:hover {
+  color: #a1c181;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
 
+.downvoteIcon:hover {
+  color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-trash:hover {
+  color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
 
 /* .comment-bottom, .add-comment-section, .main-container, #commentContainer{
   display:flex;
@@ -373,21 +390,21 @@ body {
   align-content: center;
 } */
 .dot {
-  height: .5rem;
-  width: .5rem;
-  margin: .5rem;
+  height: 0.5rem;
+  width: 0.5rem;
+  margin: 0.5rem;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
   align-self: center;
 }
 
-#commentContainer > div > div{
+#commentContainer > div > div {
   align-content: center;
 }
 
-#commentContainer > div{
-  width:80%;
+#commentContainer > div {
+  width: 80%;
   justify-self: center;
 }
 .hit-voting:hover {
@@ -397,10 +414,9 @@ body {
 .hit-voting {
   cursor: pointer;
 }
-#commentContainer{
-  width:100%;
+#commentContainer {
+  width: 100%;
   border-top: solid blueviolet 1px;
-  
 }
 .image-button {
   background: none; /* Remove default button background */
@@ -427,11 +443,11 @@ body {
 }
 
 .upvoteIcon:hover {
-  color: #A1C181;
+  color: #a1c181;
 }
 
 .downvoteIcon:hover {
-  color: #FE7F2D;
+  color: #fe7f2d;
 }
 
 /* DOT */
@@ -452,19 +468,16 @@ body {
   color: blue;
 } */
 
-.votings{
-  padding: .5rem;
-
+.votings {
+  padding: 0.5rem;
 }
 
-.username{
+.username {
   display: flex;
   text-align: bottom;
-  padding-left: .5rem;
+  padding-left: 0.5rem;
   margin-bottom: 8px;
   vertical-align: bottom;
-  
-  
 }
 
 img {
@@ -496,13 +509,12 @@ body {
 }
 .delete {
   width: 80%;
-  margin: .5rem;
+  margin: 0.5rem;
   margin-left: 59px;
   display: inline-block;
   word-wrap: break-word;
   justify-content: center;
   text-align: justify;
-
 }
 .comments {
   text-decoration: underline;
@@ -516,11 +528,11 @@ body {
   align-items: center;
 }
 
-.second-container{
-  border-top: solid #619B8A 1px;
+.second-container {
+  border-top: solid #619b8a 1px;
 }
 
-#searchPost{
+#searchPost {
   padding-bottom: 1rem;
 }
 

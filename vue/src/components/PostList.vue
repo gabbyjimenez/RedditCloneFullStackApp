@@ -328,9 +328,7 @@ body {
   cursor: pointer;
 }
 
-.fa-shake{
-  
-}
+
 .comments-list {
   display: flex;
   flex-flow: column;
@@ -354,7 +352,7 @@ h5{
 h6 {
   display: inline-block;
   width: 100%;
-  margin-bottom:0%;
+  padding-bottom: 1rem;
   text-wrap: break-word;
 }
 
