@@ -13,7 +13,7 @@ import java.security.Principal;
 
 
 @Component
-public class VotingService implements IVotingService{
+public class VotingService implements IVotingService {
 
     @Autowired
     private JdbcResponseVotingDao jdbcResponseVotingDao;
@@ -23,7 +23,7 @@ public class VotingService implements IVotingService{
 
     private final JdbcTemplate jdbcTemplate;
 
-    public VotingService(JdbcTemplate jdbcTemplate){
+    public VotingService(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
@@ -44,12 +44,12 @@ public class VotingService implements IVotingService{
 
         //Rework for return types
         VotingDto votingDto = jdbcResponseVotingDao.getVotingDtoForValidation(responseDto, principal);
-        if(votingDto.getResponseUserId() == 0){
+        if (votingDto.getResponseUserId() == 0) {
             //If this hits, no entry for comment.
             ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementUpvote(responseDto, principal);
             return votingDto;
 
-        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true){
+        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true) {
             //If entry exists and matches responseId, delete entry from database
             ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementUpvote(responseDto, principal);
             return votingDto;
@@ -68,13 +68,13 @@ public class VotingService implements IVotingService{
 
         //Rework for return types
         VotingDto votingDto = jdbcResponseVotingDao.getVotingDtoForValidation(responseDto, principal);
-        if(votingDto.getResponseUserId() == 0){
+        if (votingDto.getResponseUserId() == 0) {
             //If this hits, no entry for comment.
             ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementDownvote(responseDto, principal);
             return votingDto;
 
         } else if ((votingDto.getObjectId() == responseDto.getResponseId()) &&
-                votingDto.isVoteStatus() == false){
+                votingDto.isVoteStatus() == false) {
             //If entry exists and matches responseId, delete entry from database
             ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementDownvote(responseDto, principal);
             return votingDto;
@@ -95,62 +95,34 @@ public class VotingService implements IVotingService{
 
     }
 
-    public VotingDto addUpvoteForPost(PostDto postDto, Principal principal){
+
+
+    public VotingDto addVoteForPost(PostDto postDto, Principal principal, boolean isUpvote){
 
         VotingDto votingDto = jdbcPostVotingDao.getVotingDtoForValidation(postDto, principal);
+        // Case 1: User has not voted yet & has clicked the downvote button
+        if(votingDto.getResponseUserId() == 0 && isUpvote == false){
+            jdbcPostVotingDao.addEntryAndIncrementVote(postDto, principal, false);
+            // Case 2: User has not voted yet & has clicked the upvote button
+        } if(votingDto.getResponseUserId() == 0 && isUpvote == true){
+            jdbcPostVotingDao.addEntryAndIncrementVote(postDto, principal, true);
+            //Case 3: User has previously downvoted & has clicked the downvote button again
+        } else if  ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == false && isUpvote == false){
+            jdbcPostVotingDao.deleteEntryAndDecrement(postDto, principal,1, false,false,false);
+            // Case 4: User has previously upvoted & has clicked the downvote button
+        } else if  ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == true && isUpvote == false) {
+            jdbcPostVotingDao.deleteEntryAndDecrement(postDto, principal,1, true,true,false);
+            // Case 5: User has previously upvoted & has clicked the upvote button again
+        } else if ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == true && isUpvote == true){
+            jdbcPostVotingDao.deleteEntryAndDecrement(postDto, principal,1, true,false,false);
+            // Case 6: User has previously downvoted & has clicked the upvote button
+        } else if ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == false && isUpvote == true) {
+            jdbcPostVotingDao.deleteEntryAndDecrement(postDto, principal,1, false,false,true);
 
-        if(votingDto.getResponseUserId() == 0){
-            jdbcPostVotingDao.addEntryAndIncrementUpvote(postDto, principal);
-            return votingDto;
-        } else if ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == true){
-            jdbcPostVotingDao.deleteEntryAndDecrementUpvote(postDto, principal);
-            return votingDto;
-        }
-
-        return votingDto;
-//        VotingDto votingDto = jdbcResponseVotingDao.getVotingDtoForValidation(responseDto, principal);
-//        if(votingDto.getResponseUserId() == 0){
-//            //If this hits, no entry for comment.
-//            ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementUpvote(responseDto, principal);
-//            return votingDto;
-//
-//        } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == true){
-//            //If entry exists and matches responseId, delete entry from database
-//            ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementUpvote(responseDto, principal);
-//            return votingDto;
-//
-//
-//        }
-//        return votingDto;
-    }
-
-    public VotingDto addDownvoteForPost(PostDto postDto, Principal principal){
-
-        VotingDto votingDto = jdbcPostVotingDao.getVotingDtoForValidation(postDto, principal);
-
-        if(votingDto.getResponseUserId() == 0){
-            jdbcPostVotingDao.addEntryAndIncrementDownvote(postDto, principal);
-            return votingDto;
-        } else if  ((votingDto.getObjectId() == postDto.getPostId()) && votingDto.isVoteStatus() == false){
-            jdbcPostVotingDao.deleteEntryAndDecrementDownvote(postDto, principal);
-            return votingDto;
         }
 
         return votingDto;
     }
-//    VotingDto votingDto = jdbcResponseVotingDao.getVotingDtoForValidation(responseDto, principal);
-//        if(votingDto.getResponseUserId() == 0){
-//        //If this hits, no entry for comment.
-//        ResponseDto newResponseDto = jdbcResponseVotingDao.addEntryAndIncrementDownvote(responseDto, principal);
-//        return votingDto;
-//
-//    } else if ((votingDto.getObjectId() == responseDto.getResponseId()) && votingDto.isVoteStatus() == false){
-//        //If entry exists and matches responseId, delete entry from database
-//        ResponseDto newResponseDto = jdbcResponseVotingDao.deleteEntryAndDecrementDownvote(responseDto, principal);
-//        return votingDto;
-//
-//
-//    }
-//        return votingDto;
+
 
 }
