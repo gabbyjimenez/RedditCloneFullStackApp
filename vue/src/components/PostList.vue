@@ -58,12 +58,12 @@
              
               
             </div>
-            <button
+            <i
                   v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)"
+                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" v-on:mouseenter="isHovering = true" v-on:mouseleave="isHovering = false" 
+                  v-bind:class="{'fa-shake': isHovering}"
                 >
-                  Delete
-                </button>
+          </i>
           </div>
           <div class="delete" id="postDesc">
                
@@ -71,22 +71,18 @@
               
                 
               </div>
-          <p
-            class="mr-2 comments"
-            id="commentsButton"
-            v-on:click.prevent="commentOPen = !commentOPen"
-          >
-            Comments
-          </p>
+          
+          <comments-list
+        v-bind:post="post"
+        class="comments-list"
+        
+      />
         </div>
+
       </div>
 
       <!-- TEMPLATE END -->
-      <comments-list
-        v-bind:post="post"
-        class="comments-list"
-        v-show="commentOPen"
-      />
+      
     </div>
   </div>
 </template>
@@ -102,7 +98,8 @@ export default {
   data() {
     return {
       searchFilter: "",
-      commentOPen: false,
+      isHovering: false,
+      
     };
   },
   computed: {
@@ -217,6 +214,10 @@ export default {
   color: #FE7F2D;
 }
 
+.fa-trash:hover{
+  color: #FE7F2D;
+}
+
 /* DOT */
 .dot {
   height: 0.5rem;
@@ -244,7 +245,6 @@ export default {
   display: flex;
   text-align: bottom;
   padding-left: .5rem;
-  margin-bottom: 8px;
   vertical-align: bottom;
   
   
@@ -292,6 +292,10 @@ body {
   text-underline-position: under;
   cursor: pointer;
 }
+
+.fa-shake{
+  
+}
 .comments-list {
   display: flex;
   flex-flow: column;
@@ -307,9 +311,16 @@ body {
   padding-bottom: 1rem;
 }
 
+h5{
+  margin-bottom:0%;
+  margin-top: 0%;
+}
+
 h6 {
   display: inline-block;
   width: 100%;
-  text-wrap: ;
+  text-wrap: break-word;
 }
+
+
 </style>
