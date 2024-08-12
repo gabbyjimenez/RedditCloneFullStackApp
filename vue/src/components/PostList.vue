@@ -167,6 +167,7 @@ export default {
         });
     },
     upVote(post) {
+      if(this.$store.state.user.userId != 0){
       VotingService.makeUpvoteForPost(post)
         .then((response) => {
           this.getPosts(this.$route.params.denName);
@@ -176,8 +177,13 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+
+      }
     },
     downVote(post) {
+      if(this.$store.state.user.userId != 0){
       VotingService.makeDownvoteForPost(post)
         .then((response) => {
           this.getPosts(this.$route.params.denName);
@@ -186,6 +192,10 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+
+      }
     },
   },
   created() {
