@@ -28,8 +28,10 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i class="fa-solid fa-flag" v-bind:style="{ color: post.isPinned ? 'red' : 'initial' }" v-on:click="pinToggle(post)">
-                </i>
+                <i class="fa-solid fa-flag" 
+   :style="{ color: post.isPinned ? 'red' : 'initial' }" 
+   @click="pinToggle(post)">
+</i>
 
               </div>
 
