@@ -8,27 +8,11 @@ import java.security.Principal;
 
 public interface PostVotingDao {
 
-    //ADD UPVOTE TO RESPONSE
-        //Put into responses table where responseId = x --> increment upvote by 1
-            //Decrement downvote in responses table by 1 ONLY IF join table value already exists as false
-        //Insert into Join table with responseId and UserId
-            //If no Value exists, insert as true
-            //If value exists, change to true
+   PostDto addEntryAndIncrementVote(PostDto postDto, Principal principal, boolean isUpvote);
 
-   PostDto addEntryAndIncrementUpvote(PostDto postDto, Principal principal);
-
-   PostDto deleteEntryAndDecrementUpvote(PostDto postDto, Principal principal);
+   PostDto deleteEntryAndDecrement(PostDto postDto, Principal principal, int decrementCount, boolean decrementUpvote, boolean upvoteActive, boolean downvoteActive);
 
    VotingDto getVotingDtoForValidation (PostDto postDto, Principal principal);
-
-
-   PostDto addEntryAndIncrementDownvote(PostDto downvotedPost, Principal principal);
-
-   PostDto deleteEntryAndDecrementDownvote(PostDto postDto, Principal principal);
-
-
-
-
 
 
 

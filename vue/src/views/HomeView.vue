@@ -5,7 +5,6 @@
     <AddDenForm/>
     <DenDetails />
     </div>
-    <p>You must be authenticated to see this</p>
   </div>
 </template>
 
@@ -42,6 +41,7 @@ export default {
   },
   created() {
     this.getDens();
+    console.log(this.$store.state.user)
   }
 }
 </script>

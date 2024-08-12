@@ -21,20 +21,33 @@ public class JdbcPostVotingDao implements PostVotingDao {
         this.jdbcTemplate = jdbcTemplate;
     }
 
-    @Override
-    public PostDto addEntryAndIncrementUpvote(PostDto postDto, Principal principal) {
 
+    @Override
+    public PostDto addEntryAndIncrementVote(PostDto postDto, Principal principal, boolean isUpvote) {
+        // Case 1 & Case 2: User has not voted yet
+        String sqlAddToJoin = "";
+        String sqlIncrementResponseUpvote = "";
+        if(isUpvote){
+
+            sqlAddToJoin = "INSERT INTO post_user_vote (toggle_status, post_id, user_id) " +
+                    "VALUES (true, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING post_user_vote_id;";
+            sqlIncrementResponseUpvote = "UPDATE posts " +
+                    "SET upvotes = upvotes +1 " +
+                    "WHERE post_id = ?;";
+        } else{
+            sqlAddToJoin = "INSERT INTO post_user_vote (toggle_status, post_id, user_id) " +
+                    "VALUES (false, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING post_user_vote_id;";
+            sqlIncrementResponseUpvote = "UPDATE posts " +
+                    "SET downvotes = downvotes +1 " +
+                    "WHERE post_id = ?;";
+        }
         //RAW ADD NO VALIDATION
-        String sqlAddToJoin = "INSERT INTO post_user_vote (toggle_status, post_id, user_id) " +
-                "VALUES (true, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING post_user_vote_id;";
-        String sqlIncrementResponseUpvote = "UPDATE posts " +
-                "SET upvotes = upvotes+1 " +
-                "WHERE post_id = ?;";
+
         try{
             //Insert new entry into the join with a value of TRUE
-           int newJoinId = jdbcTemplate.queryForObject(sqlAddToJoin, int.class, postDto.getPostId(), principal.getName());
-           //Increment upvotes by 1
-           jdbcTemplate.update(sqlIncrementResponseUpvote, postDto.getPostId());
+            int newJoinId = jdbcTemplate.queryForObject(sqlAddToJoin, int.class, postDto.getPostId(), principal.getName());
+            //Increment upvotes by 1
+            jdbcTemplate.update(sqlIncrementResponseUpvote, postDto.getPostId());
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -44,17 +57,33 @@ public class JdbcPostVotingDao implements PostVotingDao {
     }
 
     @Override
-    public PostDto deleteEntryAndDecrementUpvote(PostDto postDto, Principal principal) {
-        String sqlDeleteFromJoin= "DELETE FROM post_user_vote \n" +
+    public PostDto deleteEntryAndDecrement(PostDto postDto, Principal principal, int decrementCount, boolean decrementUpvote, boolean upvoteActive, boolean downvoteActive) {
+        //Case 3-6: User has previously voted
+        String sqlDeleteFromJoin= "DELETE FROM post_user_vote " +
                 "WHERE post_id = ? AND user_id = (SELECT user_id FROM users WHERE username = ?);";
-        String sqlDecrementPostUpvote = "UPDATE posts " +
-                "SET upvotes = upvotes-1 " +
-                "WHERE post_id = ?;";
+        String sqlDecrementPostUpvote="";
+
+        if(decrementUpvote){
+            sqlDecrementPostUpvote = "UPDATE posts " +
+                    "SET upvotes = upvotes - 1 " +
+                    "WHERE post_id = ?;";
+        }else{
+            sqlDecrementPostUpvote = "UPDATE posts " +
+                    "SET downvotes = downvotes - 1 " +
+                    "WHERE post_id = ?;";
+        }
+
         try{
             //Insert new entry into the join with a value of TRUE
-             jdbcTemplate.update(sqlDeleteFromJoin, postDto.getPostId(), principal.getName());
+            jdbcTemplate.update(sqlDeleteFromJoin, postDto.getPostId(), principal.getName());
             //decrement upvotes by 1
             jdbcTemplate.update(sqlDecrementPostUpvote, postDto.getPostId());
+            if (upvoteActive){
+                addEntryAndIncrementVote(postDto, principal, false);
+            }
+            if(downvoteActive){
+                addEntryAndIncrementVote(postDto, principal, true);
+            }
         } catch (CannotGetJdbcConnectionException e) {
             throw new DaoException("Unable to connect to server or database", e);
         } catch (DataIntegrityViolationException e) {
@@ -65,7 +94,7 @@ public class JdbcPostVotingDao implements PostVotingDao {
 
     //Gets voting DTO for validaiton in service class
     public VotingDto getVotingDtoForValidation (PostDto postDto, Principal principal){
-            VotingDto votingDto = new VotingDto();
+        VotingDto votingDto = new VotingDto();
 
         String sql = "SELECT post_user_vote_id, toggle_status, post_id, user_id " +
                 "FROM post_user_vote " +
@@ -86,49 +115,6 @@ public class JdbcPostVotingDao implements PostVotingDao {
     }
 
 
-    @Override
-    public PostDto addEntryAndIncrementDownvote(PostDto downvotedPost, Principal principal) {
-
-        //RAW ADD NO VALIDATION
-        String sqlAddToJoin = "INSERT INTO post_user_vote (toggle_status, post_id, user_id) " +
-                "VALUES (false, ?, (SELECT user_id FROM users WHERE username = ?)) RETURNING post_user_vote_id;";
-        String sqlIncrementPostUpvote = "UPDATE posts " +
-                "SET downvotes = downvotes+1 " +
-                "WHERE post_id = ?;";
-        try{
-            //Insert new entry into the join with a value of FALSE
-            int newJoinId = jdbcTemplate.queryForObject(sqlAddToJoin, int.class, downvotedPost.getPostId(), principal.getName());
-            //Increment downvotes by 1
-            jdbcTemplate.update(sqlIncrementPostUpvote, downvotedPost.getPostId());
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-        return downvotedPost;
-    }
-
-    @Override
-    public PostDto deleteEntryAndDecrementDownvote(PostDto postDto, Principal principal) {
-        String sqlDeleteFromJoin = "DELETE FROM post_user_vote \n" +
-                "WHERE post_id = ? AND user_id = (SELECT user_id FROM users WHERE username = ?);";
-        String sqlDecrementPostUpvote = "UPDATE posts " +
-                "SET downvotes = downvotes-1 " +
-                "WHERE post_id = ?;";
-        try {
-            //Delete entry
-            jdbcTemplate.update(sqlDeleteFromJoin, postDto.getPostId(), principal.getName());
-            //decrement downvotes by 1
-            jdbcTemplate.update(sqlDecrementPostUpvote, postDto.getPostId());
-        } catch (CannotGetJdbcConnectionException e) {
-            throw new DaoException("Unable to connect to server or database", e);
-        } catch (DataIntegrityViolationException e) {
-            throw new DaoException("Data integrity violation", e);
-        }
-        return postDto;
-
-    }
-    
 
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
 
@@ -142,6 +128,8 @@ public class JdbcPostVotingDao implements PostVotingDao {
         return votingDto;
 
     }
+
+
 
 
 }
