@@ -67,7 +67,7 @@ export default {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI';
 }
 
 #header {
