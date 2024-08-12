@@ -4,10 +4,10 @@
     <router-link v-bind:to="{ name: 'home' }"><img
         src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723319000/foxtrot_logov1_spsifm.svg" /></router-link>
  </div>
-  
+<!--   
     
     <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
-    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link>
+    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link> -->
 
 
     <div id="favLog">

@@ -1,7 +1,13 @@
 <template>
   <div>
-    
-    <div class="comment-bottom bg-white p-2 px-4">
+    <p
+            class="mr-2 comments"
+            id="commentsButton"
+            v-on:click.prevent="commentOPen = !commentOPen"
+          >
+            Comments
+          </p>
+    <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
       
 
       <div class="main-container">
@@ -26,6 +32,7 @@
           class="comment"
           v-for="comment in comments"
           :key="comment.postId"
+          
         >
          <!-- TEMPLATE START -->
 
@@ -358,31 +365,13 @@ body {
 
 
 
-.arrow-button {
-  background: none;
-  border: none;
-  font-size: 28px;
-  cursor: pointer;
-  color: #007bff; /* Adjust color as needed */
-  padding: 5px;
-}
-
-.arrow-button:hover {
-  color: #0056b3; /* Adjust hover color as needed */
-}
-
-.comments {
-  text-decoration: underline;
-  text-underline-position: under;
-  cursor: pointer;
-}
-.comment-bottom, .add-comment-section, .main-container, #commentContainer{
+/* .comment-bottom, .add-comment-section, .main-container, #commentContainer{
   display:flex;
   flex-flow: column;
   width:70%;
   justify-content: center;
   align-content: center;
-}
+} */
 .dot {
   height: .5rem;
   width: .5rem;
@@ -411,7 +400,134 @@ body {
 #commentContainer{
   width:100%;
   border-top: solid blueviolet 1px;
-  border-bottom: solid blueviolet 1px;
+  
+}
+.image-button {
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  padding: 0; /* Remove default button padding */
+  margin: 0; /* Remove default button margin */
+  cursor: pointer; /* Change cursor to pointer */
+  display: inline-flex; /* Make sure buttons are inline with other content */
+}
+
+/* Ensure images inside buttons fit well */
+.image-button img {
+  display: block; /* Remove extra space below image */
+  width: 1rem; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Additional styles for button container */
+.button-container {
+  display: flex;
+  flex-flow: row;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+.upvoteIcon:hover {
+  color: #A1C181;
+}
+
+.downvoteIcon:hover {
+  color: #FE7F2D;
+}
+
+/* DOT */
+.dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  margin: 0.5rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hit-voting {
+  cursor: pointer;
+}
+
+/* .hit-voting:hover {
+  color: blue;
+} */
+
+.votings{
+  padding: .5rem;
+
+}
+
+.username{
+  display: flex;
+  text-align: bottom;
+  padding-left: .5rem;
+  margin-bottom: 8px;
+  vertical-align: bottom;
+  
+  
+}
+
+img {
+  justify-content: flex-start;
+}
+
+/* #postDesc {
+  margin: .5%;
+  display: inline-block;
+  
+  word-wrap: break-word;
+  justify-content: center;
+
+} */
+
+body {
+  background-color: #eee;
+  display: flex;
+}
+
+.bdge {
+  height: 21px;
+  background-color: orange;
+  color: #fff;
+  font-size: 11px;
+  padding: 8px;
+  border-radius: 4px;
+  line-height: 3px;
+}
+.delete {
+  width: 80%;
+  margin: .5rem;
+  margin-left: 59px;
+  display: inline-block;
+  word-wrap: break-word;
+  justify-content: center;
+  text-align: justify;
+
+}
+.comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
+.comments-list {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.second-container{
+  border-top: solid #619B8A 1px;
+}
+
+#searchPost{
+  padding-bottom: 1rem;
+}
+
+h6 {
+  display: inline-block;
+  width: 100%;
+  /* text-wrap: wrap; */
 }
 
 /* Your other existing styles */

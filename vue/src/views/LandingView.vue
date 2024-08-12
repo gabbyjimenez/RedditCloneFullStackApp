@@ -1,18 +1,6 @@
 <template>
     <div id="page">
         <Header id="header"></Header>
-        <div id="panelMain">
-            <img id="image" class="card-img"
-                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Card image">
-            <div id="denLink" class="card-img-overlay">
-                <p class="text-white">Product description</p>
-                <h3  class="card-title"><router-link v-bind:to="{ name: 'dens' }"><button type="button" class="btn btn-primary">Get Started</button></router-link></h3>
-                <h15 id="loginText" class="card-title" ><router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | Don't have a account? sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!</h15>    
-            </div> 
-        </div>
-
-
-        <div id="infoPanels">
 
         <!-- Main panel -->
         <div id="mainPanel">
@@ -32,6 +20,7 @@
                     Don't have an account? <router-link v-bind:to="{ name: 'register' }">Sign up here!</router-link>
                 </p>
             </div>
+        </div>
 
         <!-- Content Section -->
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
@@ -52,23 +41,12 @@
           />
         </div>
 
-            <!-- Right Panel -->
-            <div id="panelRight" class="card bg-dark text-white">
-                <img id="image" class="card-img"
-                    src="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Purpose</h5>
-                </div>
-            </div>
-        </div>
+        <!-- Footer -->
         <Footer id="footer"></Footer>
-
-    </div>
     </div>
 </template>
 
 <script>
-
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
 import BenefitsCard from '../components/BenefitsCard.vue';
@@ -79,10 +57,11 @@ export default {
         Footer,
         BenefitsCard
     }
-
 }
 </script>
+
 <style scoped>
+/* Ensure full viewport height and flexible layout */
 #page {
     display: flex;
     flex-direction: column;
@@ -91,6 +70,9 @@ export default {
     font-family: 'Arial', sans-serif;
 }
 
+#header {
+    flex-shrink: 0; /* Ensure the header doesn't shrink */
+}
 
 #mainPanel {
     position: relative;
@@ -105,11 +87,14 @@ export default {
     filter: brightness(70%);
 }
 
-#infoPanels {
+#overlayContainer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
     display: flex;
-    flex-direction: row;
-    height: 30%;
-    flex-grow: 1;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
@@ -194,9 +179,7 @@ button {
     text-align: center;
 }
 
-#panelRight {
-    display: flex;
-    flex-grow: 1;
-
+#footer p {
+    margin: 0;
 }
 </style>

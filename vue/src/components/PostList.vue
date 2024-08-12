@@ -71,22 +71,18 @@
               
                 
               </div>
-          <p
-            class="mr-2 comments"
-            id="commentsButton"
-            v-on:click.prevent="commentOPen = !commentOPen"
-          >
-            Comments
-          </p>
+          
+          <comments-list
+        v-bind:post="post"
+        class="comments-list"
+        
+      />
         </div>
+
       </div>
 
       <!-- TEMPLATE END -->
-      <comments-list
-        v-bind:post="post"
-        class="comments-list"
-        v-show="commentOPen"
-      />
+      
     </div>
   </div>
 </template>
@@ -102,7 +98,7 @@ export default {
   data() {
     return {
       searchFilter: "",
-      commentOPen: false,
+      
     };
   },
   computed: {
@@ -244,7 +240,6 @@ export default {
   display: flex;
   text-align: bottom;
   padding-left: .5rem;
-  margin-bottom: 8px;
   vertical-align: bottom;
   
   
@@ -307,9 +302,29 @@ body {
   padding-bottom: 1rem;
 }
 
+h5{
+  margin-bottom:0%;
+}
+
 h6 {
   display: inline-block;
   width: 100%;
-  /* text-wrap:balance; */
+  text-wrap: break-word;
 }
+
+#postBody > div > div > div.d-flex.flex-row.align-items-center.text-left.comment-top.p-2.bg-white.px-4{
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+#postBody > div > div > div.d-flex.flex-row.align-items-center.text-left.comment-top.p-2.bg-white.px-4 > div.d-flex.flex-column.ml-3{
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+
+
+
+
+
 </style>
