@@ -28,10 +28,9 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i class="fa-solid fa-flag" 
-   :style="{ color: post.isPinned ? 'red' : 'initial' }" 
-   @click="pinToggle(post)">
-</i>
+                <i class="fa-solid fa-flag" :style="{ color: post.isPinned ? 'red' : 'initial' }"
+                  @click="pinToggle(post)">
+                </i>
 
               </div>
 
@@ -174,8 +173,8 @@ export default {
 
       }
     },
-    pinToggle(post){
-      PinningService.pinToggle(post).then((response) =>{
+    pinToggle(post) {
+      PinningService.pinToggle(post).then((response) => {
         this.getPosts(this.$route.params.denName);
         console.log(response.data)
       });

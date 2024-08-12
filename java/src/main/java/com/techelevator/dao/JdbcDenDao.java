@@ -81,7 +81,8 @@ public class JdbcDenDao implements DenDao {
         String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id, upvotes, downvotes, pinned FROM posts " +
                 "JOIN users ON posts.creator_id = users.user_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
-                "WHERE dens.den_name ILIKE ?";
+                "WHERE dens.den_name ILIKE ?" +
+                "ORDER BY pinned DESC";
 
 
         try{
