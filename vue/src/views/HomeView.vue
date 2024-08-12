@@ -5,7 +5,6 @@
     <AddDenForm/>
     <DenDetails />
     </div>
-    <p>You must be authenticated to see this</p>
   </div>
 </template>
 

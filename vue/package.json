@@ -10,6 +10,7 @@
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore src"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^6.6.0",
     "axios": "^1.6",
     "bootstrap": "^5.3.3",
     "jquery": "^3.7.1",
