@@ -298,6 +298,32 @@ public class JdbcDenDao implements DenDao {
 
     }
 
+    @Override
+    public ResponseDto pinResponse(ResponseDto responseToPin) {
+        String sql = "";
+
+        if (responseToPin.isPinned() == true){
+            sql = "UPDATE responses " +
+                    "SET pinned = false " +
+                    "WHERE response_id = ?";
+        } else {
+            sql = "UPDATE response " +
+                    "SET pinned = true " +
+                    "WHERE response_id = ?";
+        }
+
+        try{
+            jdbcTemplate.update(sql, responseToPin.getResponseId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return responseToPin;
+
+    }
+
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
         ResponseDto response = new ResponseDto();
         response.setResponseId(rowSet.getInt("response_id"));
