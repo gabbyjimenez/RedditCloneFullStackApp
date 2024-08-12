@@ -1,8 +1,7 @@
 <template>
 
-<div id="page">
   <div id="searchBar">
-      <input type="search" class="form-control rounded" placeholder="Search dens or catagories" aria-label="Search"
+      <input type="search" class="form-control rounded" placeholder="Search dens or catagories" Segoe-label="Search"
          v-model="searchFilter" />
   </div>
 
@@ -26,7 +25,6 @@
 
   
   </li>
-</div>
 
 </template>
   

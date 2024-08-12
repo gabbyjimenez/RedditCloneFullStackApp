@@ -16,7 +16,7 @@
       </router-link> -->
 
 <!-- modal test -->
-<p v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link" data-toggle="modal" data-target="#exampleModal">
+<p v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link" data-toggle="modal" data-target="#logoutModal">
         Logout
 </p>
 
@@ -34,11 +34,11 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" Segoe-labelledby="exampleModalLabel" Segoe-hidden="true">
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" Segoe-labelledby="logoutModalLabel" Segoe-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Are you sure?</h5>
+        <h5 class="modal-title" id="logoutModalLabel">Are you sure?</h5>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" v-on:click="logout" data-dismiss="modal">Continue</button>
