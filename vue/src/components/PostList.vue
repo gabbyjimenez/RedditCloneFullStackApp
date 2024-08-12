@@ -34,11 +34,14 @@
             >
               <i
                 class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
+                v-on:mouseenter="upvoteHovering = true" v-on:mouseleave="upvoteHovering = false"
+                v-bind:class="{'fa-shake': upvoteHovering}"
                 v-on:click.prevent="upVote(post)"
               ></i
               ><span>{{ post.upvotes - post.downvotes }}</span>
               <i
                 class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
+                
                 v-on:click.prevent="downVote(post)"
               ></i>
             </div>
@@ -60,8 +63,7 @@
             </div>
             <i
                   v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" v-on:mouseenter="isHovering = true" v-on:mouseleave="isHovering = false" 
-                  v-bind:class="{'fa-shake': isHovering}"
+                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" 
                 >
           </i>
           </div>
@@ -98,7 +100,7 @@ export default {
   data() {
     return {
       searchFilter: "",
-      isHovering: false,
+      
       
     };
   },
@@ -208,14 +210,26 @@ export default {
 
 .upvoteIcon:hover {
   color: #A1C181;
+  animation-name: fa-shake;
+    animation-duration: var(--fa-animation-duration,1s);
+    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+    animation-timing-function: var(--fa-animation-timing,linear)
 }
 
 .downvoteIcon:hover {
   color: #FE7F2D;
+  animation-name: fa-shake;
+    animation-duration: var(--fa-animation-duration,1s);
+    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+    animation-timing-function: var(--fa-animation-timing,linear)
 }
 
 .fa-trash:hover{
   color: #FE7F2D;
+  animation-name: fa-shake;
+    animation-duration: var(--fa-animation-duration,1s);
+    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
+    animation-timing-function: var(--fa-animation-timing,linear)
 }
 
 /* DOT */
