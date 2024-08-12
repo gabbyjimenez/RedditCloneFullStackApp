@@ -6,40 +6,39 @@
         <div id="mainPanel">
             <img id="heroImage" src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Hero Image">
             <div id="overlayContainer" class="card-img-overlay">
-                <p class="text-white">Discover the amazing features of our app and how it can benefit you.</p>
-                <h3 class="card-title">
+                <h1 class="headline">Welcome to Our App</h1>
+                <p class="subtitle">Discover the amazing features and benefits we offer.</p>
+                <div class="action-buttons">
                     <router-link v-bind:to="{ name: 'dens' }">
                         <button type="button" class="btn btn-primary">Get Started</button>
                     </router-link>
-                </h3>
-                <h15 id="loginText">
-                    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login</router-link> | 
-                    Don't have an account? Sign up <router-link v-bind:to="{ name: 'register' }">here</router-link>!
-                </h15>
+                    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">
+                        <button type="button" class="btn btn-outline-light">Login</button>
+                    </router-link>
+                </div>
+                <p class="signup-text">
+                    Don't have an account? <router-link v-bind:to="{ name: 'register' }">Sign up here!</router-link>
+                </p>
             </div>
         </div>
 
-        <!-- Main content sections -->
-        <div id="content">
-            <section class="contentSection">
-                <h2>Features</h2>
-                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam in dolor vitae nulla laoreet interdum. Vivamus dapibus, purus vel convallis pharetra, elit felis efficitur quam, nec dictum urna dui eu neque.</p>
-            </section>
-
-            <section class="contentSection">
-                <h2>Benefits</h2>
-                <p>Praesent sit amet est non purus fringilla tincidunt. Integer tincidunt purus eu leo dictum, sed feugiat nunc dapibus. Donec non arcu a nulla blandit consectetur non et ligula.</p>
-            </section>
-
-            <section class="contentSection">
-                <h2>Purpose</h2>
-                <p>Cras ullamcorper magna sed tellus volutpat, at ultricies eros placerat. Sed id ex id velit accumsan consectetur. Fusce vel nulla ut sem suscipit condimentum.</p>
-            </section>
-
-            <section class="contentSection">
-                <h2>Our Team</h2>
-                <p>Meet our dedicated team of professionals who are committed to providing you with the best experience. Our team brings together a wealth of knowledge and expertise to deliver exceptional results.</p>
-            </section>
+        <!-- Content Section -->
+        <div id="content" class="w3-row-padding w3-center w3-margin-top">
+          <BenefitsCard 
+            title="Responsive Design"
+            icon="fa-light fa-network-wired"
+            :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']"
+          />
+          <BenefitsCard 
+            title="Fast Performance"
+            icon="fa-rocket"
+            :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']"
+          />
+          <BenefitsCard 
+            title="Secure"
+            icon="fa-lock"
+            :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']"
+          />
         </div>
 
         <!-- Footer -->
@@ -50,11 +49,13 @@
 <script>
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
+import BenefitsCard from '../components/BenefitsCard.vue';
 
 export default {
     components: {
         Header,
-        Footer
+        Footer,
+        BenefitsCard
     }
 }
 </script>
@@ -66,6 +67,7 @@ export default {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
+    font-family: 'Arial', sans-serif;
 }
 
 #header {
@@ -74,14 +76,15 @@ export default {
 
 #mainPanel {
     position: relative;
-    height: 25vh; /* Reduced height for the image */
+    height: 50vh;
     overflow: hidden;
 }
 
 #heroImage {
     width: 100%;
     height: 100%;
-    object-fit: cover; /* Ensure image covers the container */
+    object-fit: cover;
+    filter: brightness(70%);
 }
 
 #overlayContainer {
@@ -94,59 +97,89 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5); /* Semi-transparent overlay */
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
     color: white;
     text-align: center;
-    padding: 2rem; /* Responsive padding */
+    padding: 2rem;
+}
+
+.headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+}
+
+.action-buttons {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 1rem;
+}
+
+button {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline-light {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: #007bff;
+}
+
+.signup-text {
+    font-size: 0.9rem;
 }
 
 #content {
-    flex: 1; /* Allow content to expand and push footer to the bottom */
-    padding: 2rem; /* Responsive padding */
-    background-color: #f4f4f4;
+    flex: 1;
+    padding: 2rem;
+    background-color: #f9f9f9;
 }
 
 .contentSection {
-    margin-bottom: 2rem; /* Responsive margin */
+    margin-bottom: 3rem;
 }
 
 .contentSection h2 {
-    margin-bottom: 1rem; /* Responsive margin */
-    font-size: 1.5rem; /* Responsive font size */
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
 }
 
 .contentSection p {
-    font-size: 1rem; /* Responsive font size */
+    font-size: 1rem;
     line-height: 1.6;
 }
 
 #footer {
     background: #333;
     color: white;
-    padding: 1rem; /* Responsive padding */
+    padding: 1.5rem;
     text-align: center;
 }
 
 #footer p {
     margin: 0;
-}
-
-h15 {
-    color: red;
-    font-size: 0.8rem;
-    font-weight: bold;
-}
-
-button {
-    background-color: rgba(0, 0, 0, 0.7);
-    border: none;
-    color: white;
-    padding: 0.75rem 1.5rem; /* Responsive padding */
-    font-size: 1rem; /* Responsive font size */
-    cursor: pointer;
-}
-
-button:hover {
-    background-color: rgba(0, 0, 0, 0.9);
 }
 </style>
