@@ -2,16 +2,13 @@
   <header>
     <div  id="homeLink">
     <router-link v-bind:to="{ name: 'home' }"><img
-        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723319000/foxtrot_logov1_spsifm.svg" /></router-link>
+        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723470949/foxtrot_logo_fin_uqpezm.png" /></router-link>
  </div>
   
     
-    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
-    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link>
-
 
     <div id="favLog">
-      <router-link v-if="this.$store.state.user.username != ''" v-bind:to="{ name: 'logout' }" class="auth-link">
+      <router-link v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link">
         Logout
       </router-link>
       <router-link v-else v-bind:to="{ name: 'login' }" class="auth-link">
@@ -35,14 +32,14 @@ header {
   align-items: center;
   padding: 0 1rem;
   font-size: large;
-  background: linear-gradient(90deg, rgba(97, 155, 138,1) 5%, rgba(161, 193, 129,1) 41%, rgba(161, 193, 129,1) 67%, rgba(97, 155, 138,1) 100%, rgba(97, 155, 138,1) 100%);
+  background: linear-gradient(90deg, rgba(252,202,70,1) 0%, rgba(161,193,129,1) 16%, rgba(97,155,138,1) 100%);;
 }
 
 #homeLink {
   display: flex;
   align-items: center;
-  padding: 1%;
-  height: 1%;
+  
+  height: 5%;
 
 
 
@@ -80,5 +77,8 @@ img {
 
 .auth-link:active {
   background-color: rgba(255, 255, 255, 0.2);
+}
+#LoginLink{
+  color: white;
 }
 </style>
