@@ -14,23 +14,43 @@
 
         <div id="infoPanels">
 
-            <!-- Left Panel -->
-            <div id="panelLeft" class="card bg-dark text-white">
-                <img id="image" class="img"
-                    src="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Features</h5>
+        <!-- Main panel -->
+        <div id="mainPanel">
+            <img id="heroImage" src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Hero Image">
+            <div id="overlayContainer" class="card-img-overlay">
+                <h1 class="headline">Welcome to Our App</h1>
+                <p class="subtitle">Discover the amazing features and benefits we offer.</p>
+                <div class="action-buttons">
+                    <router-link v-bind:to="{ name: 'dens' }">
+                        <button type="button" class="btn btn-primary">Get Started</button>
+                    </router-link>
+                    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">
+                        <button type="button" class="btn btn-outline-light">Login</button>
+                    </router-link>
                 </div>
+                <p class="signup-text">
+                    Don't have an account? <router-link v-bind:to="{ name: 'register' }">Sign up here!</router-link>
+                </p>
             </div>
 
-            <!-- Center Panel -->
-            <div id="panelCenter" class="card bg-dark text-white">
-                <img id="image" class="card-img"
-                    src="...">
-                <div class="card-img-overlay">
-                    <h5 class="card-title">Benefits</h5>
-                </div>
-            </div>
+        <!-- Content Section -->
+        <div id="content" class="w3-row-padding w3-center w3-margin-top">
+          <BenefitsCard 
+            title="Responsive Design"
+            icon="fa-light fa-network-wired"
+            :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']"
+          />
+          <BenefitsCard 
+            title="Fast Performance"
+            icon="fa-rocket"
+            :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']"
+          />
+          <BenefitsCard 
+            title="Secure"
+            icon="fa-lock"
+            :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']"
+          />
+        </div>
 
             <!-- Right Panel -->
             <div id="panelRight" class="card bg-dark text-white">
@@ -44,17 +64,20 @@
         <Footer id="footer"></Footer>
 
     </div>
+    </div>
 </template>
 
 <script>
 
 import Header from '../components/Header.vue';
 import Footer from '../components/Footer.vue';
+import BenefitsCard from '../components/BenefitsCard.vue';
 
 export default {
     components: {
         Header,
-        Footer
+        Footer,
+        BenefitsCard
     }
 
 }
@@ -63,24 +86,23 @@ export default {
 #page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
-
-    /* Full viewport height */
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Arial', sans-serif;
 }
 
-#panelMain {
-    display: flex;
-    height: 50%;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
 
+#mainPanel {
+    position: relative;
+    height: 50vh;
+    overflow: hidden;
 }
 
-#denLink {
-    flex-direction: column;
-    margin: auto;
-    
+#heroImage {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(70%);
 }
 
 #infoPanels {
@@ -89,68 +111,92 @@ export default {
     height: 30%;
     flex-grow: 1;
     justify-content: center;
-
+    align-items: center;
+    background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+    color: white;
+    text-align: center;
+    padding: 2rem;
 }
 
-#image {
-    object-fit: fill;
-    height: 100%;
-
+.headline {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
 }
 
-.card-title {
-    align-content: center;
-    justify-content: center;
-
+.subtitle {
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
 }
 
-.card-img-overlay {
+.action-buttons {
     display: flex;
-    justify-content: center;
-
+    gap: 1rem;
+    margin-bottom: 1rem;
 }
 
-#panelLeft {
-    display: flex;
-    flex-grow: 1;
-
+button {
+    padding: 0.75rem 2rem;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
 }
 
-#panelCenter {
-    display: flex;
-    flex-grow: 1;
+.btn-primary {
+    background-color: #007bff;
+    border: none;
+    color: white;
+}
 
+.btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.btn-outline-light {
+    background-color: transparent;
+    border: 1px solid white;
+    color: white;
+}
+
+.btn-outline-light:hover {
+    background-color: white;
+    color: #007bff;
+}
+
+.signup-text {
+    font-size: 0.9rem;
+}
+
+#content {
+    flex: 1;
+    padding: 2rem;
+    background-color: #f9f9f9;
+}
+
+.contentSection {
+    margin-bottom: 3rem;
+}
+
+.contentSection h2 {
+    margin-bottom: 1rem;
+    font-size: 1.75rem;
+}
+
+.contentSection p {
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+#footer {
+    background: #333;
+    color: white;
+    padding: 1.5rem;
+    text-align: center;
 }
 
 #panelRight {
     display: flex;
     flex-grow: 1;
-
-}
-
-#footer {
-    height: 10%;
-    display: flex;
-    flex-direction: column;
-}
-h15 {
-color: red;
-font-size: 50%;
-font-weight: bold;
-
-
-}
-
-#panelA {
-    background-color: red;
-    flex-grow: 1
-}
-button {
-   background-color: rgba(0, 0, 0, 0.584);
-   border-color: rgba(240, 255, 250, 0);
-}
-p {
-    font-size: 300%;
 
 }
 </style>

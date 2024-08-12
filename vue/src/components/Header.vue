@@ -1,9 +1,14 @@
 <template>
   <header>
-    <router-link id="homeLink" v-bind:to="{ name: 'home' }">
-      <img src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722965836/foxbutton_j6yfhm.png" alt="Home" />
-      <span id="headerText">Foxtrot Communities</span>
-    </router-link>
+    <div  id="homeLink">
+    <router-link v-bind:to="{ name: 'home' }"><img
+        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723319000/foxtrot_logov1_spsifm.svg" /></router-link>
+ </div>
+  
+    
+    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
+    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link>
+
 
     <div id="favLog">
       <router-link v-if="this.$store.state.user.username != ''" v-bind:to="{ name: 'logout' }" class="auth-link">
@@ -36,8 +41,11 @@ header {
 #homeLink {
   display: flex;
   align-items: center;
-  gap: 1rem; /* Space between image and text */
-  text-decoration: none; /* Ensure the router-link itself has no underline */
+  padding: 1%;
+  height: 1%;
+
+
+
 }
 
 img {
