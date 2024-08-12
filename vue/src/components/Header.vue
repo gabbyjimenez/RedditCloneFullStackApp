@@ -1,8 +1,9 @@
 <template>
   <header>
-    <router-link id="homeLink" v-bind:to="{ name: 'home' }"><img
-        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1722965836/foxbutton_j6yfhm.png" /></router-link>
- 
+    <div  id="homeLink">
+    <router-link v-bind:to="{ name: 'home' }"><img
+        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723319000/foxtrot_logov1_spsifm.svg" /></router-link>
+ </div>
     <div id="favLog">
     
     <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
@@ -43,6 +44,7 @@ header {
   justify-content: center;
   align-items: center;
   padding: 1%;
+  height: 1%;
 
 
 
