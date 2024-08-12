@@ -30,7 +30,7 @@
               />
             </div>
             <div
-              class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
+            class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
             >
               <i
                 class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
@@ -45,28 +45,32 @@
             <div class="d-flex flex-column ml-3">
               <div class="d-flex flex-row post-title">
                 <h5>{{ post.postTitle }}</h5>
-                <span class="ml-2">{{ post.creatorUsername }}</span>
+                
               </div>
+              <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
               <div
                 class="d-flex flex-row align-items-center align-content-center post-title"
               >
                 <span class="bdge mr-1">Question</span>
                 <span class="mr-2 dot"></span><span> Timestamp </span>
               </div>
-              <div>
-                <h6 id="postDesc">{{ post.postDesc }}</h6>
-              </div>
-              <div class="delete">
-                <button
+              
+             
+              
+            </div>
+            <button
                   v-if="post.creatorUsername == $store.state.user.username"
                   v-on:click="deletePost(post)"
                 >
                   Delete
                 </button>
-              </div>
-            </div>
           </div>
-          
+          <div class="delete" id="postDesc">
+               
+                <h6 >{{ post.postDesc }}</h6>
+              
+                
+              </div>
           <p
             class="mr-2 comments"
             id="commentsButton"
@@ -231,14 +235,33 @@ export default {
   color: blue;
 } */
 
+.votings{
+  padding: .5rem;
+
+}
+
+.username{
+  display: flex;
+  text-align: bottom;
+  padding-left: .5rem;
+  margin-bottom: 8px;
+  vertical-align: bottom;
+  
+  
+}
+
 img {
   justify-content: flex-start;
 }
 
-#postDesc {
-  margin: 2%;
-  justify-content: flex-start;
-}
+/* #postDesc {
+  margin: .5%;
+  display: inline-block;
+  
+  word-wrap: break-word;
+  justify-content: center;
+
+} */
 
 body {
   background-color: #eee;
@@ -255,8 +278,14 @@ body {
   line-height: 3px;
 }
 .delete {
-  display: flex;
-  justify-content: flex-end;
+  width: 80%;
+  margin: .5rem;
+  margin-left: 59px;
+  display: inline-block;
+  word-wrap: break-word;
+  justify-content: center;
+  text-align: justify;
+
 }
 .comments {
   text-decoration: underline;
@@ -276,5 +305,11 @@ body {
 
 #searchPost{
   padding-bottom: 1rem;
+}
+
+h6 {
+  display: inline-block;
+  width: 100%;
+  text-wrap: ;
 }
 </style>
