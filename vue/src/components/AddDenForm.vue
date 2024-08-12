@@ -117,7 +117,7 @@ export default {
 /* Card styling for the expandable button */
 .expandable-card {
   max-width: 400px;
-  background-color: #007bff; /* Primary color */
+  background-color: rgba(97, 155, 138,1); /* Primary color */
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   cursor: pointer;

@@ -172,7 +172,7 @@ export default {
 }
 
 #searchBar .form-control {
-  border: 2px solid #007bff; /* Primary color */
+  border: 2px solid rgba(97, 155, 138,1); /* Primary color */
   border-radius: 4px;
   padding: 10px;
 }

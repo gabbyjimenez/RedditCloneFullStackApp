@@ -364,10 +364,6 @@ body {
   color: #0056b3; /* Adjust hover color as needed */
 }
 
-/* Other existing styles */
-.comment-bottom {
-  /* Your existing styles */
-}
 .comments {
   text-decoration: underline;
   text-underline-position: under;
