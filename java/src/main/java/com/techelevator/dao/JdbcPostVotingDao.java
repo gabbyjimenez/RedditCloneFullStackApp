@@ -128,6 +128,9 @@ public class JdbcPostVotingDao implements PostVotingDao {
         return postDto;
 
     }
+
+    
+
     
 
     private VotingDto mapResultsToVotingDto (SqlRowSet rowSet){
