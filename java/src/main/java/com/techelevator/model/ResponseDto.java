@@ -11,11 +11,12 @@ public class ResponseDto {
     private int upvotes;
     private int downvotes;
 
+    private boolean pinned;
     public ResponseDto(){
 
     }
 
-    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes) {
+    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes, boolean pinned) {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.postId = postId;
@@ -24,7 +25,17 @@ public class ResponseDto {
         this.denName = denName;
         this.upvotes = upvotes;
         this.downvotes = downvotes;
+        this.pinned = pinned;
 
+    }
+
+
+    public boolean isPinned() {
+        return pinned;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
     }
 
     public int getUpvotes() {
