@@ -17,9 +17,7 @@ public interface IVotingService {
 
      VotingDto getVoteStatusByPost(PostDto postDto, Principal principal);
 
-
-
-
+     VotingDto addVoteForPost(PostDto postDto, Principal principal, boolean isUpvote);
 
 
 
