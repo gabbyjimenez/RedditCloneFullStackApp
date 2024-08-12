@@ -1,33 +1,70 @@
 <template>
-   
-   <img src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723226658/eyekins1_g3wdpq.svg" />
-   
-  </template>
-    
-  <script>
-  
-  
-  export default {
-  
-  }
-  
-  </script>
-    
-  <style scoped>
-  div {
+  <footer class="footer-container">
+    <div class="footer-content">
+      <h3>Connect with Us</h3>
+      <div class="social-icons">
+        <a href="https://www.instagram.com/" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-instagram fa-2xl"></i>
+        </a>
+        <a href="https://www.github.com/" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-github fa-2xl"></i>
+        </a>
+        <a href="https://www.facebook.com/" target="_blank" rel="noopener noreferrer">
+          <i class="fa-brands fa-facebook fa-2xl"></i>
+        </a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>Foxtrot Inc. © {{ currentYear }}</p>
+    </div>
+  </footer>
+</template>
+
+<script>
+export default {
+  data() {
+    return {
+      currentYear: new Date().getFullYear(),
+    };
+  },
+};
+</script>
+
+<style scoped>
+.footer-container {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+.footer-content {
   display: flex;
-  width: 100%;
-  height: 10%;
-  background: linear-gradient(90deg, rgba(137,220,255,1) 5%, rgba(0,167,236,1) 41%, rgba(20,159,231,1) 67%, rgba(120,213,253,1) 100%, rgba(9,170,237,1) 100%);
-  
-  }
-  img{
-    display: flex;
-    background: linear-gradient(90deg, rgba(137,220,255,1) 5%, rgba(0,167,236,1) 41%, rgba(20,159,231,1) 67%, rgba(120,213,253,1) 100%, rgba(9,170,237,1) 100%);;
-  justify-content: flex-start;
-  color: aqua;
-  width: 100%;
-  height: 10%;
-  }
- 
-  </style>
+  flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.footer-content h3 {
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.social-icons {
+  display: flex;
+  gap: 15px;
+}
+
+.social-icons a {
+  color: white;
+  transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+  color: #007bff; /* Change to your theme color */
+}
+
+.footer-bottom {
+  font-size: 0.9rem;
+}
+</style>
