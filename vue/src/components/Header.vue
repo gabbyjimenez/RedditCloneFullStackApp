@@ -4,8 +4,11 @@
     <router-link v-bind:to="{ name: 'home' }"><img
         src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723474352/foxtrot_logo_fin_noText_zwlfxu.svg" /></router-link>
  </div>
-  
+<!--   
     
+    <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link>
+    <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link> -->
+
 
     <div id="favLog">
       <router-link v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link">
@@ -29,6 +32,7 @@ export default {}
 header {
   display: flex;
   justify-content: space-between;
+  font-family: 'Segoe UI';
   align-items: center;
   padding: 0 1rem;
   font-size: large;
@@ -44,9 +48,17 @@ header {
 
 
 }
+#homeLink:hover {
+background-color: rgba(255, 255, 255, 0.15);
+border-radius: 10%;
+
+
+
+}
 
 img {
-  height: 40px; /* Adjust height as needed */
+  height: auto;
+  max-height: 65px;
 }
 
 #headerText {

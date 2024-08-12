@@ -67,11 +67,12 @@ export default {
     flex-direction: column;
     min-height: 100vh;
     margin: 0;
-    font-family: 'Arial', sans-serif;
+    font-family: 'Segoe UI';
 }
 
 #header {
     flex-shrink: 0; /* Ensure the header doesn't shrink */
+    height: 1%;
 }
 
 #mainPanel {

@@ -1,9 +1,9 @@
 <template>
-  <div>
-    <button v-on:click = "(formOpen = !formOpen); clearForm();">Add Post:</button>
-    <form v-on:submit.prevent="makeNewPost" v-show="formOpen == true" >
+  <div class="form-container">
+    <button class="toggle-button" v-on:click="toggleForm">Add Post:</button>
+    <form v-on:submit.prevent="makeNewPost" v-show="formOpen" class="post-form">
       <div class="field">
-        <label for="denName">Post Title:</label>
+        <label for="postTitle">Post Title:</label>
         <input
           type="text"
           id="postTitle"
@@ -13,23 +13,22 @@
         />
       </div>
       <div class="field">
-        <label for="postDesc">Post Description</label>
+        <label for="postDesc">Post Description:</label>
         <textarea
           id="postDesc"
           name="postDesc"
           v-model="newPost.postDesc"
           required
-        >
-        </textarea>
+        ></textarea>
       </div>
-      <button type="submit" >Post</button>
+      <button type="submit" class="submit-button">Post</button>
     </form>
   </div>
 </template>
 
 <script>
 import PostService from "../services/PostService.js";
-import DenView from "../views/DenView.vue";
+
 export default {
   props: {
     dens: {
@@ -39,70 +38,134 @@ export default {
 
   data() {
     return {
-
-    formOpen: false,
-
-    newPost: {
+      formOpen: false,
+      newPost: {
         creatorId: this.$store.state.user.id,
         creatorUsername: this.$store.state.user.username,
         postTitle: "",
         postDesc: "",
         denName: this.$route.params.denName,
       },
-      
-    
     };
   },
 
   methods: {
+    toggleForm() {
+      this.formOpen = !this.formOpen;
+      if (!this.formOpen) this.clearForm();
+    },
     
     makeNewPost() {
       PostService.makeNewPost(this.newPost)
         .then((response) => {
           console.log(response.data);
-          console.log(this.newPost);
           this.getPosts(this.$route.params.denName);
+          this.toggleForm();
           this.clearForm();
         })
         .catch((error) => {
           console.log(error);
         });
-
     },
+
     getPosts(name) {
-      console.log("hit")
       PostService.getPosts(name)
         .then((response) => {
           this.$store.state.posts = response.data;
-     
         })
         .catch((error) => {
           console.log("You are out of luck");
         });
     },
-    
 
     clearForm() {
-      return (this.newPost = {
+      this.newPost = {
         creatorId: this.$store.state.user.id,
         creatorUsername: this.$store.state.user.username,
         postTitle: "",
         postDesc: "",
         denName: this.$route.params.denName,
-      });
-    }
-        
-
+      };
     },
-
-   
-  };
-
-  
-
-
-
+  },
+};
 </script>
 
 <style>
+/* Container for the form and button */
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Style for the toggle button */
+.toggle-button {
+  background-color: transparent; /* Transparent background */
+  color: #6c757d; /* Grey text color */
+  border: 2px solid #6c757d; /* Grey border */
+  padding: 5px 10px; /* Smaller padding */
+  border-radius: 5px;
+  font-size: 14px; /* Smaller font size */
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s; /* Transition effects */
+}
+
+.toggle-button:hover {
+  background-color: #6c757d; /* Grey background on hover */
+  color: white; /* White text color on hover */
+}
+
+/* Style for the form */
+.post-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+/* Style for each field */
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.field label {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.field input,
+.field textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 14px;
+}
+
+.field textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
+/* Style for the submit button */
+.submit-button {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  border-radius: 5px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.submit-button:hover {
+  background-color: #218838;
+}
 </style>

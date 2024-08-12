@@ -527,7 +527,7 @@ body {
 h6 {
   display: inline-block;
   width: 100%;
-  text-wrap: ;
+  /* text-wrap: wrap; */
 }
 
 /* Your other existing styles */
