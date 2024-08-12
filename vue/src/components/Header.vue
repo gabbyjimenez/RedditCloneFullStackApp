@@ -32,6 +32,7 @@ export default {}
 header {
   display: flex;
   justify-content: space-between;
+  font-family: 'Segoe UI';
   align-items: center;
   padding: 0 1rem;
   font-size: large;
@@ -47,9 +48,17 @@ header {
 
 
 }
+#homeLink:hover {
+background-color: rgba(255, 255, 255, 0.15);
+border-radius: 10%;
+
+
+
+}
 
 img {
-  height: 40px; /* Adjust height as needed */
+  height: auto;
+  max-height: 65px;
 }
 
 #headerText {
