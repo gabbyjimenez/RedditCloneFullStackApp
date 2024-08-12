@@ -1,11 +1,14 @@
 <template>
+  <div id="page">
   <div id="Dens" class="Dens">
     <theHeader id="header" />
     <div id="body">
     <AddDenForm/>
     <DenDetails />
     </div>
+    <!-- <p>You must be authenticated to see this</p> -->
   </div>
+</div>
 </template>
 
 <script>
@@ -41,12 +44,14 @@ export default {
   },
   created() {
     this.getDens();
-    console.log(this.$store.state.user)
   }
 }
 </script>
 
 <style>
+#page{
+  font-family: 'Segoe UI';
+}
 #body {
   display: flex;
   flex-direction: column;
