@@ -2,7 +2,7 @@
   <div id="main">
       <div id="button">
           <!-- Adjust the button styling here -->
-          <div class="card expandable-card" v-on:click="(denOpen = !denOpen); clearForm();">
+          <div id="addButton" class="card expandable-card" v-on:click="(denOpen = !denOpen); clearForm();">
               <div class="card-body">
                   <p class="card-title">+ Create a Group</p>
               </div>
@@ -98,6 +98,7 @@ display: flex;
 flex-direction: column;
 align-items: center;
 padding: 20px;
+font-family: 'Segoe UI';
 }
 
 /* Card styling for the expandable button */
@@ -181,5 +182,10 @@ text-align: center;
 .btn.save:hover {
 background-color: #f0f0f0; /* Light background on hover for contrast */
 color: #0056b3; /* Darker shade for text on hover */
+}
+#addButton{
+    align-items: center;
+    justify-content: center;
+    
 }
 </style>

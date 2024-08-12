@@ -72,6 +72,7 @@ export default {
   align-items: center;
   min-height: 100vh;
   background-color: #f4f4f4;
+  font-family: 'Segoe UI';
 }
 
 .login-form {
