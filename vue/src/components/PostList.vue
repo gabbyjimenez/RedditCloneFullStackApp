@@ -28,14 +28,8 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i 
-  class="fa-solid fa-flag" 
-  v-bind:style="{ color: !post.isPinned ? 'yellow' : 'initial' }">
-</i>
-
-
-               
-
+                <i class="fa-solid fa-flag" v-bind:style="{ color: post.isPinned ? 'red' : 'initial' }" v-on:click="pinToggle(post)">
+                </i>
 
               </div>
 
@@ -47,7 +41,7 @@
 
               </div>
             </div>
-          
+
           </div>
 
           <div class="delete" id="postDesc">
@@ -73,6 +67,7 @@
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
 import VotingService from "../services/VotingService.js";
+import PinningService from "../services/PinningService.js"
 export default {
   components: {
     CommentsList,
@@ -177,6 +172,13 @@ export default {
 
       }
     },
+    pinToggle(post){
+      PinningService.pinToggle(post).then((response) =>{
+        this.getPosts(this.$route.params.denName);
+        console.log(response.data)
+      });
+
+    }
   },
   created() {
     this.getPosts(this.$route.params.denName);
@@ -363,8 +365,7 @@ h6 {
   justify-content: center;
 }
 
-.flagged{
+.flagged {
   color: #FE7F2D;
 }
-
 </style>
