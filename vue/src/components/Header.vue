@@ -11,18 +11,63 @@
 
 
     <div id="favLog">
-      <router-link v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link">
+      <!-- <router-link v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link">
         Logout
-      </router-link>
+      </router-link> -->
+
+<!-- modal test -->
+<p v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link" data-toggle="modal" data-target="#logoutModal">
+        Logout
+</p>
+
+
+<!-- modal test -->
+
       <router-link v-else v-bind:to="{ name: 'login' }" class="auth-link">
         Login
       </router-link>
     </div>
   </header>
+
+  <!-- test modal -->
+ <!-- Button trigger modal -->
+
+
+<!-- Modal -->
+<div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" Segoe-labelledby="logoutModalLabel" Segoe-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="logoutModalLabel">Are you sure?</h5>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" v-on:click="logout" data-dismiss="modal">Continue</button>
+        <button type="button" class="btn btn-primary"  data-dismiss="modal">Cancel</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+  <!-- test modal -->
 </template>
 
 <script>
-export default {}
+export default {
+
+
+  methods: {
+
+    logout(){
+      this.$store.commit("LOGOUT");
+      this.$router.push("/dens");
+    },
+    goHome(){
+      this.$router.push("/")
+    }
+    
+  },
+  }
+  
 </script>
 
 <style scoped>

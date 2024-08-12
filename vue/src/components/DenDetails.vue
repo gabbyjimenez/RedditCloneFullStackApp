@@ -74,169 +74,68 @@ export default {
   }
 };
 </script>
+  
 
 
 <style>
-/* Overall page container */
-.page-container {
-  display: flex;
-  height: 100vh;
-  background-color: #f4f4f9; /* Light background color for the whole page */
-}
 
-/* Sidebar styling */
-.sidebar {
-  width: 250px;
-  background-color: #007bff; /* Sidebar background color */
-  color: #fff;
-  padding: 20px;
-  box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  overflow-y: auto;
-}
 
-.sidebar h2 {
-  font-size: 20px;
-  margin-bottom: 15px;
-}
 
-.sidebar p {
-  margin: 10px 0;
-}
 
-/* Main content area */
-.main-content {
-  margin-left: 250px; /* Space for the sidebar */
-  width: calc(100% - 250px);
-  padding: 20px;
-}
+#cards {
 
-/* Container to center content vertically and horizontally */
-.container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 100vh;
-  padding: 20px;
-}
-
-/* Styling for the + card */
-.card-plus {
-  width: 100%;
-  max-width: 300px;
-  margin-bottom: 20px;
-}
-
-.card-plus .card-body {
-  background-color: #007bff; /* Primary color */
-  border-radius: 8px;
-  padding: 20px;
   text-align: center;
-  cursor: pointer;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  color: #fff;
+  margin: 1%;
+  font-size: larger;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
+  
+
+
 }
 
-.card-plus h5 {
-  font-size: 28px;
-  margin: 0;
-}
-
-.card-plus p {
-  font-size: 16px;
-  margin: 5px 0;
-}
-
-/* Search bar styling */
-#searchBar {
-  width: 100%;
-  max-width: 400px;
-  margin-bottom: 20px;
-}
-
-#searchBar .form-control {
-  border: 2px solid rgba(97, 155, 138,1); /* Primary color */
-  border-radius: 4px;
-  padding: 10px;
-}
-
-/* List styling */
-#denList {
-  width: 100%;
-  max-width: 800px;
-  padding: 0;
-  list-style: none;
-}
-
-#denList li {
-  margin-bottom: 20px;
-}
-
-/* Card styling */
-.card {
-  position: relative;
-  background-color: #fff; /* Card background color */
-  border: 1px solid #ddd; /* Light border for a clean look */
-  border-radius: 4px; /* Sharper edges */
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
-  padding: 20px;
-  overflow: hidden;
-}
-
-/* Card header styling */
-.card .card-header {
-  margin-bottom: 20px;
-}
-
-.card .card-header h5 {
-  margin: 0;
-  font-size: 18px;
-  color: #333; /* Darker text for better readability */
-}
-
-.card .card-header p {
-  margin: 5px 0;
-  font-size: 14px;
-  color: #666; /* Slightly lighter text */
-}
-
-/* Card body for centered content */
-.card .card-body {
-  text-align: center;
-  color: #333; /* Consistent text color */
-}
-
-/* Delete button styling */
-.delete-button {
-  position: absolute;
-  bottom: 20px;
-  right: 20px;
-  background-color: #dc3545; /* Red background */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  width: 30px;
-  height: 30px;
+#divCards {
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  margin: 10%;
+  margin-top: 1%;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+
+}
+
+#button {
+  display: flex;
+  flex-direction: row;
+  width: 30%;
   justify-content: center;
-  cursor: pointer;
-  font-size: 18px; /* Size of the X */
-  text-align: center;
-  line-height: 1;
-  padding: 0;
+
+}
+#searchBar {
+display: flex;
+width: 30%;
+justify-content: center;
+margin: auto;
+}
+#deleteButton {
+  display: flex;
+width: 8%;
+margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
+justify-content: center;
+
 }
 
-.delete-button:hover {
-  background-color: #c82333; /* Darker shade on hover */
-}
-
-/* Create the X shape */
-.delete-button::before {
-  content: 'X'; /* Unicode character for multiplication sign (X) */
+#searchBar {
+  display: flex;
+width: 20%;
+margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
+justify-content: center;
+color: aqua;
 }
 </style>
+

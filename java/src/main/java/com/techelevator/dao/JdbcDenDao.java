@@ -78,7 +78,7 @@ public class JdbcDenDao implements DenDao {
 
         List<PostDto> posts = new ArrayList<>();
 
-        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id, upvotes, downvotes FROM posts " +
+        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id, upvotes, downvotes, pinned FROM posts " +
                 "JOIN users ON posts.creator_id = users.user_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
                 "WHERE dens.den_name ILIKE ?";
@@ -105,7 +105,7 @@ public class JdbcDenDao implements DenDao {
     public List<ResponseDto> retrieveResponsesByPost(String denName, int postId) {
         List<ResponseDto> responses = new ArrayList<>();
 
-        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name, responses.upvotes, responses.downvotes " +
+        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name, responses.upvotes, responses.downvotes, responses.pinned " +
                 "FROM responses " +
                 "JOIN users ON responses.creator_id = users.user_id " +
                 "JOIN posts ON responses.post_id = posts.post_id " +
@@ -272,6 +272,32 @@ public class JdbcDenDao implements DenDao {
         return newPost;
     }
 
+    public PostDto pinPost(PostDto postToPin){
+
+        String sql = "";
+
+        if (postToPin.isPinned() == true){
+            sql = "UPDATE posts " +
+                    "SET pinned = false " +
+                    "WHERE post_id = ?";
+        } else {
+            sql = "UPDATE posts " +
+                    "SET pinned = true " +
+                    "WHERE post_id = ?";
+        }
+
+        try{
+            jdbcTemplate.update(sql, postToPin.getPostId());
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+        return postToPin;
+
+
+    }
+
     private ResponseDto mapRowToResponse(SqlRowSet rowSet){
         ResponseDto response = new ResponseDto();
         response.setResponseId(rowSet.getInt("response_id"));
@@ -282,6 +308,7 @@ public class JdbcDenDao implements DenDao {
         response.setCreatorName(rowSet.getString("creator_name"));
         response.setUpvotes(rowSet.getInt("upvotes"));
         response.setDownvotes(rowSet.getInt("downvotes"));
+        response.setPinned(rowSet.getBoolean("pinned"));
         return response;
     }
 
@@ -303,6 +330,7 @@ public class JdbcDenDao implements DenDao {
         post.setCreatorUsername(rowSet.getString("creator_name"));
         post.setUpvotes(rowSet.getInt("upvotes"));
         post.setDownvotes(rowSet.getInt("downvotes"));
+        post.setPinned(rowSet.getBoolean("pinned"));
 
         return post;
     }

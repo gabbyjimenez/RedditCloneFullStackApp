@@ -1,12 +1,7 @@
 <template>
   <div id="searchPost">
     <label for="searchFilter">Search: </label>
-    <input
-      type="text"
-      id="searchFilter"
-      name="denName"
-      v-model="searchFilter"
-    />
+    <input type="text" id="searchFilter" name="denName" v-model="searchFilter" />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
@@ -14,72 +9,63 @@
 
       <div class="d-flex justify-content-center row">
         <div class="d-flex flex-column col-md-8 second-container border-bottom">
-          <div
-            class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
-          >
+          <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4">
+
             <div class="profile-image">
-              <img
-                class="rounded-circle"
-                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
-                width="70"
-              />
+              <img class="rounded-circle"
+                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
             </div>
-            <div
-            class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
-            >
-              <i
-                class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
-                v-on:mouseenter="upvoteHovering = true" v-on:mouseleave="upvoteHovering = false"
-                v-bind:class="{'fa-shake': upvoteHovering}"
-                v-on:click.prevent="upVote(post)"
-              ></i
-              ><span>{{ post.upvotes - post.downvotes }}  </span>
-              <i
-                class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
-                
-                v-on:click.prevent="downVote(post)"
-              ></i>
+            <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
+              <i class="fa fa-sort-up fa-2x hit-voting upvoteIcon" v-on:click.prevent="upVote(post)"></i><span>{{
+                post.upvotes - post.downvotes }} </span>
+              <i class="fa fa-sort-down fa-2x hit-voting downvoteIcon" v-on:click.prevent="downVote(post)"></i>
             </div>
+
             <div class="d-flex flex-column ml-3">
               <div class="d-flex flex-row post-title">
-                <h5>{{ post.postTitle }} </h5>
+                <h5>{{ post.postTitle }}</h5>
+                <i v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)"
+                  class="fa-solid fa-trash trashCan" id="trashCanIcon">
+                </i>
+
+                <i 
+  class="fa-solid fa-flag" 
+  v-bind:style="{ color: !post.isPinned ? 'yellow' : 'initial' }">
+</i>
+
+
+               
+
+
               </div>
+
               <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
-              <div
-                class="d-flex flex-row align-items-center align-content-center post-title"
-              >
+
+              <div class="d-flex flex-row align-items-center align-content-center post-title">
                 <span class="bdge mr-1">Question</span>
                 <span class="mr-2 dot"></span><span> Timestamp </span>
-              </div>
-              
-             
-              
-            </div>
-            <i
-                  v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)" class="fa-solid fa-trash trashCan" 
-                >
-                <i class="fa-solid fa-flag" v-if="post.isPinned =true" v-bind:class="flagged"></i>                
 
-          </i>
-          </div>
-          <div class="delete" id="postDesc">
-               
-                <h6 >{{ post.postDesc }}</h6>
-              
-                
               </div>
+            </div>
           
-          <comments-list
-        v-bind:post="post"
-        class="comments-list"
-        
-      />
+          </div>
+
+          <div class="delete" id="postDesc">
+
+            <h6>{{ post.postDesc }}</h6>
+
+
+
+          </div>
+
+
+          <comments-list v-bind:post="post" class="comments-list" />
+
         </div>
 
       </div>
 
-      
+
     </div>
   </div>
 </template>
@@ -95,32 +81,32 @@ export default {
   data() {
     return {
       searchFilter: "",
-      
-      
+
+
     };
   },
   computed: {
-  filteredPosts() {
-    const searchFilter = this.searchFilter.toLowerCase();
-    
-    // Filter posts based on searchFilter
-    const filtered = this.$store.state.posts.filter((post) => {
-      const nameMatch = post.postTitle.toLowerCase().includes(searchFilter);
-      const contentMatch = post.postDesc.toLowerCase().includes(searchFilter);
-      
-      // Return true if either condition matches or searchFilter is empty
-      return searchFilter === "" ? true : nameMatch || contentMatch;
-    });
-    
-    // Sort posts: pinned posts first, then the rest
-    return filtered.sort((a, b) => {
-      if (a.isPinned === b.isPinned) {
-        return 0; // No change in order if both posts have the same isPinned value
-      }
-      return a.isPinned ? -1 : 1; // Pinned posts (-1) come before unpinned posts (1)
-    });
-  }
-},
+    filteredPosts() {
+      const searchFilter = this.searchFilter.toLowerCase();
+
+      // Filter posts based on searchFilter
+      const filtered = this.$store.state.posts.filter((post) => {
+        const nameMatch = post.postTitle.toLowerCase().includes(searchFilter);
+        const contentMatch = post.postDesc.toLowerCase().includes(searchFilter);
+
+        // Return true if either condition matches or searchFilter is empty
+        return searchFilter === "" ? true : nameMatch || contentMatch;
+      });
+
+      // Sort posts: pinned posts first, then the rest
+      return filtered.sort((a, b) => {
+        if (a.isPinned === b.isPinned) {
+          return 0; // No change in order if both posts have the same isPinned value
+        }
+        return a.isPinned ? -1 : 1; // Pinned posts (-1) come before unpinned posts (1)
+      });
+    }
+  },
 
   methods: {
     deletePost(post) {
@@ -155,37 +141,37 @@ export default {
 
     getVotesInfo(post) {
       VotingService.retrieveVoteInformationForPosts(post)
-        .then((response) => {})
+        .then((response) => { })
         .catch((error) => {
           console.log(error);
         });
     },
     upVote(post) {
-      if(this.$store.state.user.userId != 0){
-      VotingService.makeUpvoteForPost(post)
-        .then((response) => {
-          this.getPosts(this.$route.params.denName);
-          console.log("upvote");
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (this.$store.state.user.userId != 0) {
+        VotingService.makeUpvoteForPost(post)
+          .then((response) => {
+            this.getPosts(this.$route.params.denName);
+            console.log("upvote");
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.$router.push("/login");
 
       }
     },
     downVote(post) {
-      if(this.$store.state.user.userId != 0){
-      VotingService.makeDownvoteForPost(post)
-        .then((response) => {
-          this.getPosts(this.$route.params.denName);
-          console.log(response.data);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      if (this.$store.state.user.userId != 0) {
+        VotingService.makeDownvoteForPost(post)
+          .then((response) => {
+            this.getPosts(this.$route.params.denName);
+            console.log(response.data);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.$router.push("/login");
 
@@ -200,51 +186,62 @@ export default {
 <style scoped>
 /* Remove default button styling */
 .image-button {
-  background: none; /* Remove default button background */
-  border: none; /* Remove default button border */
-  padding: 0; /* Remove default button padding */
-  margin: 0; /* Remove default button margin */
-  cursor: pointer; /* Change cursor to pointer */
-  display: inline-flex; /* Make sure buttons are inline with other content */
+  background: none;
+  /* Remove default button background */
+  border: none;
+  /* Remove default button border */
+  padding: 0;
+  /* Remove default button padding */
+  margin: 0;
+  /* Remove default button margin */
+  cursor: pointer;
+  /* Change cursor to pointer */
+  display: inline-flex;
+  /* Make sure buttons are inline with other content */
 }
 
 /* Ensure images inside buttons fit well */
 .image-button img {
-  display: block; /* Remove extra space below image */
-  width: 1rem; /* Adjust width as needed */
-  height: auto; /* Maintain aspect ratio */
+  display: block;
+  /* Remove extra space below image */
+  width: 1rem;
+  /* Adjust width as needed */
+  height: auto;
+  /* Maintain aspect ratio */
 }
 
 /* Additional styles for button container */
 .button-container {
   display: flex;
   flex-flow: row;
-  align-items: center; /* Center items vertically */
-  justify-content: center; /* Center items horizontally */
+  align-items: center;
+  /* Center items vertically */
+  justify-content: center;
+  /* Center items horizontally */
 }
 
 .upvoteIcon:hover {
   color: #A1C181;
   animation-name: fa-shake;
-    animation-duration: var(--fa-animation-duration,1s);
-    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
-    animation-timing-function: var(--fa-animation-timing,linear)
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear)
 }
 
 .downvoteIcon:hover {
   color: #FE7F2D;
   animation-name: fa-shake;
-    animation-duration: var(--fa-animation-duration,1s);
-    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
-    animation-timing-function: var(--fa-animation-timing,linear)
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear)
 }
 
-.fa-trash:hover{
+.fa-trash:hover {
   color: #FE7F2D;
   animation-name: fa-shake;
-    animation-duration: var(--fa-animation-duration,1s);
-    animation-iteration-count: var(--fa-animation-iteration-count,infinite);
-    animation-timing-function: var(--fa-animation-timing,linear)
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear)
 }
 
 /* DOT */
@@ -265,18 +262,18 @@ export default {
   color: blue;
 } */
 
-.votings{
+.votings {
   padding: .5rem;
 
 }
 
-.username{
+.username {
   display: flex;
   text-align: bottom;
   padding-left: .5rem;
   vertical-align: bottom;
-  
-  
+
+
 }
 
 img {
@@ -306,16 +303,18 @@ body {
   border-radius: 4px;
   line-height: 3px;
 }
+
 .delete {
   width: 80%;
-  margin: .5rem;
   margin-left: 59px;
   display: inline-block;
   word-wrap: break-word;
   justify-content: center;
   text-align: justify;
 
+
 }
+
 .comments {
   text-decoration: underline;
   text-underline-position: under;
@@ -330,32 +329,42 @@ body {
   align-items: center;
 }
 
-.second-container{
+.second-container {
   border-top: solid #619B8A 1px;
 }
 
-#searchPost{
+#searchPost {
   padding-bottom: 1rem;
 }
 
-h5{
-  margin-bottom:0%;
+h5 {
+  margin-bottom: 0%;
   margin-top: 0%;
 }
 
 h6 {
   display: inline-block;
   width: 100%;
+  padding-bottom: 1rem;
   text-wrap: break-word;
 }
 
-.unlfagged{
-  color: #bbb;
+#trashCanIcon {
+  display: flex;
+  justify-content: flex-start;
+  padding-left: .5rem;
+  align-content: end;
+  padding-right: 20px;
+}
+
+#trashCanIcon {
+  display: inline-block;
+  align-content: center;
+  justify-content: center;
 }
 
 .flagged{
   color: #FE7F2D;
 }
-
 
 </style>

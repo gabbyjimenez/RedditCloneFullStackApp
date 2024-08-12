@@ -49,6 +49,7 @@ CREATE TABLE posts (
 	creator_id int NOT NULL,
 	upvotes int DEFAULT 0,
 	downvotes int DEFAULT 0,
+	pinned boolean DEFAULT false,
 	
 	
 	CONSTRAINT PK_post_id PRIMARY KEY (post_id),
@@ -65,6 +66,7 @@ CREATE TABLE responses (
 	creator_id int,
 	upvotes int DEFAULT 0,
 	downvotes int DEFAULT 0,
+	pinned boolean DEFAULT false,
 	
 	CONSTRAINT PK_response_id PRIMARY KEY (response_id),
 	CONSTRAINT FK_users_responses FOREIGN KEY (creator_id) REFERENCES users(user_id),
@@ -96,6 +98,8 @@ CREATE TABLE post_user_vote (
 	CONSTRAINT FK_post_user_vote_users FOREIGN KEY (user_id) REFERENCES users(user_id)
 
 );
+
+
 
 
 --GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO final_capstone_appuser;

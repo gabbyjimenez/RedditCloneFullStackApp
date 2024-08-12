@@ -11,16 +11,13 @@ public interface IVotingService {
 
      VotingDto getVoteStatusByObject(ResponseDto responseDto, Principal principal);
 
-     VotingDto upvoteCommentByObject(ResponseDto responseDto, Principal principal);
-
-     VotingDto downvoteCommentByObject(ResponseDto responseDto, Principal principal);
 
      VotingDto getVoteStatusByPost(PostDto postDto, Principal principal);
 
      VotingDto addVoteForPost(PostDto postDto, Principal principal, boolean isUpvote);
 
 
-
+     VotingDto addVoteForResponse(ResponseDto responseDto, Principal principal, boolean isUpvote);
 
 
 

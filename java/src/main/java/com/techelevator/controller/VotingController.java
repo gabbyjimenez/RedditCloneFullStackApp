@@ -33,7 +33,7 @@ public class VotingController {
 
 
 
-        return votingService.upvoteCommentByObject(responseToUpvote, principal);
+        return votingService.addVoteForResponse(responseToUpvote, principal, true);
 
     }
 
@@ -44,7 +44,7 @@ public class VotingController {
 
 
 //        return votingService.upvoteCommentByObject(responseToUpvote, principal);
-        return votingService.downvoteCommentByObject(responseToDownvote, principal);
+        return votingService.addVoteForResponse(responseToDownvote, principal, false);
 
     }
 
