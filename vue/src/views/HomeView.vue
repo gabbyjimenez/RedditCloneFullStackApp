@@ -41,6 +41,7 @@ export default {
   },
   created() {
     this.getDens();
+    console.log(this.$store.state.user)
   }
 }
 </script>

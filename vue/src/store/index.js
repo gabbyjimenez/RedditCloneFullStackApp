@@ -29,7 +29,11 @@ export function createStore(currentToken, currentUser) {
         localStorage.removeItem('token');
         localStorage.removeItem('user');
         state.token = '';
-        state.user = {};
+        state.user = {
+          userId: 0,
+          userName: "Guest",
+          authorities: [{name:"ROLE_GUEST"}]
+        };
         axios.defaults.headers.common = {};
       }
     },
