@@ -2,7 +2,7 @@
   <header>
     <div  id="homeLink">
     <router-link v-bind:to="{ name: 'home' }"><img
-        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723470949/foxtrot_logo_fin_uqpezm.png" /></router-link>
+        src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723474352/foxtrot_logo_fin_noText_zwlfxu.svg" /></router-link>
  </div>
   
     
@@ -32,14 +32,14 @@ header {
   align-items: center;
   padding: 0 1rem;
   font-size: large;
-  background: linear-gradient(90deg, rgba(252,202,70,1) 0%, rgba(161,193,129,1) 16%, rgba(97,155,138,1) 100%);;
+  background: linear-gradient(90deg, rgba(252,202,70,1) 20%, rgba(201,197,103,1) 40%, rgba(97,155,138,1) 80%);
 }
 
 #homeLink {
   display: flex;
   align-items: center;
   
-  height: 5%;
+  height: 8%;
 
 
 
