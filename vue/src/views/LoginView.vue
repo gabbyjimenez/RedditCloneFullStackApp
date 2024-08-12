@@ -17,7 +17,7 @@
         <input type="password" id="password" v-model="user.password" required />
       </div>
       <button type="submit" class="submit-button">Sign in</button>
-      <button type="button" class="guest-button" @click="loginAsGuest">Sign in as Guest</button>
+      <button type="button" class="guest-button" @click="loginAsGuest">Continue as Guest</button>
       <p class="signup-link">
         <router-link v-bind:to="{ name: 'register' }">Need an account? Sign up.</router-link>
       </p>
@@ -58,11 +58,9 @@ export default {
           }
         });
     },
-    // loginAsGuest() {
-    //   // Handle guest login logic here
-    //   this.$store.commit("SET_AUTH_TOKEN", response.data.token);
-    //   this.$router.push("/");
-    // }
+    loginAsGuest() {
+      this.$router.push("/dens");
+    }
   }
 };
 </script>
