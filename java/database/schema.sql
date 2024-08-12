@@ -100,6 +100,8 @@ CREATE TABLE post_user_vote (
 );
 
 
+
+
 --GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO final_capstone_appuser;
 --ROLLBACK;
 COMMIT TRANSACTION;
