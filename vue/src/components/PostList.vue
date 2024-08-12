@@ -1,25 +1,95 @@
 <template>
   <div id="searchPost">
-    <label for="">Search: </label>
-    <input type="text" name="denName" v-model="searchFilter" />
+    <label for="searchFilter">Search: </label>
+    <input
+      type="text"
+      id="searchFilter"
+      name="denName"
+      v-model="searchFilter"
+    />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
-      <label for="postLabel"><p id="postTitle">{{ post.postTitle }}</p><p id="postUser">{{ post.creatorUsername }}</p></label>
-      <p id="postDescription">Description: </p>
-      <p>{{ post.postDesc }}</p>
-      <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
-      <comments-list id="" v-bind:post="post"/>
-      <button v-on:click.prevent="getVotesInfo(post)">info </button>
-      <button v-on:click.prevent="upVote(post), getVotesInfo(post)">Upvote #{{post.upvotes}}</button>
-      <button v-on:click.prevent="downVote(post), getVotesInfo(post)" >DownVote #{{post.downvotes}}</button>
+      <!-- TEMPLATE START -->
 
+      <!-- TEMPLATE END -->
+
+      <!-- OLD CODE -->
+
+      <div class="d-flex justify-content-center row">
+        <div class="d-flex flex-column col-md-8 second-container border-bottom">
+          <div
+            class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
+          >
+            <div class="profile-image">
+              <img
+                class="rounded-circle"
+                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
+                width="70"
+              />
+            </div>
+            <div
+            class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
+            >
+              <i
+                class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
+                v-on:click.prevent="upVote(post)"
+              ></i
+              ><span>{{ post.upvotes - post.downvotes }}</span>
+              <i
+                class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
+                v-on:click.prevent="downVote(post)"
+              ></i>
+            </div>
+            <div class="d-flex flex-column ml-3">
+              <div class="d-flex flex-row post-title">
+                <h5>{{ post.postTitle }}</h5>
+                
+              </div>
+              <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
+              <div
+                class="d-flex flex-row align-items-center align-content-center post-title"
+              >
+                <span class="bdge mr-1">Question</span>
+                <span class="mr-2 dot"></span><span> Timestamp </span>
+              </div>
+              
+             
+              
+            </div>
+            <button
+                  v-if="post.creatorUsername == $store.state.user.username"
+                  v-on:click="deletePost(post)"
+                >
+                  Delete
+                </button>
+          </div>
+          <div class="delete" id="postDesc">
+               
+                <h6 >{{ post.postDesc }}</h6>
+              
+                
+              </div>
+          <p
+            class="mr-2 comments"
+            id="commentsButton"
+            v-on:click.prevent="commentOPen = !commentOPen"
+          >
+            Comments
+          </p>
+        </div>
+      </div>
+
+      <!-- TEMPLATE END -->
+      <comments-list
+        v-bind:post="post"
+        class="comments-list"
+        v-show="commentOPen"
+      />
     </div>
-    
   </div>
 </template>
-
 <script>
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
@@ -28,22 +98,25 @@ export default {
   components: {
     CommentsList,
   },
- 
 
   data() {
     return {
       searchFilter: "",
+      commentOPen: false,
     };
   },
   computed: {
-    filteredPosts() {
-      return this.$store.state.posts.filter((post) => {
-        return this.searchFilter == ""
-          ? true
-          : post.postTitle.includes(this.searchFilter);
-      });
-    },
+  filteredPosts() {
+    const searchFilter = this.searchFilter.toLowerCase();
+    return this.$store.state.posts.filter((post) => {
+      const nameMatch = post.postTitle.toLowerCase().includes(searchFilter);
+      const contentMatch = post.postDesc.toLowerCase().includes(searchFilter);
+      
+      // Return true if either condition matches or searchFilter is empty
+      return searchFilter === "" ? true : nameMatch || contentMatch;
+    });
   },
+},
 
   methods: {
     deletePost(post) {
@@ -58,7 +131,7 @@ export default {
 
         PostService.deletePost(post)
           .then((response) => {
-            this.getPosts(this.$route.params.denName)
+            this.getPosts(this.$route.params.denName);
             console.log("deleted");
           })
           .catch((error) => {
@@ -75,106 +148,168 @@ export default {
           console.log("You are out of luck");
         });
     },
-    
-    getVotesInfo(post){
-      VotingService.retrieveVoteInformationForPosts(post).then(response => {
-      }).catch(error => {
-        console.log(error)
-      })
 
+    getVotesInfo(post) {
+      VotingService.retrieveVoteInformationForPosts(post)
+        .then((response) => {})
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    upVote(post){
-      VotingService.makeUpvoteForPost(post).then(response => {
-        this.getPosts(this.$route.params.denName)
-        console.log('upvote')
-        console.log(response.data);
-      }).catch(error => {
-        console.log(error)
-      })
+    upVote(post) {
+      VotingService.makeUpvoteForPost(post)
+        .then((response) => {
+          this.getPosts(this.$route.params.denName);
+          console.log("upvote");
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-    downVote(post){
-      VotingService.makeDownvoteForPost(post).then(response => {
-        this.getPosts(this.$route.params.denName)
-        console.log(response.data);
-      }).catch(error => {
-        console.log(error)
-      })
+    downVote(post) {
+      VotingService.makeDownvoteForPost(post)
+        .then((response) => {
+          this.getPosts(this.$route.params.denName);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-
   },
-  created(){
-    this.getPosts(this.$route.params.denName)
-  }
-
+  created() {
+    this.getPosts(this.$route.params.denName);
+  },
 };
 </script>
-
 <style scoped>
-.den {
-  border-bottom: 1px solid #f2f2f200;
-  display: block;
-  padding: 10px 20px;
-  background-color: white;
+/* Remove default button styling */
+.image-button {
+  background: none; /* Remove default button background */
+  border: none; /* Remove default button border */
+  padding: 0; /* Remove default button padding */
+  margin: 0; /* Remove default button margin */
+  cursor: pointer; /* Change cursor to pointer */
+  display: inline-flex; /* Make sure buttons are inline with other content */
+}
+
+/* Ensure images inside buttons fit well */
+.image-button img {
+  display: block; /* Remove extra space below image */
+  width: 1rem; /* Adjust width as needed */
+  height: auto; /* Maintain aspect ratio */
+}
+
+/* Additional styles for button container */
+.button-container {
+  display: flex;
+  flex-flow: row;
+  align-items: center; /* Center items vertically */
+  justify-content: center; /* Center items horizontally */
+}
+
+.upvoteIcon:hover {
+  color: #A1C181;
+}
+
+.downvoteIcon:hover {
+  color: #FE7F2D;
+}
+
+/* DOT */
+.dot {
+  height: 0.5rem;
+  width: 0.5rem;
+  margin: 0.5rem;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.hit-voting {
   cursor: pointer;
 }
-#postBody{
+
+/* .hit-voting:hover {
+  color: blue;
+} */
+
+.votings{
+  padding: .5rem;
+
+}
+
+.username{
   display: flex;
-  flex-direction: column;
-  display: flex;
-  font-size: larger;
-  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
-  border-top: black;
-}
-label[for=postLabel]{
-display: flex;
-flex-direction: row;
-border:1px solid rgba(0, 0, 0, 0);
-background-color: rgba(217, 217, 217, 0.76);
-
-}
-#postTitle {
-display: flex;
-width: 100%;
-justify-content: flex-start;
-font-size: x-large;
-color: rgba(0, 0, 0, 0.64);
-
-}
-#postUser { 
-display: flex;
-justify-content: flex-end;
-width: 100%;
-}
-p {
- display: flex;
- justify-content: flex-start;
- width: 100%;
- padding: 1%;
- font-size: larger;
-}
-#postDescription {
-  display: flex;
- justify-content: flex-start;
- width: 100%;
- margin-left: 0.1%;
- font-size: small;
-
-}
-
-#searchPost {
-  display: flex;
-  margin: auto;
-  justify-content: center;
-}
-button {
-display: flex;
-width: 6%;
-margin: auto;
-margin-top: 0.1%;
-margin-bottom: 0.1%;
-justify-content: center;
-
+  text-align: bottom;
+  padding-left: .5rem;
+  margin-bottom: 8px;
+  vertical-align: bottom;
+  
   
 }
 
+img {
+  justify-content: flex-start;
+}
+
+/* #postDesc {
+  margin: .5%;
+  display: inline-block;
+  
+  word-wrap: break-word;
+  justify-content: center;
+
+} */
+
+body {
+  background-color: #eee;
+  display: flex;
+}
+
+.bdge {
+  height: 21px;
+  background-color: orange;
+  color: #fff;
+  font-size: 11px;
+  padding: 8px;
+  border-radius: 4px;
+  line-height: 3px;
+}
+.delete {
+  width: 80%;
+  margin: .5rem;
+  margin-left: 59px;
+  display: inline-block;
+  word-wrap: break-word;
+  justify-content: center;
+  text-align: justify;
+
+}
+.comments {
+  text-decoration: underline;
+  text-underline-position: under;
+  cursor: pointer;
+}
+.comments-list {
+  display: flex;
+  flex-flow: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.second-container{
+  border-top: solid #619B8A 1px;
+}
+
+#searchPost{
+  padding-bottom: 1rem;
+}
+
+h6 {
+  display: inline-block;
+  width: 100%;
+  text-wrap: ;
+}
 </style>
