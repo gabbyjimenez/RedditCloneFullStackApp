@@ -98,13 +98,13 @@ public class DenController {
 
     }
 
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path="/{den}/{id}/pin")
     public PostDto togglePinnedPost(@PathVariable("den") String denName, @PathVariable("id") int postId, @RequestBody PostDto postToPin){
         return denDao.pinPost(postToPin);
     }
 
-    @ResponseStatus(HttpStatus.I_AM_A_TEAPOT)
+    @ResponseStatus(HttpStatus.CREATED)
     @PostMapping(path="/{den}/{id}/comments/{commentId}/pin")
     public ResponseDto togglePinnedComment(@PathVariable("den") String denName, @PathVariable("id") int postId, @PathVariable("commentId") int responseId, @RequestBody ResponseDto responseToPin){
         return denDao.pinResponse(responseToPin);

@@ -50,17 +50,17 @@ VALUES('Hiking', 'Test Description', 1);
 
 
 
-INSERT INTO posts (post_title, post_desc, den_id, creator_id)
-VALUES('', 'Hello World 1', 1, 1);
+INSERT INTO posts (post_title, post_desc, den_id, creator_id, time_created)
+VALUES('Hello World', 'Hello World 1', 1, 1, '2024-08-03 08:45:23');
 
-INSERT INTO posts (post_title, post_desc, den_id, creator_id)
-VALUES('Playing Defense against CPU', 'Any tips for stopping the cpu on defense? They are dotting me up regardless of any defense I run. Offense is so much fun but getting shredded on defense by instant laser passes thrown perfectly is no fun at all. It is lame to sim the defense all the time but honestly it’s to that point right now unless I can find a way to get consistent stops without it just being dumb luck that I force a punt lol Thanks in advance got any tips!', 2, 1);
+INSERT INTO posts (post_title, post_desc, den_id, creator_id, time_created)
+VALUES('Playing Defense against CPU', 'Any tips for stopping the cpu on defense? They are dotting me up regardless of any defense I run. Offense is so much fun but getting shredded on defense by instant laser passes thrown perfectly is no fun at all. It is lame to sim the defense all the time but honestly it’s to that point right now unless I can find a way to get consistent stops without it just being dumb luck that I force a punt lol Thanks in advance got any tips!', 2, 1, '2024-08-04 14:32:57');
 
-INSERT INTO posts (post_title, post_desc, den_id, creator_id)
-VALUES('Too Many Ints', 'Am I just bad at the game? But I throw about 5 interceptions a game. It almost seems impossible to have a clean passing game. Am I just bad or do others seem to have the same issue?', 2, 1);
+INSERT INTO posts (post_title, post_desc, den_id, creator_id, time_created)
+VALUES('Too Many Ints', 'Am I just bad at the game? But I throw about 5 interceptions a game. It almost seems impossible to have a clean passing game. Am I just bad or do others seem to have the same issue?', 2, 1, '2024-08-05 09:12:45');
 
-INSERT INTO posts (post_title, post_desc, den_id, creator_id)
-VALUES('Test 3', 'Hello World 3', 3, 1);
+INSERT INTO posts (post_title, post_desc, den_id, creator_id, time_created)
+VALUES('Test 3', 'Hello World 3', 3, 1, '2024-08-06 16:22:09');
 
 INSERT INTO posts (post_title, post_desc, den_id, creator_id)
 VALUES('Test 4', 'Hello World 4', 4, 1);
@@ -126,11 +126,11 @@ VALUES('Test 7', 'Hello World 7', 12, 1);
 --Test Responses
 
 
-INSERT INTO responses (response_desc, post_id, creator_id)
-VALUES('My issue is the lob pass going 30 yards short of where I want it haha', 2, 1);
+INSERT INTO responses (response_desc, post_id, creator_id, time_created)
+VALUES('My issue is the lob pass going 30 yards short of where I want it haha', 2, 1, '2024-08-07 11:34:18');
 
-INSERT INTO responses (response_desc, post_id, creator_id)
-VALUES('Operation Sports nerfs the CPU Int slider because its a bit much. They catch EVERYTHING. Most should just be broken up passes.', 2, 1);
+INSERT INTO responses (response_desc, post_id, creator_id, time_created)
+VALUES('Operation Sports nerfs the CPU Int slider because its a bit much. They catch EVERYTHING. Most should just be broken up passes.', 2, 1, '2024-08-08 17:58:30');
 
 INSERT INTO responses (response_desc, post_id, creator_id)
 VALUES('Test Comment 3', 9, 1);

@@ -50,6 +50,7 @@ CREATE TABLE posts (
 	upvotes int DEFAULT 0,
 	downvotes int DEFAULT 0,
 	pinned boolean DEFAULT false,
+	time_created timestamp, 
 	
 	
 	CONSTRAINT PK_post_id PRIMARY KEY (post_id),
@@ -67,6 +68,7 @@ CREATE TABLE responses (
 	upvotes int DEFAULT 0,
 	downvotes int DEFAULT 0,
 	pinned boolean DEFAULT false,
+	time_created timestamp,
 	
 	CONSTRAINT PK_response_id PRIMARY KEY (response_id),
 	CONSTRAINT FK_users_responses FOREIGN KEY (creator_id) REFERENCES users(user_id),

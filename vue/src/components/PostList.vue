@@ -1,71 +1,80 @@
 <template>
   <div id="searchPost">
     <label for="searchFilter">Search: </label>
-    <input type="text" id="searchFilter" name="denName" v-model="searchFilter" />
+    <input
+      type="text"
+      id="searchFilter"
+      name="denName"
+      v-model="searchFilter"
+    />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
-
       <div class="d-flex justify-content-center row">
         <div class="d-flex flex-column col-md-8 second-container border-bottom">
-          <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4">
-
+          <div
+            class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
+          >
             <div class="profile-image">
-              <img class="rounded-circle"
-                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
+              <img
+                class="rounded-circle"
+                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
+                width="70"
+              />
             </div>
-            <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
-              <i class="fa fa-sort-up fa-2x hit-voting upvoteIcon" v-on:click.prevent="upVote(post)"></i><span>{{
-                post.upvotes - post.downvotes }} </span>
-              <i class="fa fa-sort-down fa-2x hit-voting downvoteIcon" v-on:click.prevent="downVote(post)"></i>
+            <div
+              class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
+            >
+              <i
+                class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
+                v-on:click.prevent="upVote(post)"
+              ></i
+              ><span>{{ post.upvotes - post.downvotes }} </span>
+              <i
+                class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
+                v-on:click.prevent="downVote(post)"
+              ></i>
             </div>
 
-            <div class="d-flex flex-column ml-3">
+            <div class="d-flex flex-column ml-3 titleDiv">
               <div class="d-flex flex-row post-title">
                 <h5>{{ post.postTitle }}</h5>
-                <i v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)"
-                  class="fa-solid fa-trash trashCan" id="trashCanIcon">
+                <i
+                  v-if="post.creatorUsername == $store.state.user.username"
+                  v-on:click="deletePost(post)"
+                  class="fa-solid fa-trash trashCan"
+                  id="trashCanIcon"
+                >
                 </i>
 
-                <i 
-  class="fa-solid fa-flag" 
-  v-bind:style="{ color: !post.isPinned ? 'yellow' : 'initial' }">
-</i>
-
-
-               
-
-
+                <i
+                  class="fa-solid fa-flag"
+                  :style="{ color: post.isPinned ? 'red' : 'initial' }"
+                  @click="pinToggle(post)"
+                >
+                </i>
               </div>
 
-              <div><span class="ml-2 username">@{{ post.creatorUsername }}</span></div>
+              <div>
+                <span class="ml-2 username">@{{ post.creatorUsername }}</span>
+              </div>
 
-              <div class="d-flex flex-row align-items-center align-content-center post-title">
-                <span class="bdge mr-1">Question</span>
-                <span class="mr-2 dot"></span><span> Timestamp </span>
-
+              <div
+                class="d-flex flex-row align-items-center align-content-center post-title"
+              >
+                <span class="postTime"> {{ formatLocalDateTimeWithAMPM(post.timeCreated) }} </span>
               </div>
             </div>
-          
           </div>
 
           <div class="delete" id="postDesc">
-
             <h6>{{ post.postDesc }}</h6>
-
-
-
           </div>
 
-
           <comments-list v-bind:post="post" class="comments-list" />
-
         </div>
-
       </div>
-
-
     </div>
   </div>
 </template>
@@ -73,6 +82,7 @@
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
 import VotingService from "../services/VotingService.js";
+import PinningService from "../services/PinningService.js";
 export default {
   components: {
     CommentsList,
@@ -81,8 +91,6 @@ export default {
   data() {
     return {
       searchFilter: "",
-
-
     };
   },
   computed: {
@@ -105,7 +113,7 @@ export default {
         }
         return a.isPinned ? -1 : 1; // Pinned posts (-1) come before unpinned posts (1)
       });
-    }
+    },
   },
 
   methods: {
@@ -141,7 +149,7 @@ export default {
 
     getVotesInfo(post) {
       VotingService.retrieveVoteInformationForPosts(post)
-        .then((response) => { })
+        .then((response) => {})
         .catch((error) => {
           console.log(error);
         });
@@ -159,7 +167,6 @@ export default {
           });
       } else {
         this.$router.push("/login");
-
       }
     },
     downVote(post) {
@@ -174,8 +181,41 @@ export default {
           });
       } else {
         this.$router.push("/login");
-
       }
+    },
+    pinToggle(post) {
+      PinningService.pinToggle(post).then((response) => {
+        this.getPosts(this.$route.params.denName);
+        console.log(response.data);
+      });
+    },
+
+    formatLocalDateTimeWithAMPM(localDateTime) {
+      if (
+        !localDateTime ||
+        !localDateTime.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/)
+      ) {
+        throw new Error("Invalid LocalDateTime format");
+      }
+
+      const date = new Date(localDateTime.replace("T", " "));
+
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const year = date.getFullYear();
+
+      let hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const seconds = String(date.getSeconds()).padStart(2, "0");
+
+      const ampm = hours >= 12 ? "PM" : "AM";
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      const formattedHours = String(hours).padStart(2, "0");
+
+      return `${month}/${day}/${year} ${formattedHours}:${minutes} ${ampm}`;
     },
   },
   created() {
@@ -221,27 +261,27 @@ export default {
 }
 
 .upvoteIcon:hover {
-  color: #A1C181;
+  color: #a1c181;
   animation-name: fa-shake;
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear)
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 
 .downvoteIcon:hover {
-  color: #FE7F2D;
+  color: #fe7f2d;
   animation-name: fa-shake;
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear)
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 
 .fa-trash:hover {
-  color: #FE7F2D;
+  color: #fe7f2d;
   animation-name: fa-shake;
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear)
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 
 /* DOT */
@@ -263,17 +303,14 @@ export default {
 } */
 
 .votings {
-  padding: .5rem;
-
+  padding: 0.5rem;
 }
 
 .username {
   display: flex;
   text-align: bottom;
-  padding-left: .5rem;
+  padding-left: 0.5rem;
   vertical-align: bottom;
-
-
 }
 
 img {
@@ -311,8 +348,6 @@ body {
   word-wrap: break-word;
   justify-content: center;
   text-align: justify;
-
-
 }
 
 .comments {
@@ -320,7 +355,6 @@ body {
   text-underline-position: under;
   cursor: pointer;
 }
-
 
 .comments-list {
   display: flex;
@@ -330,7 +364,7 @@ body {
 }
 
 .second-container {
-  border-top: solid #619B8A 1px;
+  border-top: solid #619b8a 1px;
 }
 
 #searchPost {
@@ -352,7 +386,7 @@ h6 {
 #trashCanIcon {
   display: flex;
   justify-content: flex-start;
-  padding-left: .5rem;
+  padding-left: 0.5rem;
   align-content: end;
   padding-right: 20px;
 }
@@ -363,8 +397,15 @@ h6 {
   justify-content: center;
 }
 
-.flagged{
-  color: #FE7F2D;
+.flagged {
+  color: #fe7f2d;
 }
 
+.titleDiv{
+  padding-left: .5rem;
+}
+
+.postTime{
+  font-size:90%;
+}
 </style>

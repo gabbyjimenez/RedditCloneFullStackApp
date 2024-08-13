@@ -43,7 +43,8 @@ export default {
               denCreatorId: this.$store.state.user.id,
               denCreatorUserName: this.$store.state.user.username,
               categoryNames: [],
-              denDesc: ""
+              denDesc: "",
+              isFavorited: false
           },
           denOpen: false,
           categories: []
@@ -67,7 +68,8 @@ export default {
               denCreatorId: this.$store.state.user.id,
               denCreatorUserName: this.$store.state.user.username,
               categoryNames: [],
-              denDesc: ""
+              denDesc: "",
+              isFavorited: false
           };
       },
       getCategories() {
@@ -98,7 +100,6 @@ display: flex;
 flex-direction: column;
 align-items: center;
 padding: 20px;
-font-family: 'Segoe UI';
 }
 
 /* Card styling for the expandable button */
@@ -182,10 +183,5 @@ text-align: center;
 .btn.save:hover {
 background-color: #f0f0f0; /* Light background on hover for contrast */
 color: #0056b3; /* Darker shade for text on hover */
-}
-#addButton{
-    align-items: center;
-    justify-content: center;
-    
 }
 </style>
