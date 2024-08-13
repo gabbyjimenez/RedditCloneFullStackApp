@@ -1,6 +1,6 @@
 BEGIN TRANSACTION;
 
-DROP TABLE IF EXISTS users, dens, categories, den_category, posts, responses, response_user_vote, post_user_vote;
+DROP TABLE IF EXISTS users, dens, categories, den_category, posts, responses, response_user_vote, post_user_vote, favorites_dens;
 
 CREATE TABLE users (
 	user_id SERIAL,
@@ -99,6 +99,17 @@ CREATE TABLE post_user_vote (
 	CONSTRAINT FK_post_user_vote_post FOREIGN KEY (post_id) REFERENCES posts(post_id),
 	CONSTRAINT FK_post_user_vote_users FOREIGN KEY (user_id) REFERENCES users(user_id)
 
+);
+
+CREATE TABLE favorites_dens (
+	favorites_dens_id SERIAL,
+	toggle_status BOOLEAN,
+	den_id int,
+	user_id int,
+	
+	CONSTRAINT PK_favorites_dens_id PRIMARY KEY (favorites_dens_id),
+	CONSTRAINT FK_favorites_dens_dens FOREIGN KEY (den_id) REFERENCES dens(den_id),
+	CONSTRAINT FK_favorites_dens_users FOREIGN KEY (user_id) REFERENCES users(user_id)
 );
 
 
