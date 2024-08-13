@@ -9,7 +9,7 @@
     </p>
     <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
       <div class="main-container">
-        <div class="d-flex flex-row add-comment-section mt-4 mb-4">
+        <div class="d-flex flex-row add-comment-section mt-4 mb-4" id="theActualItems">
           <img
             class="img-fluid img-responsive rounded-circle mr-2"
             src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
@@ -303,6 +303,7 @@ export default {
 } */
 
 /* General styles */
+
 body {
   background-color: #eee;
   display: flex;
@@ -311,6 +312,19 @@ body {
 
 .add-comment-section {
   margin-top: 0%;
+}
+
+
+.main-container {
+  /* display: flex;
+  justify-content: space-around;
+  gap: 0.5rem;
+  max-height: 50%; */
+
+}
+
+#theActualItems {
+  /* gap: 1rem; */
 }
 
 .bdge {
