@@ -327,18 +327,6 @@ body {
 }
 
 
-.main-container {
-  /* display: flex;
-  justify-content: space-around;
-  gap: 0.5rem;
-  max-height: 50%; */
-
-}
-
-#theActualItems {
-  /* gap: 1rem; */
-}
-
 .bdge {
   height: 21px;
   background-color: orange;
@@ -607,4 +595,3 @@ h6 {
 }
 
 /* Your other existing styles */</style>
-
