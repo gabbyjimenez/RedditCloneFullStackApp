@@ -4,7 +4,7 @@
 
 <div id="favoriteToggle" class="form-check form-switch">
   <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" v-on:click="(showFavoriteDens = !showFavoriteDens)">
-  <label class="form-check-label" for="flexSwitchCheckDefault" v-on:click="(showFavoriteDens = !showFavoriteDens)">Followed Dens</label>
+  <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
 </div>
 
 
@@ -44,53 +44,23 @@
 
             <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
               @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
-
-
-
           </div>
 
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- 
-        <div class="card">
-          <div class="card-header">
-            <h5>{{ den.denName }}</h5>
-            <p class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
-            <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p>
-          </div>
-          <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-            <p>{{ den.denDesc }}</p>
-            <button class="delete-button"
-              v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)">&#x2716;</button>
-          </div> -->
-        <!-- </div> -->
       </li>
     </ul>
+
+ 
+
   </div>
 </template>
 
 
 
 <script>
+
 import DenService from '../services/DenService';
+import Favorites from '../components/Favorites.vue';
 
 export default {
   data() {
@@ -98,6 +68,11 @@ export default {
       searchFilter: "",
       showFavoriteDens: false,
     };
+  },
+  components: {
+    
+
+
   },
   computed: {
     filteredDens() {
@@ -322,5 +297,15 @@ export default {
 #favoriteToggle{
   display: flex;
   flex-direction: column;
+}
+#flexSwitchCheckDefault{
+  display: flex;
+
+
+}
+#flexSwitchLabel{
+display: flex;
+
+
 }
 </style>
