@@ -20,6 +20,7 @@ export default {
     getFavorites() {
       DenService.getFavorites()
         .then((response) => {
+          console.log(response.data)
           this.favorites = response.data;
         })
         .catch((error) => {

@@ -11,7 +11,7 @@
 
 
     <div id="favLog">
-      <p v-if="this.$store.state.user.username != null" v-bind:to="{ name: 'logout' }" class="auth-link"
+      <p v-if="this.$store.state.user.userId != 0" v-bind:to="{ name: 'logout' }" class="auth-link"
         data-toggle="modal" data-target="#logoutModal">
         Logout
       </p>

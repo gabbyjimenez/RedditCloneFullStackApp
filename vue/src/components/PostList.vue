@@ -27,7 +27,9 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i v-if="getThisDen(post) || post.pinned == true" v-on:click="pinToggle(post)" class="fa-solid fa-flag" :class="{ 'flagged': post.pinned }"></i>   
+                <i v-if="getThisDen(post)" v-on:click="pinToggle(post)" class="fa-solid fa-flag" :class="{ 'flagged': post.pinned }"></i> 
+                <i v-else-if="post.pinned == true" class="fa-solid fa-flag" :class="{ 'flagged': post.pinned }"></i>   
+  
               </div>
 
               <div>
@@ -132,6 +134,7 @@ export default {
       });
   },
   upVote(post) {
+    console.log(this.$store.state.user.userId)
     if (this.$store.state.user.userId != 0) {
       VotingService.makeUpvoteForPost(post)
         .then((response) => {
@@ -147,6 +150,7 @@ export default {
     }
   },
   downVote(post) {
+    console.log(this.$store.state.user.userId)
     if (this.$store.state.user.userId != 0) {
       VotingService.makeDownvoteForPost(post)
         .then((response) => {
@@ -370,7 +374,6 @@ h6 {
   display: flex;
   justify-content: flex-start;
   padding-left: 10px;
-  padding-right: 10px;
   align-content: end;
 }
 
@@ -378,6 +381,10 @@ h6 {
   display: inline-block;
   align-content: center;
   justify-content: center;
+}
+
+.fa-flag{
+  padding-left: 10px;
 }
 
 .flagged {

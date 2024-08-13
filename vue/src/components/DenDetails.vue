@@ -1,84 +1,91 @@
 <template>
   <div class="container">
-    <div id="searchBar">
-      <input type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search"
-        v-model="searchFilter" />
+    <div id="searchOption">
+      <div id="searchBar">
+
+        <input id="searchBar" type="search" class="form-control" placeholder="Search dens or categories"
+          aria-label="Search" v-model="searchFilter" />
+      </div>
+      <div id="favoriteToggle" class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+          v-on:click="(showFavoriteDens = !showFavoriteDens); getFavorites(this.$store.state.user)">
+        <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
+      </div>
+
+
     </div>
 
     <ul id="denList">
-      <li v-for="den in filteredDens" :key="den.denName" class="den-item">
+      <div v-if="!showFavoriteDens">
+        <li v-for="den in filteredDens" :key="den.denName" class="den-item">
 
-        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-          <div id="denHeader">
-            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
-              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+          <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+            <div id="denHeader">
+              <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
 
-            <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+              <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+            </div>
+            <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
+            <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
+            <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
+
+            <div id="denDescription" class="card-body">
+              <p>{{ den.denDesc }}</p>
+
+              <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+                @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+            </div>
           </div>
-          <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
-
-          <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
-          <i id="favoriteIcon" class="fa-solid fa-star"></i>
-
-          <div id="denDescription" class="card-body" >
-            <p>{{ den.denDesc }}</p>
-
-            <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
-
-
-
-          </div>
-
+        </li>
         </div>
+        <div v-else>
+        <li v-for="den in filteredFavdens" :key="den.denName" class="den-item">
+          <p></p>
+          <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+            <div id="denHeader">
+              <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
 
+              <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+            </div>
+            <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
+            <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
+            <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
 
+            <div id="denDescription" class="card-body">
+              <p>{{ den.denDesc }}</p>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- 
-        <div class="card">
-          <div class="card-header">
-            <h5>{{ den.denName }}</h5>
-            <p class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
-            <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p>
+              <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+                @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+            </div>
           </div>
-          <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-            <p>{{ den.denDesc }}</p>
-            <button class="delete-button"
-              v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)">&#x2716;</button>
-          </div> -->
-        <!-- </div> -->
-      </li>
+        </li>
+        </div>
     </ul>
+
+
+
+
   </div>
 </template>
 
 
 
 <script>
+
 import DenService from '../services/DenService';
+
 
 export default {
   data() {
     return {
       searchFilter: "",
+      showFavoriteDens: false,
+      favorites: []
     };
   },
+
   computed: {
     filteredDens() {
       const searchFilter = this.searchFilter.toLowerCase();
@@ -91,6 +98,26 @@ export default {
         );
         return searchFilter === "" ? true : nameMatch || categoryMatch;
       });
+
+      // Sort dens with isFavorite at the top
+      return filtered.sort((a, b) => {
+        if (a.isFavorite && !b.isFavorite) return -1;
+        if (!a.isFavorite && b.isFavorite) return 1;
+        return 0;
+      });
+    },
+    filteredFavdens() {
+      // const searchFilter = this.searchFilter.toLowerCase();
+
+      // Filter dens based on searchFilter
+      const filtered = this.$store.state.dens.filter((den) => {
+        const favMatch = this.favorites.some(fav => fav.denId === den.denId);
+        console.log(favMatch)
+        return favMatch;
+      
+      });
+      console.log(filtered)
+      console.log(this.favorites)
 
       // Sort dens with isFavorite at the top
       return filtered.sort((a, b) => {
@@ -118,7 +145,29 @@ export default {
       }).catch(error => {
         console.log('You are out of luck');
       });
-    }
+    },
+    getFavorites(user) {
+      DenService.getFavorites(user)
+        .then((response) => {
+          console.log(response.data)
+          this.favorites = response.data;
+        })
+        .catch((error) => {
+          console.log("You are out of luck");
+        });
+    },
+    toggleFavorite(den) {
+      DenService.toggleFavorite(den)
+        .then((response) => {
+          this.getFavorites(this.$store.state.user);
+
+        })
+        .catch((error) => {
+          console.log("You are out of luck");
+        });
+
+
+    },
   }
 };
 </script>
@@ -146,6 +195,7 @@ export default {
   max-height: 5%;
 
 }
+
 #userName {
   display: flex;
   align-items: center;
@@ -190,12 +240,15 @@ export default {
   position: relative;
   /* Position relative to position the delete button absolutely */
 }
-#denTitle{
+
+#denTitle {
   font-weight: bolder;
 }
-#denDescription{
+
+#denDescription {
   font-weight: lighter;
 }
+
 /* Card Styling */
 .card {
   position: relative;
@@ -255,33 +308,35 @@ export default {
   background: transparent;
   color: #dc3545;
   border: none;
-  font-size: 10px;
+  font-size: 15px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
-#favoriteIcon{ 
+
+#favoriteIcon {
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 25px;
   background: transparent;
-  color: #b6b6b6; 
-  font-size: 10px;
+  color: #b6b6b6;
+  font-size: 15px;
   cursor: pointer;
   transition: color 0.3s ease;
- }
- #favoriteIcon:hover{ 
+}
+
+#favoriteIcon:hover {
   position: absolute;
 
 
   color: rgba(89, 89, 89, 0.379);
- 
+
   cursor: pointer;
   transition: color 0.3s ease;
   animation-name: fa-fade;
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
- }
+}
 
 
 .fa-trash:hover {
@@ -298,5 +353,42 @@ export default {
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+#favoriteToggle {
+  display: flex;
+  flex-direction: column;
+}
+
+#flexSwitchCheckDefault {
+  display: flex;
+
+
+}
+
+#flexSwitchLabel {
+  display: flex;
+
+
+}
+
+#searchOption {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: auto;
+
+
+}
+
+#searchBar {
+  width: 90%
+}
+
+#favoriteToggle {
+  width: 5%;
+  justify-content: center;
+  align-items: center;
+  font-size: x-small;
 }
 </style>
