@@ -237,84 +237,7 @@ export default {
 </script>
 
 <style scoped>
-/* 
-  
-#commentUsername {
-  font-weight: bold;
-  align-items: baseline;
-}
-#commentButtons {
-  display: flex;
-  height: 10%;
-  justify-content: space-evenly;
-}
-.comment {
-  border-bottom: 1px solid #f2f2f2;
-  display: flex;
-  padding: 10px 20px;
-  width: 100%;
-  justify-content: center;
-  background-color: #c6bebe;
-  cursor: pointer;
-}
-#commentMessage {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-}
 
-#selectedButton {
-  background-color: aqua;
-}
-#commentsButton {
-  display: flex;
-  width: 8%;
-  margin: auto;
-  margin-top: 0.1%;
-  margin-bottom: 0.1%;
-  justify-content: center;
-} */
-
-/* Template Nobody Panic */
-
-/* body {
-  background-color: #eee;
-}
-
-.bdge {
-  height: 21px;
-  background-color: orange;
-  color: #fff;
-  font-size: 11px;
-  padding: 8px;
-  border-radius: 4px;
-  line-height: 3px;
-}
-
-.comments {
-  text-decoration: underline;
-  text-underline-position: under;
-  cursor: pointer;
-}
-
-.dot {
-  height: 7px;
-  width: 7px;
-  margin-top: 3px;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.hit-voting:hover {
-  color: blue;
-}
-
-.hit-voting {
-  cursor: pointer;
-} */
-
-/* General styles */
 
 body {
   background-color: #eee;
@@ -326,18 +249,6 @@ body {
   margin-top: 0%;
 }
 
-
-.main-container {
-  /* display: flex;
-  justify-content: space-around;
-  gap: 0.5rem;
-  max-height: 50%; */
-
-}
-
-#theActualItems {
-  /* gap: 1rem; */
-}
 
 .bdge {
   height: 21px;
@@ -607,4 +518,3 @@ h6 {
 }
 
 /* Your other existing styles */</style>
-
