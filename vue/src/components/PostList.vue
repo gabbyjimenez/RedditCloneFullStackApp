@@ -1,13 +1,8 @@
 <template>
   <div id="searchPost">
     <label for="searchFilter">Search: </label>
-    <input
-      type="text"
-      id="searchFilter"
-      name="denName"
-      v-model="searchFilter"
-      placeholder="Search by Title/Post Content"
-    />
+    <input type="text" id="searchFilter" name="denName" v-model="searchFilter"
+      placeholder="Search by Title/Post Content" />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
@@ -32,7 +27,10 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i v-if="something == something" v-on:click="pinToggle(post)" class="fa-solid fa-flag" >
+                <i v-if="getThisDen(post)" 
+                   v-on:click="pinToggle(post)" 
+                   class="fa-solid fa-flag"
+                   :class="{ 'flagged': post.pinned }">
                 </i>
               </div>
 
@@ -54,11 +52,14 @@
     </div>
   </div>
 </template>
+
 <script>
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
 import VotingService from "../services/VotingService.js";
 import PinningService from "../services/PinningService.js";
+import DenService from "../services/DenService.js";
+
 export default {
   components: {
     CommentsList,
@@ -122,6 +123,22 @@ export default {
           console.log("You are out of luck");
         });
     },
+    getThisDen(post) {
+      console.log("begin");
+      console.log("Current dens array:", this.$store.state.dens); // Log the dens array
+      let hello = null;
+
+      this.$store.state.dens.find((den) => {
+        console.log("Checking den:", den); // Log each den
+        if (this.$route.params.denName === den.denName) {
+          console.log("Matched denName:", den.denName);
+          hello = den.denId;
+        }
+      });
+
+      console.log("Resulting denId:", hello); // Log the result
+      return hello;
+    },
 
     getVotesInfo(post) {
       VotingService.retrieveVoteInformationForPosts(post)
@@ -131,7 +148,7 @@ export default {
         });
     },
     upVote(post) {
-      if (this.$store.state.user.userId != 0) {
+      if (this.$store.state.user.userId !== 0) {
         VotingService.makeUpvoteForPost(post)
           .then((response) => {
             this.getPosts(this.$route.params.denName);
@@ -146,7 +163,7 @@ export default {
       }
     },
     downVote(post) {
-      if (this.$store.state.user.userId != 0) {
+      if (this.$store.state.user.userId !== 0) {
         VotingService.makeDownvoteForPost(post)
           .then((response) => {
             this.getPosts(this.$route.params.denName);
@@ -160,7 +177,6 @@ export default {
       }
     },
     pinToggle(post) {
-      
       PinningService.pinToggle(post).then((response) => {
         this.getPosts(this.$route.params.denName);
         console.log(response.data);
@@ -197,9 +213,15 @@ export default {
   },
   created() {
     this.getPosts(this.$route.params.denName);
+    DenService.getDens().then(response => {
+        this.$store.state.dens = response.data;
+      }).catch(error => {
+        console.log('You are out of luck');
+      });
   },
 };
 </script>
+
 <style scoped>
 /* Remove default button styling */
 .image-button {
@@ -254,6 +276,14 @@ export default {
 }
 
 .fa-trash:hover {
+  color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-solid:hover{
   color: #fe7f2d;
   animation-name: fa-shake;
   animation-duration: var(--fa-animation-duration, 1s);
@@ -375,7 +405,7 @@ h6 {
 }
 
 .flagged {
-  color: #fe7f2d;
+  color: red;
 }
 
 .titleDiv {
