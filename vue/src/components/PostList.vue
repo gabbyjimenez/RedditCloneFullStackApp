@@ -1,68 +1,32 @@
 <template>
   <div id="searchPost">
-    <label for="searchFilter">Search: </label>
-    <input type="text" id="searchFilter" name="denName" v-model="searchFilter"
-      placeholder="Search by Title/Post Content" />
+    <label for="">Search: </label>
+    <input type="text" name="denName" v-model="searchFilter" />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
-      <div class="d-flex justify-content-center row">
-        <div class="d-flex flex-column col-md-8 second-container border-bottom">
-          <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4">
-            <div class="profile-image">
-              <img class="rounded-circle"
-                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
-            </div>
-            <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
-              <i class="fa fa-sort-up fa-2x hit-voting upvoteIcon" v-on:click.prevent="upVote(post)"></i><span>{{
-                post.upvotes - post.downvotes }} </span>
-              <i class="fa fa-sort-down fa-2x hit-voting downvoteIcon" v-on:click.prevent="downVote(post)"></i>
-            </div>
-
-            <div class="d-flex flex-column ml-3 titleDiv">
-              <div class="d-flex flex-row post-title">
-                <h5>{{ post.postTitle }}</h5>
-                <i v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)"
-                  class="fa-solid fa-trash trashCan" id="trashCanIcon">
-                </i>
-
-                <i v-if="getThisDen(post)" 
-                   v-on:click="pinToggle(post)" 
-                   class="fa-solid fa-flag"
-                   :class="{ 'flagged': post.pinned }">
-                </i>
-              </div>
-
-              <div>
-                <span class="ml-2 username">@{{ post.creatorUsername }} </span>
-              </div>
-
-              <div class="d-flex flex-row align-items-center align-content-center post-title">
-                <span class="postTime"> {{ formatLocalDateTimeWithAMPM(post.timeCreated) }} </span>
-              </div>
-            </div>
-          </div>
-          <div class="delete" id="postDesc">
-            <h6>{{ post.postDesc }}</h6>
-          </div>
-          <comments-list v-bind:post="post" class="comments-list" />
-        </div>
-      </div>
+      <label for="postLabel"><p id="postTitle">{{ post.postTitle }}</p><p id="postUser">{{ post.creatorUsername }}</p></label>
+      <p id="postDescription">Description: </p>
+      <p>{{ post.postDesc }}</p>
+      <button v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)">Delete</button>
+      <comments-list id="" v-bind:post="post" />
     </div>
+    
   </div>
 </template>
 
 <script>
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
-import VotingService from "../services/VotingService.js";
-import PinningService from "../services/PinningService.js";
-import DenService from "../services/DenService.js";
-
 export default {
   components: {
     CommentsList,
+  },
+  props: {
+    posts: {
+      type: Array,
+    },
   },
 
   data() {
@@ -72,23 +36,10 @@ export default {
   },
   computed: {
     filteredPosts() {
-      const searchFilter = this.searchFilter.toLowerCase();
-
-      // Filter posts based on searchFilter
-      const filtered = this.$store.state.posts.filter((post) => {
-        const nameMatch = post.postTitle.toLowerCase().includes(searchFilter);
-        const contentMatch = post.postDesc.toLowerCase().includes(searchFilter);
-
-        // Return true if either condition matches or searchFilter is empty
-        return searchFilter === "" ? true : nameMatch || contentMatch;
-      });
-
-      // Sort posts: pinned posts first, then the rest
-      return filtered.sort((a, b) => {
-        if (a.isPinned === b.isPinned) {
-          return 0; // No change in order if both posts have the same isPinned value
-        }
-        return a.isPinned ? -1 : 1; // Pinned posts (-1) come before unpinned posts (1)
+      return this.$store.state.posts.filter((post) => {
+        return this.searchFilter == ""
+          ? true
+          : post.postTitle.includes(this.searchFilter);
       });
     },
   },
@@ -106,7 +57,7 @@ export default {
 
         PostService.deletePost(post)
           .then((response) => {
-            this.getPosts(this.$route.params.denName);
+            this.getPosts(this.$route.params.denName)
             console.log("deleted");
           })
           .catch((error) => {
@@ -123,296 +74,80 @@ export default {
           console.log("You are out of luck");
         });
     },
-    getThisDen(post) {
-      console.log("begin");
-      console.log("Current dens array:", this.$store.state.dens); // Log the dens array
-      let hello = null;
-
-      this.$store.state.dens.find((den) => {
-        console.log("Checking den:", den); // Log each den
-        if (this.$route.params.denName === den.denName) {
-          console.log("Matched denName:", den.denName);
-          hello = den.denId;
-        }
-      });
-
-      console.log("Resulting denId:", hello); // Log the result
-      return hello;
-    },
-
-    getVotesInfo(post) {
-      VotingService.retrieveVoteInformationForPosts(post)
-        .then((response) => { })
-        .catch((error) => {
-          console.log(error);
-        });
-    },
-    upVote(post) {
-      if (this.$store.state.user.userId !== 0) {
-        VotingService.makeUpvoteForPost(post)
-          .then((response) => {
-            this.getPosts(this.$route.params.denName);
-            console.log("upvote");
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        this.$router.push("/login");
-      }
-    },
-    downVote(post) {
-      if (this.$store.state.user.userId !== 0) {
-        VotingService.makeDownvoteForPost(post)
-          .then((response) => {
-            this.getPosts(this.$route.params.denName);
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        this.$router.push("/login");
-      }
-    },
-    pinToggle(post) {
-      PinningService.pinToggle(post).then((response) => {
-        this.getPosts(this.$route.params.denName);
-        console.log(response.data);
-      });
-    },
-
-    formatLocalDateTimeWithAMPM(localDateTime) {
-      if (
-        !localDateTime ||
-        !localDateTime.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/)
-      ) {
-        throw new Error("Invalid LocalDateTime format");
-      }
-
-      const date = new Date(localDateTime.replace("T", " "));
-
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const year = date.getFullYear();
-
-      let hours = date.getHours();
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      const seconds = String(date.getSeconds()).padStart(2, "0");
-
-      const ampm = hours >= 12 ? "PM" : "AM";
-
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-
-      const formattedHours = String(hours).padStart(2, "0");
-
-      return `${month}/${day}/${year} ${formattedHours}:${minutes} ${ampm}`;
-    },
   },
-  created() {
-    this.getPosts(this.$route.params.denName);
-    DenService.getDens().then(response => {
-        this.$store.state.dens = response.data;
-      }).catch(error => {
-        console.log('You are out of luck');
-      });
-  },
+  created(){
+    this.getPosts(this.$route.params.denName)
+  }
+
 };
 </script>
 
 <style scoped>
-/* Remove default button styling */
-.image-button {
-  background: none;
-  /* Remove default button background */
-  border: none;
-  /* Remove default button border */
-  padding: 0;
-  /* Remove default button padding */
-  margin: 0;
-  /* Remove default button margin */
-  cursor: pointer;
-  /* Change cursor to pointer */
-  display: inline-flex;
-  /* Make sure buttons are inline with other content */
-}
-
-/* Ensure images inside buttons fit well */
-.image-button img {
+.den {
+  border-bottom: 1px solid #f2f2f200;
   display: block;
-  /* Remove extra space below image */
-  width: 1rem;
-  /* Adjust width as needed */
-  height: auto;
-  /* Maintain aspect ratio */
-}
-
-/* Additional styles for button container */
-.button-container {
-  display: flex;
-  flex-flow: row;
-  align-items: center;
-  /* Center items vertically */
-  justify-content: center;
-  /* Center items horizontally */
-}
-
-.upvoteIcon:hover {
-  color: #a1c181;
-  animation-name: fa-shake;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
-}
-
-.downvoteIcon:hover {
-  color: #fe7f2d;
-  animation-name: fa-shake;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
-}
-
-.fa-trash:hover {
-  color: #fe7f2d;
-  animation-name: fa-shake;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
-}
-
-.fa-solid:hover{
-  color: #fe7f2d;
-  animation-name: fa-shake;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
-}
-
-/* DOT */
-.dot {
-  height: 0.5rem;
-  width: 0.5rem;
-  margin: 0.5rem;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-}
-
-.hit-voting {
+  padding: 10px 20px;
+  background-color: white;
   cursor: pointer;
 }
-
-/* .hit-voting:hover {
-  color: blue;
-} */
-
-.votings {
-  padding: 0.5rem;
-}
-
-.username {
+#postBody{
   display: flex;
-  text-align: bottom;
-  padding-left: 0.5rem;
-  vertical-align: bottom;
+  flex-direction: column;
+ 
+  font-size: larger;
+  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
+  border-top: black;
 }
+label[for=postLabel]{
+display: flex;
+flex-direction: row;
+border:1px solid rgba(0, 0, 0, 0);
+background-color: rgba(217, 217, 217, 0.76);
 
-img {
-  justify-content: flex-start;
 }
+#postTitle {
+display: flex;
+width: 100%;
+justify-content: flex-start;
+font-size: x-large;
+color: rgba(0, 0, 0, 0.64);
 
-/* #postDesc {
-  margin: .5%;
-  display: inline-block;
-  
-  word-wrap: break-word;
-  justify-content: center;
-
-} */
-
-body {
-  background-color: #eee;
+}
+#postUser { 
+display: flex;
+justify-content: flex-end;
+width: 100%;
+}
+p {
+ display: flex;
+ justify-content: flex-start;
+ width: 100%;
+ padding: 1%;
+ font-size: larger;
+}
+#postDescription {
   display: flex;
-}
+ justify-content: flex-start;
+ width: 100%;
+ margin-left: 0.1%;
+ font-size: small;
 
-.bdge {
-  height: 21px;
-  background-color: orange;
-  color: #fff;
-  font-size: 11px;
-  padding: 8px;
-  border-radius: 4px;
-  line-height: 3px;
-}
-
-.delete {
-  width: 80%;
-  margin-left: 59px;
-  display: inline-block;
-  word-wrap: break-word;
-  justify-content: center;
-  text-align: justify;
-}
-
-.comments {
-  text-decoration: underline;
-  text-underline-position: under;
-  cursor: pointer;
-}
-
-.comments-list {
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.second-container {
-  border-top: solid #619b8a 1px;
 }
 
 #searchPost {
-  padding-bottom: 1rem;
-}
-
-h5 {
-  margin-bottom: 0%;
-  margin-top: 0%;
-}
-
-h6 {
-  display: inline-block;
-  width: 100%;
-  padding-bottom: 1rem;
-  text-wrap: break-word;
-}
-
-#trashCanIcon {
   display: flex;
-  justify-content: flex-start;
-  padding-left: 0.5rem;
-  align-content: end;
-  padding-right: 20px;
-}
-
-#trashCanIcon {
-  display: inline-block;
-  align-content: center;
+  margin: auto;
   justify-content: center;
 }
+button {
+display: flex;
+width: 6%;
+margin: auto;
+margin-top: 0.1%;
+margin-bottom: 0.1%;
+justify-content: center;
 
-.flagged {
-  color: red;
+  
 }
 
-.titleDiv {
-  padding-left: .5rem;
-}
-
-.postTime {
-  font-size: 90%;
-}
 </style>
