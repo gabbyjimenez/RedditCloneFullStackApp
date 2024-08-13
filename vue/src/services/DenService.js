@@ -17,6 +17,11 @@ export default {
 
  },
 
+ getFavorites(){
+  return axios.get(`/${this.$store.state.user.username}/favorites`);
+
+ },
+
  delete(den){
   return axios.delete(`/${den.denName}`, den)
 }
