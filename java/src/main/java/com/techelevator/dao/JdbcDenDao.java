@@ -128,8 +128,8 @@ public class JdbcDenDao implements DenDao {
     @Override
     public ResponseDto createNewResponse(ResponseDto newResponse) {
 
-        String sql = "INSERT INTO responses (response_desc, post_id, creator_id) " +
-                "VALUES (?, ?, ?) " +
+        String sql = "INSERT INTO responses (response_desc, post_id, creator_id, time_created) " +
+                "VALUES (?, ?, ?, CURRENT_TIMESTAMP(0)) " +
                 "RETURNING response_id";
 
 
@@ -256,8 +256,8 @@ public class JdbcDenDao implements DenDao {
     @Override
     public PostDto createNewPost(PostDto newPost) {
 
-        String sql = "INSERT INTO posts (post_title, post_desc, den_id, creator_id) " +
-                "VALUES (?, ?, (SELECT den_id FROM dens WHERE den_name = ?), ?) " +
+        String sql = "INSERT INTO posts (post_title, post_desc, den_id, creator_id, time_created) " +
+                "VALUES (?, ?, (SELECT den_id FROM dens WHERE den_name = ?), ?, CURRENT_TIMESTAMP(0)) " +
                 "RETURNING post_id";
 
         try{
