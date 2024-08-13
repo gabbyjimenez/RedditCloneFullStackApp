@@ -7,7 +7,7 @@
     >
       Comments
     </p>
-    <div class="comment-bottom bg-white p-2 px-4" id="commentBottom" v-show="commentOPen">
+    <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
       <div class="main-container">
         <div class="d-flex flex-row add-comment-section mt-4 mb-4" id="theActualItems">
           <img
@@ -316,14 +316,15 @@ body {
 
 
 .main-container {
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
   gap: 0.5rem;
+  max-height: 50%; */
 
 }
 
 #theActualItems {
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 
 .bdge {
