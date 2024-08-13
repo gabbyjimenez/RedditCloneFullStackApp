@@ -3,6 +3,7 @@
     <theHeader id="header" />
     <AddPostForm id="addPostForm" />
     <PostList/>
+    
   </div>
 </template>
 
