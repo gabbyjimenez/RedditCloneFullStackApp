@@ -118,7 +118,6 @@ export default {
         });
     },
     getThisDen(post) {
-
       return this.$store.state.dens.find(den =>
         post.denId == den.denId &&  den.denCreatorId === this.$store.state.user.id 
       );
@@ -309,15 +308,6 @@ created() {
 img {
   justify-content: flex-start;
 }
-
-/* #postDesc {
-  margin: .5%;
-  display: inline-block;
-  
-  word-wrap: break-word;
-  justify-content: center;
-
-} */
 
 body {
   background-color: #eee;

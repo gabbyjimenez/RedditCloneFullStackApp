@@ -8,21 +8,25 @@
     <ul id="denList">
       <li v-for="den in filteredDens" :key="den.denName" class="den-item">
 
-        <div class="main-container">
+        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
           <div id="denHeader">
             <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
               src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
-         
-            <p class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
-          </div>
-          <h5 class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
 
-          <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p>
-          <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+            <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+          </div>
+          <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
+
+          <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
+          <i id="favoriteIcon" class="fa-solid fa-star"></i>
+
+          <div id="denDescription" class="card-body" >
             <p>{{ den.denDesc }}</p>
-            <button class="delete-button"
-              v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)">&#x2716;</button>
+
+            <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+
+
 
           </div>
 
@@ -126,10 +130,6 @@ export default {
   display: flex;
   flex-direction: column;
   width: 100%;
-  
-  
-
-
   position: relative;
   /* Required for absolute positioning of delete button */
   border: 1px solid #ddd;
@@ -138,12 +138,20 @@ export default {
   overflow: hidden;
   transition: box-shadow 0.3s ease;
 }
-#denHeader{
-display: flex;
-flex-direction: row;
-align-items: center;
-max-height: 5%;
 
+#denHeader {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-height: 5%;
+
+}
+#userName {
+  display: flex;
+  align-items: center;
+
+  margin-top: auto;
+  margin-bottom: auto;
 }
 
 .container {
@@ -182,7 +190,12 @@ max-height: 5%;
   position: relative;
   /* Position relative to position the delete button absolutely */
 }
-
+#denTitle{
+  font-weight: bolder;
+}
+#denDescription{
+  font-weight: lighter;
+}
 /* Card Styling */
 .card {
   position: relative;
@@ -214,8 +227,8 @@ max-height: 5%;
 }
 
 #denPic {
-max-height: 15%;
- padding: .5%;
+  max-height: 15%;
+  padding: .5%;
 
 }
 
@@ -235,7 +248,7 @@ max-height: 15%;
 }
 
 /* Delete Button Styling */
-.delete-button {
+.fa-trash {
   position: absolute;
   top: 10px;
   right: 10px;
@@ -246,8 +259,31 @@ max-height: 15%;
   cursor: pointer;
   transition: color 0.3s ease;
 }
+#favoriteIcon{ 
+  position: absolute;
+  top: 10px;
+  right: 35px;
+  background: transparent;
+  color: #dc3545;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+ }
 
-.delete-button:hover {
-  color: #c82333;
+.fa-trash:hover {
+  color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-solid:hover {
+  color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 </style>
