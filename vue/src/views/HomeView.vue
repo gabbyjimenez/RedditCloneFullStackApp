@@ -3,8 +3,10 @@
   <div id="Dens" class="Dens">
     <theHeader id="header" />
     <div id="body">
-    <AddDenForm/>
-      <DenDetails />
+    <AddDenForm />
+    <button v-on:click="(denShow = !denShow)">Toggle Dens</button>
+
+    <DenDetails />
     </div>
     <!-- <p>You must be authenticated to see this</p> -->
   </div>
@@ -33,6 +35,9 @@ export default {
   },
 
   methods: {
+    show(){
+      console.log(this.$store.state.user)
+    },
 
     getDens() {
       DenService.getDens().then(response => {
@@ -44,6 +49,7 @@ export default {
   },
   created() {
     this.getDens();
+    this.show();
   }
 }
 </script>

@@ -35,17 +35,15 @@
             <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
           </div>
           <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
-
           <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
           <i id="favoriteIcon" class="fa-solid fa-star"></i>
 
-          <div id="denDescription" class="card-body" >
+          <div id="denDescription" class="card-body">
             <p>{{ den.denDesc }}</p>
 
             <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
               @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
           </div>
-
         </div>
       </li>
     </ul>
@@ -141,6 +139,7 @@ export default {
   max-height: 5%;
 
 }
+
 #userName {
   display: flex;
   align-items: center;
@@ -185,12 +184,15 @@ export default {
   position: relative;
   /* Position relative to position the delete button absolutely */
 }
-#denTitle{
+
+#denTitle {
   font-weight: bolder;
 }
-#denDescription{
+
+#denDescription {
   font-weight: lighter;
 }
+
 /* Card Styling */
 .card {
   position: relative;
@@ -254,7 +256,8 @@ export default {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-#favoriteIcon{ 
+
+#favoriteIcon {
   position: absolute;
   top: 10px;
   right: 25px;
