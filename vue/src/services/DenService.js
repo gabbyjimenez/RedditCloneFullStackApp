@@ -22,6 +22,10 @@ export default {
 
  },
 
+ addFavorite(){
+  return axios.post(`/${this.$route.params.denName}/favorite`)
+ },
+
  delete(den){
   return axios.delete(`/${den.denName}`, den)
 }
