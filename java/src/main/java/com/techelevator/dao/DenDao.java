@@ -35,5 +35,7 @@ public interface DenDao {
 
     void deleteCommentByCommentId(int responseId);
 
+    List<DenDto> getFavoritesByUserId(int userId);
+
 
 }

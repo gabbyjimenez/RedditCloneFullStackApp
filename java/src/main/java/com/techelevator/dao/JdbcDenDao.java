@@ -255,6 +255,30 @@ public class JdbcDenDao implements DenDao {
     }
 
     @Override
+    public List<DenDto> getFavoritesByUserId(int userId) {
+        List<DenDto> favoritesList = new ArrayList<>();
+
+        String sql = "SELECT dens.den_id, den_name, den_desc, users.username AS creator_username, creator_id " +
+                "FROM dens " +
+                "JOIN users ON dens.creator_id = users.user_id " +
+                "JOIN favorites_dens ON dens.den_id = favorites_dens.den_id " +
+                "WHERE favorites_dens.user_id = ?";
+
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            while (results.next()){
+                favoritesList.add(mapRowToDen(results));
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+        }
+
+        return favoritesList;
+    }
+
+    @Override
     public PostDto createNewPost(PostDto newPost) {
 
         String sql = "INSERT INTO posts (post_title, post_desc, den_id, creator_id, time_created) " +

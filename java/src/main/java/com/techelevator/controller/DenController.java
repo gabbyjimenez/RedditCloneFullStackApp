@@ -110,5 +110,12 @@ public class DenController {
         return denDao.pinResponse(responseToPin);
     }
 
+    @GetMapping(path="/{userId}/favorites")
+    public List<DenDto> favoritesList (@PathVariable("userId") int userId){
+
+        
+        return denDao.getFavoritesByUserId(userId);
+    }
+
 
 }
