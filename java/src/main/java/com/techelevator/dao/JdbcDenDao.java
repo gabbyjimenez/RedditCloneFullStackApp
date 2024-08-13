@@ -1,10 +1,7 @@
 package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
-import com.techelevator.model.CategoryDTO;
-import com.techelevator.model.DenDto;
-import com.techelevator.model.PostDto;
-import com.techelevator.model.ResponseDto;
+import com.techelevator.model.*;
 import org.apache.coyote.Response;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
@@ -12,6 +9,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.support.rowset.SqlRowSet;
 import org.springframework.stereotype.Component;
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -255,17 +253,17 @@ public class JdbcDenDao implements DenDao {
     }
 
     @Override
-    public List<DenDto> getFavoritesByUserId(int userId) {
+    public List<DenDto> getFavoritesByUsername(String username) {
         List<DenDto> favoritesList = new ArrayList<>();
 
         String sql = "SELECT dens.den_id, den_name, den_desc, users.username AS creator_username, creator_id " +
                 "FROM dens " +
                 "JOIN users ON dens.creator_id = users.user_id " +
                 "JOIN favorites_dens ON dens.den_id = favorites_dens.den_id " +
-                "WHERE favorites_dens.user_id = ?";
+                "WHERE favorites_dens.user_id = (SELECT user_id FROM users WHERE username = ?)";
 
         try{
-            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, userId);
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
             while (results.next()){
                 favoritesList.add(mapRowToDen(results));
             }
@@ -276,6 +274,81 @@ public class JdbcDenDao implements DenDao {
         }
 
         return favoritesList;
+    }
+
+
+    public FavoriteDto getFavoriteByUserAndDenName (String denName, String userName){
+
+
+        FavoriteDto favoriteDto = new FavoriteDto();
+
+
+        String sql = "SELECT * FROM favorites_dens\n" +
+                "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?) AND user_id = (SELECT user_id FROM users WHERE username = ?)";
+
+        try{
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, denName, userName);
+            if(results.next()){
+                favoriteDto = mapRowToFavorite(results);
+            }
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        } catch (DataIntegrityViolationException e) {
+            throw new DaoException("Data integrity violation", e);
+        }
+
+        return favoriteDto;
+
+    }
+
+
+
+
+    @Override
+    public void toggleFavorite(String denName, Principal principal) {
+
+        FavoriteDto compareToThis = getFavoriteByUserAndDenName(denName, principal.getName());
+
+        String sql = "";
+
+
+        if(compareToThis.isToggleStatus() == false && compareToThis.getFavoriteId() == 0){
+
+            //Insert New Entry
+            sql = "INSERT INTO favorites_dens (toggle_status, den_id, user_id) " +
+                    "VALUES (true, (SELECT den_id FROM dens WHERE den_name = ?), (SELECT user_id FROM users WHERE username = ?)) " +
+                    "RETURNING favorites_dens_id ";
+
+            try{
+
+                int newId = jdbcTemplate.queryForObject(sql, int.class, denName, principal.getName());
+
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            }
+
+
+        } else if (compareToThis.isToggleStatus() == true && compareToThis.getFavoriteId() != 0){
+            //DELETE ENTRY
+
+            sql = "DELETE FROM favorites_dens " +
+                    "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?) AND user_id = (SELECT user_id FROM users WHERE username = ?)";
+
+            try{
+
+               jdbcTemplate.update(sql, denName, principal.getName());
+
+            } catch (CannotGetJdbcConnectionException e) {
+                throw new DaoException("Unable to connect to server or database", e);
+            } catch (DataIntegrityViolationException e) {
+                throw new DaoException("Data integrity violation", e);
+            }
+
+        }
+
+
     }
 
     @Override
@@ -403,5 +476,14 @@ public class JdbcDenDao implements DenDao {
         return den;
     }
 
+
+    private FavoriteDto mapRowToFavorite(SqlRowSet rowSet){
+        FavoriteDto favoriteDto = new FavoriteDto();
+        favoriteDto.setDenId(rowSet.getInt("den_id"));
+        favoriteDto.setFavoriteId(rowSet.getInt("favorites_dens_id"));
+        favoriteDto.setToggleStatus(rowSet.getBoolean("toggle_status"));
+        favoriteDto.setUserId(rowSet.getInt("user_id"));
+        return favoriteDto;
+    }
 
 }
