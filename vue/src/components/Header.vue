@@ -18,7 +18,9 @@
       <router-link v-else v-bind:to="{ name: 'login' }" class="auth-link">
         Login
       </router-link>
+      
     </div>
+
 
     <!-- logout modal -->
     <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="logoutModalLabel"
@@ -49,7 +51,12 @@
 </template>
 
 <script>
+
+
+
 export default {
+  // test
+
   methods: {
     logout() {
       this.$store.commit("LOGOUT");
@@ -57,10 +64,12 @@ export default {
     },
     goHome() {
       this.$router.push("/dens")
-    }
+    },
+// test
 
-  }
-}
+  
+
+}}
 </script>
 
 <style scoped>
