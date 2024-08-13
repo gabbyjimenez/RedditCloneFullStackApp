@@ -1,58 +1,32 @@
 <template>
   <div id="searchPost">
     <label for="searchFilter">Search: </label>
-    <input
-      type="text"
-      id="searchFilter"
-      name="denName"
-      v-model="searchFilter"
-    />
+    <input type="text" id="searchFilter" name="denName" v-model="searchFilter" />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
     <div id="postBody" v-bind="post">
       <div class="d-flex justify-content-center row">
         <div class="d-flex flex-column col-md-8 second-container border-bottom">
-          <div
-            class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4"
-          >
+          <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4">
             <div class="profile-image">
-              <img
-                class="rounded-circle"
-                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
-                width="70"
-              />
+              <img class="rounded-circle"
+                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
             </div>
-            <div
-              class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1"
-            >
-              <i
-                class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
-                v-on:click.prevent="upVote(post)"
-              ></i
-              ><span>{{ post.upvotes - post.downvotes }} </span>
-              <i
-                class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
-                v-on:click.prevent="downVote(post)"
-              ></i>
+            <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
+              <i class="fa fa-sort-up fa-2x hit-voting upvoteIcon" v-on:click.prevent="upVote(post)"></i><span>{{
+                post.upvotes - post.downvotes }} </span>
+              <i class="fa fa-sort-down fa-2x hit-voting downvoteIcon" v-on:click.prevent="downVote(post)"></i>
             </div>
 
             <div class="d-flex flex-column ml-3 titleDiv">
               <div class="d-flex flex-row post-title">
                 <h5>{{ post.postTitle }}</h5>
-                <i
-                  v-if="post.creatorUsername == $store.state.user.username"
-                  v-on:click="deletePost(post)"
-                  class="fa-solid fa-trash trashCan"
-                  id="trashCanIcon"
-                >
+                <i v-if="post.creatorUsername == $store.state.user.username" v-on:click="deletePost(post)"
+                  class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i
-                  class="fa-solid fa-flag"
-                  :style="{ color: post.isPinned ? 'red' : 'initial' }"
-                  @click="pinToggle(post)"
-                >
+                <i  v-on:click="pinToggle(post)" class="fa-solid fa-flag" >
                 </i>
               </div>
 
@@ -60,18 +34,14 @@
                 <span class="ml-2 username">@{{ post.creatorUsername }}</span>
               </div>
 
-              <div
-                class="d-flex flex-row align-items-center align-content-center post-title"
-              >
+              <div class="d-flex flex-row align-items-center align-content-center post-title">
                 <span class="postTime"> {{ formatLocalDateTimeWithAMPM(post.timeCreated) }} </span>
               </div>
             </div>
           </div>
-
           <div class="delete" id="postDesc">
             <h6>{{ post.postDesc }}</h6>
           </div>
-
           <comments-list v-bind:post="post" class="comments-list" />
         </div>
       </div>
@@ -149,7 +119,7 @@ export default {
 
     getVotesInfo(post) {
       VotingService.retrieveVoteInformationForPosts(post)
-        .then((response) => {})
+        .then((response) => { })
         .catch((error) => {
           console.log(error);
         });
@@ -184,6 +154,7 @@ export default {
       }
     },
     pinToggle(post) {
+      
       PinningService.pinToggle(post).then((response) => {
         this.getPosts(this.$route.params.denName);
         console.log(response.data);
@@ -401,11 +372,11 @@ h6 {
   color: #fe7f2d;
 }
 
-.titleDiv{
+.titleDiv {
   padding-left: .5rem;
 }
 
-.postTime{
-  font-size:90%;
+.postTime {
+  font-size: 90%;
 }
 </style>

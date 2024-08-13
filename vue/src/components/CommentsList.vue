@@ -157,6 +157,7 @@ export default {
         });
     },
     addComment(newComment) {
+      if (this.$store.state.user.userId != 0) {
       console.log(this.post.postId);
       console.log("post id");
       PostService.addComment(newComment)
@@ -169,6 +170,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+      }
     },
 
     deleteComment(comment) {
@@ -212,6 +216,7 @@ export default {
         });
     },
     upVote(comment) {
+      if (this.$store.state.user.userId != 0) {
       VotingService.upvoteCommentForResponse(comment)
         .then((response) => {
           console.log("upvote");
@@ -221,8 +226,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+      }
     },
     downVote(comment) {
+      if (this.$store.state.user.userId != 0) {
       VotingService.downvoteCommentForResponse(comment)
         .then((response) => {
           console.log(response.data);
@@ -231,6 +240,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+      }
     },
     formatLocalDateTimeWithAMPM(localDateTime) {
       if (
