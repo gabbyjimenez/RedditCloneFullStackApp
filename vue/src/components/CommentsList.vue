@@ -46,7 +46,7 @@
               <div class="d-flex flex-row align-items-center commented-user">
                 <h5 class="mr-2 commentCreatorName">@{{ comment.creatorName }}</h5>
                 <span class="dot mb-1"></span
-                ><span class="mb-1 ml-2">4 hours ago</span>
+                ><span class="postTime">{{ formatLocalDateTimeWithAMPM(comment.timeCreated) }}</span>
               </div>
               <div class="comment-text-sm">
                 <span>{{ comment.responseDesc }}</span>
@@ -232,6 +232,33 @@ export default {
           console.log(error);
         });
     },
+    formatLocalDateTimeWithAMPM(localDateTime) {
+      if (
+        !localDateTime ||
+        !localDateTime.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/)
+      ) {
+        throw new Error("Invalid LocalDateTime format");
+      }
+
+      const date = new Date(localDateTime.replace("T", " "));
+
+      const month = String(date.getMonth() + 1).padStart(2, "0");
+      const day = String(date.getDate()).padStart(2, "0");
+      const year = date.getFullYear();
+
+      let hours = date.getHours();
+      const minutes = String(date.getMinutes()).padStart(2, "0");
+      const seconds = String(date.getSeconds()).padStart(2, "0");
+
+      const ampm = hours >= 12 ? "PM" : "AM";
+
+      hours = hours % 12;
+      hours = hours ? hours : 12;
+
+      const formattedHours = String(hours).padStart(2, "0");
+
+      return `${month}/${day}/${year} ${formattedHours}:${minutes} ${ampm}`;
+    },
   },
 
   created() {
@@ -347,8 +374,7 @@ body {
 }
 
 .commentCreatorName{
-  text-decoration: underline;
-  font-weight: bold;
+  font-weight: 500;
 }
 
 .comments {
@@ -563,6 +589,15 @@ h6 {
   display: inline-block;
   width: 100%;
   /* text-wrap: wrap; */
+}
+
+.postTime{
+  font-size:80%;
+  margin-bottom: 0%;
+  padding-bottom:0%;
+  text-align:start;
+  justify-self: center;
+
 }
 
 /* Your other existing styles */</style>

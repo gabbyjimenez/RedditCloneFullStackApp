@@ -1,5 +1,7 @@
 package com.techelevator.model;
 
+import java.time.LocalDateTime;
+
 public class ResponseDto {
 
     private int responseId;
@@ -12,11 +14,12 @@ public class ResponseDto {
     private int downvotes;
 
     private boolean pinned;
+    private LocalDateTime timeCreated;
     public ResponseDto(){
 
     }
 
-    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes, boolean pinned) {
+    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes, boolean pinned, LocalDateTime timeCreated) {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.postId = postId;
@@ -26,9 +29,17 @@ public class ResponseDto {
         this.upvotes = upvotes;
         this.downvotes = downvotes;
         this.pinned = pinned;
+        this.timeCreated = timeCreated;
 
     }
 
+    public LocalDateTime getTimeCreated() {
+        return timeCreated;
+    }
+
+    public void setTimeCreated(LocalDateTime timeCreated) {
+        this.timeCreated = timeCreated;
+    }
 
     public boolean isPinned() {
         return pinned;

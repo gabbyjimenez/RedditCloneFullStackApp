@@ -78,7 +78,7 @@ public class JdbcDenDao implements DenDao {
 
         List<PostDto> posts = new ArrayList<>();
 
-        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id, upvotes, downvotes, pinned FROM posts " +
+        String sql = "SELECT post_id, post_title, post_desc, posts.den_id AS post_den_id, dens.den_name AS post_den_name, users.username AS creator_name, posts.creator_id AS post_creator_id, upvotes, downvotes, pinned, posts.time_created FROM posts " +
                 "JOIN users ON posts.creator_id = users.user_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
                 "WHERE dens.den_name ILIKE ?" +
@@ -106,7 +106,7 @@ public class JdbcDenDao implements DenDao {
     public List<ResponseDto> retrieveResponsesByPost(String denName, int postId) {
         List<ResponseDto> responses = new ArrayList<>();
 
-        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name, responses.upvotes, responses.downvotes, responses.pinned " +
+        String sql = "SELECT response_id, response_desc, responses.post_id, responses.creator_id, dens.den_name, users.username AS creator_name, responses.upvotes, responses.downvotes, responses.pinned, responses.time_created " +
                 "FROM responses " +
                 "JOIN users ON responses.creator_id = users.user_id " +
                 "JOIN posts ON responses.post_id = posts.post_id " +
@@ -336,6 +336,7 @@ public class JdbcDenDao implements DenDao {
         response.setUpvotes(rowSet.getInt("upvotes"));
         response.setDownvotes(rowSet.getInt("downvotes"));
         response.setPinned(rowSet.getBoolean("pinned"));
+        response.setTimeCreated(rowSet.getTimestamp("time_created").toLocalDateTime());
         return response;
     }
 
@@ -358,6 +359,7 @@ public class JdbcDenDao implements DenDao {
         post.setUpvotes(rowSet.getInt("upvotes"));
         post.setDownvotes(rowSet.getInt("downvotes"));
         post.setPinned(rowSet.getBoolean("pinned"));
+        post.setTimeCreated(rowSet.getTimestamp("time_created").toLocalDateTime());
 
         return post;
     }
@@ -372,6 +374,7 @@ public class JdbcDenDao implements DenDao {
         den.setDenCreatorId(rowSet.getInt("creator_id"));
         den.setDenCreatorUserName(rowSet.getString("creator_username"));
         den.setDenDesc(rowSet.getString("den_desc"));
+
         return den;
     }
 
