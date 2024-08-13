@@ -25,6 +25,10 @@ public interface DenDao {
 
     PostDto createNewPost(PostDto newPost);
 
+    PostDto pinPost(PostDto postToPin);
+
+    ResponseDto pinResponse(ResponseDto responseToPin);
+
     void deleteDenByDenName(String denName);
 
     void deletePostByPostId(int postId);

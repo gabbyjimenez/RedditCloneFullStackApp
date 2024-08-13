@@ -7,27 +7,12 @@ import java.security.Principal;
 
 public interface ResponseVotingDao {
 
-    //ADD UPVOTE TO RESPONSE
-        //Put into responses table where responseId = x --> increment upvote by 1
-            //Decrement downvote in responses table by 1 ONLY IF join table value already exists as false
-        //Insert into Join table with responseId and UserId
-            //If no Value exists, insert as true
-            //If value exists, change to true
 
-   ResponseDto addEntryAndIncrementUpvote(ResponseDto responseDto, Principal principal);
+   ResponseDto addEntryAndIncrementVote(ResponseDto responseDto, Principal principal, boolean isUpvote);
 
-   ResponseDto deleteEntryAndDecrementUpvote(ResponseDto responseDto, Principal principal);
+   ResponseDto deleteEntryAndDecrement(ResponseDto responseDto, Principal principal, int decrementCount, boolean decrementUpvote, boolean upvoteActive, boolean downvoteActive);
 
    VotingDto getVotingDtoForValidation (ResponseDto responseDto, Principal principal);
-
-
-   ResponseDto addEntryAndIncrementDownvote(ResponseDto downvotedResponse, Principal principal);
-
-   ResponseDto deleteEntryAndDecrementDownvote(ResponseDto responseDto, Principal principal);
-
-
-
-
 
 
 
