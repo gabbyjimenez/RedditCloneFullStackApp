@@ -1,27 +1,18 @@
 <template>
   <div class="container">
-    <div id="searchBar">
+    <div id="searchOption">
+      <div id="searchBar">
 
-<div id="favoriteToggle" class="form-check form-switch">
-  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" v-on:click="(showFavoriteDens = !showFavoriteDens)">
-  <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
-</div>
-
-
-
-
-
-
-
+        <input id="searchBar" type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search"
+          v-model="searchFilter" />
+      </div>
+      <div id="favoriteToggle" class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+          v-on:click="(showFavoriteDens = !showFavoriteDens); getFavorites(this.$store.state.user)" >
+        <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
+      </div>
 
 
-
-
-
-
-
-      <input type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search"
-        v-model="searchFilter" />
     </div>
 
     <ul id="denList">
@@ -36,7 +27,7 @@
           </div>
           <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
           <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
-          <i id="favoriteIcon" class="fa-solid fa-star"></i>
+          <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
 
           <div id="denDescription" class="card-body">
             <p>{{ den.denDesc }}</p>
@@ -46,9 +37,31 @@
           </div>
         </div>
       </li>
-    </ul>
+      <li id="denList" v-for="favorite in favorites" v-bind:key="favorite.denName" v-show="showFavoriteDens">
+        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: favorite.denName } })">
+          <div id="denHeader">
+            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
+              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
 
- 
+            <p id="userName" class="den-meta">Created by: {{ favorite.denCreatorUserName }}</p>
+          </div>
+          <h5 id="denTitle" class="mr-2">{{ favorite.denName }}</h5><span class="dot mb-1"></span>
+       
+          <i id="favoriteIcon" class="fa-solid fa-star"  ></i>
+
+          <div id="denDescription" class="card-body">
+            <p>{{ favorite.denDesc }}</p>
+
+            <i v-if="favorite.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+          </div>
+        </div>
+
+      </li>
+    </ul>
+    
+
+
 
   </div>
 </template>
@@ -58,20 +71,17 @@
 <script>
 
 import DenService from '../services/DenService';
-import Favorites from '../components/Favorites.vue';
+
 
 export default {
   data() {
     return {
       searchFilter: "",
       showFavoriteDens: false,
+      favorites:[]
     };
   },
-  components: {
-    
-
-
-  },
+ 
   computed: {
     filteredDens() {
       const searchFilter = this.searchFilter.toLowerCase();
@@ -111,7 +121,29 @@ export default {
       }).catch(error => {
         console.log('You are out of luck');
       });
-    }
+    },
+    getFavorites(user) {
+      DenService.getFavorites(user)
+        .then((response) => {
+          console.log(response.data)
+          this.favorites = response.data;
+        })
+        .catch((error) => {
+          console.log("You are out of luck");
+        });
+    },
+    toggleFavorite(den){
+      DenService.toggleFavorite(den)
+      .then((response) => {
+        this.getFavorites(this.$store.state.user);
+
+        })
+        .catch((error) => {
+          console.log("You are out of luck");
+        });
+
+
+    },
   }
 };
 </script>
@@ -262,24 +294,25 @@ export default {
   top: 10px;
   right: 25px;
   background: transparent;
-  color: #b6b6b6; 
+  color: #b6b6b6;
   font-size: 15px;
   cursor: pointer;
   transition: color 0.3s ease;
- }
- #favoriteIcon:hover{ 
+}
+
+#favoriteIcon:hover {
   position: absolute;
 
 
   color: rgba(89, 89, 89, 0.379);
- 
+
   cursor: pointer;
   transition: color 0.3s ease;
   animation-name: fa-fade;
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
- }
+}
 
 
 .fa-trash:hover {
@@ -297,18 +330,39 @@ export default {
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
 }
-#favoriteToggle{
+
+#favoriteToggle {
   display: flex;
   flex-direction: column;
 }
-#flexSwitchCheckDefault{
+
+#flexSwitchCheckDefault {
   display: flex;
 
 
 }
-#flexSwitchLabel{
-display: flex;
+
+#flexSwitchLabel {
+  display: flex;
 
 
+}
+
+#searchOption {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  margin: auto;
+  
+
+}
+#searchBar{
+  width:90%
+}
+#favoriteToggle{
+  width: 5%;
+  justify-content: center;
+  align-items: center;
+  font-size: x-small;
 }
 </style>

@@ -17,13 +17,16 @@ export default {
 
  },
 
- getFavorites(){
-  return axios.get(`/${this.$store.state.user.username}/favorites`);
+ getFavorites(user){
+  return axios.get(`/${user.username}/favorites`);
 
  },
 
  delete(den){
-  return axios.delete(`/${den.denName}`, den)
+  return axios.delete(`/${den.denName}`, den);
+},
+toggleFavorite(den){
+return axios.post(`/${den.denName}/favorite`);
 }
 
 }
