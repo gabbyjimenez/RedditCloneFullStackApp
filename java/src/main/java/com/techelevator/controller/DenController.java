@@ -12,6 +12,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
+import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -110,12 +111,16 @@ public class DenController {
         return denDao.pinResponse(responseToPin);
     }
 
-    @GetMapping(path="/{userId}/favorites")
-    public List<DenDto> favoritesList (@PathVariable("userId") int userId){
+    @GetMapping(path="/{username}/favorites")
+    public List<DenDto> favoritesList (@PathVariable("username") String username){
 
-        
-        return denDao.getFavoritesByUserId(userId);
+        return denDao.getFavoritesByUsername(username);
     }
 
+    @ResponseStatus(HttpStatus.CREATED)
+    @PostMapping(path="/{den}/favorite")
+    public void toggleFavorite(@PathVariable("den") String denName, Principal principal){
+        denDao.toggleFavorite(denName, principal);
+    }
 
 }
