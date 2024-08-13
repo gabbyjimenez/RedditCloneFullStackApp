@@ -226,5 +226,16 @@ VALUES (4 , 10);
 INSERT INTO den_category (category_id, den_id)
 VALUES (5 , 10);
 
+--ADDING FAVORITES
+
+INSERT INTO favorites_dens (toggle_status, den_id, user_id)
+VALUES (true, 3, 1);
+
+INSERT INTO favorites_dens (toggle_status, den_id, user_id)
+VALUES (true, 4, 1);
+
+INSERT INTO favorites_dens (toggle_status, den_id, user_id)
+VALUES (true, 2, 1);
+
 --ROLLBACK
 COMMIT TRANSACTION;

@@ -392,7 +392,6 @@ h6 {
 
 .flagged {
   color: #fe532d;
-  padding-left: 10px
 }
 
 .titleDiv {

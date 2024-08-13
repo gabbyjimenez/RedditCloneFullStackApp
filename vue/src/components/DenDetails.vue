@@ -1,11 +1,51 @@
 <template>
   <div class="container">
     <div id="searchBar">
-      <input type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search" v-model="searchFilter" />
+      <input type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search"
+        v-model="searchFilter" />
     </div>
 
     <ul id="denList">
       <li v-for="den in filteredDens" :key="den.denName" class="den-item">
+
+        <div class="main-container">
+          <div id="denHeader">
+            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
+              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+         
+            <p class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+          </div>
+          <h5 class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
+
+          <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p>
+          <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+            <p>{{ den.denDesc }}</p>
+            <button class="delete-button"
+              v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+              @click.stop="DeleteDen(den)">&#x2716;</button>
+
+          </div>
+
+        </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        <!-- 
         <div class="card">
           <div class="card-header">
             <h5>{{ den.denName }}</h5>
@@ -14,9 +54,11 @@
           </div>
           <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
             <p>{{ den.denDesc }}</p>
-            <button class="delete-button" v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" @click.stop="DeleteDen(den)">&#x2716;</button>
-          </div>
-        </div>
+            <button class="delete-button"
+              v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+              @click.stop="DeleteDen(den)">&#x2716;</button>
+          </div> -->
+        <!-- </div> -->
       </li>
     </ul>
   </div>
@@ -36,7 +78,7 @@ export default {
   computed: {
     filteredDens() {
       const searchFilter = this.searchFilter.toLowerCase();
-      
+
       // Filter dens based on searchFilter
       const filtered = this.$store.state.dens.filter((den) => {
         const nameMatch = den.denName.toLowerCase().includes(searchFilter);
@@ -80,10 +122,35 @@ export default {
 
 <style scoped>
 /* General Container Styling */
+.main-container {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  
+  
+
+
+  position: relative;
+  /* Required for absolute positioning of delete button */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+#denHeader{
+display: flex;
+flex-direction: row;
+align-items: center;
+max-height: 5%;
+
+}
+
 .container {
-  max-width: 1200px;
+  width: 1200px;
   margin: 0 auto;
   padding: 20px;
+  font-family: 'Segoe UI';
 }
 
 /* Search Bar Styling */
@@ -107,21 +174,25 @@ export default {
   list-style-type: none;
   padding: 0;
   margin: 0;
+  width: 100
 }
 
 .den-item {
   margin-bottom: 20px;
-  position: relative; /* Position relative to position the delete button absolutely */
+  position: relative;
+  /* Position relative to position the delete button absolutely */
 }
 
 /* Card Styling */
 .card {
-  position: relative; /* Required for absolute positioning of delete button */
+  position: relative;
+  /* Required for absolute positioning of delete button */
   border: 1px solid #ddd;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: box-shadow 0.3s ease;
+  margin: auto;
 }
 
 .card:hover {
@@ -129,9 +200,23 @@ export default {
 }
 
 .card-header {
+
   background-color: #f8f9fa;
   padding: 15px;
   border-bottom: 1px solid #ddd;
+}
+
+#desc-container {
+  display: flex;
+  flex-direction: column;
+  width: 80%;
+
+}
+
+#denPic {
+max-height: 15%;
+ padding: .5%;
+
 }
 
 .card-body {
@@ -152,7 +237,7 @@ export default {
 /* Delete Button Styling */
 .delete-button {
   position: absolute;
-  bottom: 10px;
+  top: 10px;
   right: 10px;
   background: transparent;
   color: #dc3545;
@@ -165,5 +250,4 @@ export default {
 .delete-button:hover {
   color: #c82333;
 }
-
 </style>
