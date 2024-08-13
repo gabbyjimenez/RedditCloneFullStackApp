@@ -16,53 +16,16 @@
             <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
           </div>
           <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
-
           <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
           <i id="favoriteIcon" class="fa-solid fa-star"></i>
 
-          <div id="denDescription" class="card-body" >
+          <div id="denDescription" class="card-body">
             <p>{{ den.denDesc }}</p>
 
             <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
               @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
-
-
-
           </div>
-
         </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        <!-- 
-        <div class="card">
-          <div class="card-header">
-            <h5>{{ den.denName }}</h5>
-            <p class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
-            <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p>
-          </div>
-          <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-            <p>{{ den.denDesc }}</p>
-            <button class="delete-button"
-              v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)">&#x2716;</button>
-          </div> -->
-        <!-- </div> -->
       </li>
     </ul>
   </div>
@@ -146,6 +109,7 @@ export default {
   max-height: 5%;
 
 }
+
 #userName {
   display: flex;
   align-items: center;
@@ -190,12 +154,15 @@ export default {
   position: relative;
   /* Position relative to position the delete button absolutely */
 }
-#denTitle{
+
+#denTitle {
   font-weight: bolder;
 }
-#denDescription{
+
+#denDescription {
   font-weight: lighter;
 }
+
 /* Card Styling */
 .card {
   position: relative;
@@ -259,7 +226,8 @@ export default {
   cursor: pointer;
   transition: color 0.3s ease;
 }
-#favoriteIcon{ 
+
+#favoriteIcon {
   position: absolute;
   top: 10px;
   right: 35px;
@@ -269,7 +237,7 @@ export default {
   font-size: 20px;
   cursor: pointer;
   transition: color 0.3s ease;
- }
+}
 
 .fa-trash:hover {
   color: #fe7f2d;
@@ -285,5 +253,4 @@ export default {
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
-}
-</style>
+}</style>
