@@ -4,7 +4,7 @@
       <router-link v-bind:to="{ name: 'home' }"><img
           src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723474352/foxtrot_logo_fin_noText_zwlfxu.svg" /></router-link>
     </div>
-   
+
 
     <!-- <router-link id="LoginLink" v-bind:to="{ name: 'login' }">Login |</router-link> -->
     <!-- <router-link id="LoginLink" v-bind:to="{ name: 'logout' }"> Logout</router-link> -->
@@ -27,14 +27,16 @@
         <div id="logoutModalContent" class="modal-content">
           <div id="logoutHeader" class="modal-header">
             <h5 class="modal-title" id="logoutModalLabel">Are you sure you want to log out?</h5>
-      
+
           </div>
           <div id="logoutModalBody" class="modal-body">
             <span>
-            <button v-on:click="logout" data-dismiss="modal" id="buttonsOfACtion" type="button" class="btn btn-primary">Log out</button>
+              <button v-on:click="logout" data-dismiss="modal" id="buttonsOfLogout" type="button"
+                class="btn btn-primary">Log out</button>
             </span>
             <span>
-            <button v-on:click="goHome" data-dismiss="modal" id="buttonsOfACtion" type="button" class="btn btn-primary">Cancel</button>
+              <button v-on:click="goHome" data-dismiss="modal" id="buttonsOfCancel" type="button"
+                class="btn btn-primary">Cancel</button>
             </span>
 
           </div>
@@ -74,46 +76,44 @@ header {
   font-size: large;
   background: linear-gradient(90deg, rgba(252, 202, 70, 1) 20%, rgba(201, 197, 103, 1) 40%, rgba(97, 155, 138, 1) 80%);
 }
-#logoutModal{
-  align-items: center;
-  margin:auto;
+
+#logoutModal {
+
+  margin: auto;
   background-color: rgba(0, 0, 0, 0.1);
   width: 100%;
-  margin:auto;
-  
+  margin: auto;
+
 }
-#logoutModalContent{
+
+#logoutModalContent {
   justify-content: center;
- 
- margin:auto;
+
+  margin: auto;
   max-width: 50%;
 
 
 }
-#logoutHeader{
+
+#logoutHeader {
   border-bottom: black;
- justify-content: center; 
+  justify-content: center;
 }
-#logoutModalBody{
+
+#logoutModalBody {
   display: flex;
   justify-content: space-around;
 }
+
 #homeLink {
   display: flex;
   align-items: center;
-
   height: 8%;
-
-
-
 }
 
 #homeLink:hover {
   background-color: rgba(255, 255, 255, 0.15);
   border-radius: 10%;
-
-
-
 }
 
 img {
@@ -153,5 +153,29 @@ img {
 
 #LoginLink {
   color: white;
+  
 }
+#buttonsOfLogout{
+background-color: rgba(252, 202, 70, 1);
+border-color:  rgba(252, 202, 70, 1);
+
+}
+#buttonsOfLogout:hover{
+background-color: rgb(188, 152, 53);
+border-color: rgba(252, 202, 70, 1);
+
+
+}
+
+#buttonsOfCancel{
+  background-color: rgba(97, 155, 138, 1);
+  border-color: rgba(97, 155, 138, 1);
+}
+#buttonsOfCancel:hover{
+  background-color: rgb(75, 127, 111);
+  border-color: rgba(97, 155, 138, 1);
+}
+
+
+
 </style>
