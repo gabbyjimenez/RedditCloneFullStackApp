@@ -1,12 +1,31 @@
 <template>
   <div class="container">
     <div id="searchBar">
+
+<div id="favoriteToggle" class="form-check form-switch">
+  <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault" v-on:click="(showFavoriteDens = !showFavoriteDens)">
+  <label class="form-check-label" for="flexSwitchCheckDefault" v-on:click="(showFavoriteDens = !showFavoriteDens)">Followed Dens</label>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
       <input type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search"
         v-model="searchFilter" />
     </div>
 
     <ul id="denList">
-      <li v-for="den in filteredDens" :key="den.denName" class="den-item">
+      <li v-for="den in filteredDens" :key="den.denName" class="den-item" v-show="!showFavoriteDens">
 
         <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
           <div id="denHeader">
@@ -77,6 +96,7 @@ export default {
   data() {
     return {
       searchFilter: "",
+      showFavoriteDens: false,
     };
   },
   computed: {
@@ -255,17 +275,17 @@ export default {
   background: transparent;
   color: #dc3545;
   border: none;
-  font-size: 10px;
+  font-size: 15px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 #favoriteIcon{ 
   position: absolute;
   top: 10px;
-  right: 20px;
+  right: 25px;
   background: transparent;
   color: #b6b6b6; 
-  font-size: 10px;
+  font-size: 15px;
   cursor: pointer;
   transition: color 0.3s ease;
  }
@@ -298,5 +318,9 @@ export default {
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
+}
+#favoriteToggle{
+  display: flex;
+  flex-direction: column;
 }
 </style>

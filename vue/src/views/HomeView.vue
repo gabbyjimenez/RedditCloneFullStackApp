@@ -4,8 +4,7 @@
     <theHeader id="header" />
     <div id="body">
     <AddDenForm/>
-    <button v-on:click="(denShow = !denShow)">Toggle Dens</button>
-    <DenDetails />
+      <DenDetails />
     </div>
     <!-- <p>You must be authenticated to see this</p> -->
   </div>
