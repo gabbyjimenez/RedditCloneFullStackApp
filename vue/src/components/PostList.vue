@@ -1,7 +1,13 @@
 <template>
   <div id="searchPost">
     <label for="searchFilter">Search: </label>
-    <input type="text" id="searchFilter" name="denName" v-model="searchFilter" />
+    <input
+      type="text"
+      id="searchFilter"
+      name="denName"
+      v-model="searchFilter"
+      placeholder="Search by Title/Post Content"
+    />
   </div>
 
   <div class="den" v-for="post in filteredPosts" v-bind:key="post.postTitle">
@@ -26,7 +32,7 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i  v-on:click="pinToggle(post)" class="fa-solid fa-flag" >
+                <i v-if="something == something" v-on:click="pinToggle(post)" class="fa-solid fa-flag" >
                 </i>
               </div>
 
