@@ -5,6 +5,7 @@ import com.techelevator.model.DenDto;
 import com.techelevator.model.PostDto;
 import com.techelevator.model.ResponseDto;
 
+import java.security.Principal;
 import java.util.List;
 
 public interface DenDao {
@@ -35,7 +36,9 @@ public interface DenDao {
 
     void deleteCommentByCommentId(int responseId);
 
-    List<DenDto> getFavoritesByUserId(int userId);
+    List<DenDto> getFavoritesByUsername(String username);
+
+    void toggleFavorite(String denName, Principal principal);
 
 
 }
