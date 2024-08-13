@@ -6,6 +6,7 @@
       id="searchFilter"
       name="denName"
       v-model="searchFilter"
+      placeholder="Search by Title/Post Content"
     />
   </div>
 
