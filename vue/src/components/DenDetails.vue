@@ -251,25 +251,38 @@ export default {
 .fa-trash {
   position: absolute;
   top: 10px;
-  right: 10px;
+  right: 8px;
   background: transparent;
   color: #dc3545;
   border: none;
-  font-size: 20px;
+  font-size: 10px;
   cursor: pointer;
   transition: color 0.3s ease;
 }
 #favoriteIcon{ 
   position: absolute;
   top: 10px;
-  right: 35px;
+  right: 20px;
   background: transparent;
-  color: #dc3545;
-  border: none;
-  font-size: 20px;
+  color: #b6b6b6; 
+  font-size: 10px;
   cursor: pointer;
   transition: color 0.3s ease;
  }
+ #favoriteIcon:hover{ 
+  position: absolute;
+
+
+  color: rgba(89, 89, 89, 0.379);
+ 
+  cursor: pointer;
+  transition: color 0.3s ease;
+  animation-name: fa-fade;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+ }
+
 
 .fa-trash:hover {
   color: #fe7f2d;
