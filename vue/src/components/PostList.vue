@@ -27,11 +27,7 @@
                   class="fa-solid fa-trash trashCan" id="trashCanIcon">
                 </i>
 
-                <i v-if="getThisDen(post)" 
-                   v-on:click="pinToggle(post)" 
-                   class="fa-solid fa-flag"
-                   :class="{ 'flagged': post.pinned }">
-                </i>
+                <i v-if="getThisDen(post) || post.pinned == true" v-on:click="pinToggle(post)" class="fa-solid fa-flag" :class="{ 'flagged': post.pinned }"></i>   
               </div>
 
               <div>
@@ -52,14 +48,12 @@
     </div>
   </div>
 </template>
-
 <script>
 import PostService from "../services/PostService";
 import CommentsList from "../components/CommentsList.vue";
 import VotingService from "../services/VotingService.js";
 import PinningService from "../services/PinningService.js";
 import DenService from "../services/DenService.js";
-
 export default {
   components: {
     CommentsList,
@@ -124,104 +118,96 @@ export default {
         });
     },
     getThisDen(post) {
-      console.log("begin");
-      console.log("Current dens array:", this.$store.state.dens); // Log the dens array
-      let hello = null;
 
-      this.$store.state.dens.find((den) => {
-        console.log("Checking den:", den); // Log each den
-        if (this.$route.params.denName === den.denName) {
-          console.log("Matched denName:", den.denName);
-          hello = den.denId;
-        }
-      });
-
-      console.log("Resulting denId:", hello); // Log the result
-      return hello;
+      return this.$store.state.dens.find(den =>
+        post.denId == den.denId &&  den.denCreatorId === this.$store.state.user.id 
+      );
     },
 
-    getVotesInfo(post) {
-      VotingService.retrieveVoteInformationForPosts(post)
-        .then((response) => { })
+
+  getVotesInfo(post) {
+    VotingService.retrieveVoteInformationForPosts(post)
+      .then((response) => { })
+      .catch((error) => {
+        console.log(error);
+      });
+  },
+  upVote(post) {
+    if (this.$store.state.user.userId != 0) {
+      VotingService.makeUpvoteForPost(post)
+        .then((response) => {
+          this.getPosts(this.$route.params.denName);
+          console.log("upvote");
+          console.log(response.data);
+        })
         .catch((error) => {
           console.log(error);
         });
-    },
-    upVote(post) {
-      if (this.$store.state.user.userId !== 0) {
-        VotingService.makeUpvoteForPost(post)
-          .then((response) => {
-            this.getPosts(this.$route.params.denName);
-            console.log("upvote");
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        this.$router.push("/login");
-      }
-    },
-    downVote(post) {
-      if (this.$store.state.user.userId !== 0) {
-        VotingService.makeDownvoteForPost(post)
-          .then((response) => {
-            this.getPosts(this.$route.params.denName);
-            console.log(response.data);
-          })
-          .catch((error) => {
-            console.log(error);
-          });
-      } else {
-        this.$router.push("/login");
-      }
-    },
-    pinToggle(post) {
-      PinningService.pinToggle(post).then((response) => {
-        this.getPosts(this.$route.params.denName);
-        console.log(response.data);
-      });
-    },
-
-    formatLocalDateTimeWithAMPM(localDateTime) {
-      if (
-        !localDateTime ||
-        !localDateTime.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/)
-      ) {
-        throw new Error("Invalid LocalDateTime format");
-      }
-
-      const date = new Date(localDateTime.replace("T", " "));
-
-      const month = String(date.getMonth() + 1).padStart(2, "0");
-      const day = String(date.getDate()).padStart(2, "0");
-      const year = date.getFullYear();
-
-      let hours = date.getHours();
-      const minutes = String(date.getMinutes()).padStart(2, "0");
-      const seconds = String(date.getSeconds()).padStart(2, "0");
-
-      const ampm = hours >= 12 ? "PM" : "AM";
-
-      hours = hours % 12;
-      hours = hours ? hours : 12;
-
-      const formattedHours = String(hours).padStart(2, "0");
-
-      return `${month}/${day}/${year} ${formattedHours}:${minutes} ${ampm}`;
-    },
+    } else {
+      this.$router.push("/login");
+    }
   },
-  created() {
-    this.getPosts(this.$route.params.denName);
-    DenService.getDens().then(response => {
-        this.$store.state.dens = response.data;
-      }).catch(error => {
-        console.log('You are out of luck');
-      });
+  downVote(post) {
+    if (this.$store.state.user.userId != 0) {
+      VotingService.makeDownvoteForPost(post)
+        .then((response) => {
+          this.getPosts(this.$route.params.denName);
+          console.log(response.data);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      this.$router.push("/login");
+    }
   },
+  pinToggle(post) {
+
+    PinningService.pinToggle(post).then((response) => {
+      this.getPosts(this.$route.params.denName);
+      console.log(response.data);
+    });
+  },
+
+  formatLocalDateTimeWithAMPM(localDateTime) {
+    if (
+      !localDateTime ||
+      !localDateTime.match(/^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}$/)
+    ) {
+      throw new Error("Invalid LocalDateTime format");
+    }
+
+    const date = new Date(localDateTime.replace("T", " "));
+
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    const year = date.getFullYear();
+
+    let hours = date.getHours();
+    const minutes = String(date.getMinutes()).padStart(2, "0");
+    const seconds = String(date.getSeconds()).padStart(2, "0");
+
+    const ampm = hours >= 12 ? "PM" : "AM";
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    const formattedHours = String(hours).padStart(2, "0");
+
+    return `${month}/${day}/${year} ${formattedHours}:${minutes} ${ampm}`;
+  },
+},
+created() {
+  this.getPosts(this.$route.params.denName);
+
+  DenService.getDens().then(response => {
+    this.$store.state.dens = response.data;
+  }).catch(error => {
+    console.log('You are out of luck');
+  });
+},
 };
 </script>
-
 <style scoped>
 /* Remove default button styling */
 .image-button {
@@ -283,7 +269,7 @@ export default {
   animation-timing-function: var(--fa-animation-timing, linear);
 }
 
-.fa-solid:hover{
+.fa-flag:hover{
   color: #fe7f2d;
   animation-name: fa-shake;
   animation-duration: var(--fa-animation-duration, 1s);
@@ -393,9 +379,9 @@ h6 {
 #trashCanIcon {
   display: flex;
   justify-content: flex-start;
-  padding-left: 0.5rem;
+  padding-left: 10px;
+  padding-right: 10px;
   align-content: end;
-  padding-right: 20px;
 }
 
 #trashCanIcon {
@@ -405,7 +391,8 @@ h6 {
 }
 
 .flagged {
-  color: red;
+  color: #fe532d;
+  padding-left: 10px
 }
 
 .titleDiv {
