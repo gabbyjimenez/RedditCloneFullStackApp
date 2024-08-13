@@ -1,26 +1,28 @@
 <template>
   <div class="container">
     <div id="searchBar">
-      <input type="search" class="form-control rounded" placeholder="Search dens or categories" aria-label="Search" v-model="searchFilter" />
+      <input type="search" class="form-control" placeholder="Search dens or categories" aria-label="Search" v-model="searchFilter" />
     </div>
 
     <ul id="denList">
-      <li v-for="den in filteredDens" :key="den.denName">
+      <li v-for="den in filteredDens" :key="den.denName" class="den-item">
         <div class="card">
           <div class="card-header">
             <h5>{{ den.denName }}</h5>
-            <p>{{den.isFavorite}}</p>
-            <p>Created by: {{ den.denCreatorUserName }}</p>
+            <p class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+            <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p>
           </div>
-          <div class="card-body" v-on:click="$router.push({ name: 'den', params: { denName: den.denName } })">
+          <div class="card-body" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
             <p>{{ den.denDesc }}</p>
+            <button class="delete-button" v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" @click.stop="DeleteDen(den)">&#x2716;</button>
           </div>
-          <button class="delete-button" v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')" v-on:click="DeleteDen(den)"></button>
         </div>
       </li>
     </ul>
   </div>
 </template>
+
+
 
 <script>
 import DenService from '../services/DenService';
@@ -74,68 +76,94 @@ export default {
   }
 };
 </script>
-  
 
 
-<style>
-
-
-
-
-#cards {
-
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin: 1%;
-  font-size: larger;
-  box-shadow: 10px 5px 5px rgba(0, 0, 0, 0.207), 1px 0 .4em rgba(0, 0, 0, 0.366);
-  
-
-
+<style scoped>
+/* General Container Styling */
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
 }
 
-#divCards {
+/* Search Bar Styling */
+#searchBar {
   display: flex;
-  flex-direction: column;
-  margin: 10%;
-  margin-top: 1%;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-
-}
-
-#button {
-  display: flex;
-  flex-direction: row;
-  width: 30%;
   justify-content: center;
-
-}
-#searchBar {
-display: flex;
-width: 30%;
-justify-content: center;
-margin: auto;
-}
-#deleteButton {
-  display: flex;
-width: 8%;
-margin: auto;
-margin-top: 0.1%;
-margin-bottom: 0.1%;
-justify-content: center;
-
+  margin-bottom: 20px;
 }
 
-#searchBar {
-  display: flex;
-width: 20%;
-margin: auto;
-margin-top: 0.1%;
-margin-bottom: 0.1%;
-justify-content: center;
-color: aqua;
+.form-control {
+  width: 100%;
+  max-width: 600px;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
 }
+
+/* Den List Styling */
+#denList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.den-item {
+  margin-bottom: 20px;
+  position: relative; /* Position relative to position the delete button absolutely */
+}
+
+/* Card Styling */
+.card {
+  position: relative; /* Required for absolute positioning of delete button */
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+}
+
+.card:hover {
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+  background-color: #f8f9fa;
+  padding: 15px;
+  border-bottom: 1px solid #ddd;
+}
+
+.card-body {
+  padding: 15px;
+  cursor: pointer;
+}
+
+.card-body p {
+  margin: 0;
+}
+
+/* Meta Information Styling */
+.den-meta {
+  font-size: 14px;
+  color: #555;
+}
+
+/* Delete Button Styling */
+.delete-button {
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  background: transparent;
+  color: #dc3545;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.delete-button:hover {
+  color: #c82333;
+}
+
 </style>
-

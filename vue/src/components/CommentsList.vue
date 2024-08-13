@@ -7,7 +7,7 @@
     >
       Comments
     </p>
-    <div class="comment-bottom bg-white p-2 px-4" id="commentBottom" v-show="commentOPen">
+    <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
       <div class="main-container">
         <div class="d-flex flex-row add-comment-section mt-4 mb-4" id="theActualItems">
           <img
@@ -114,6 +114,7 @@ export default {
         });
     },
     addComment(newComment) {
+      if (this.$store.state.user.userId != 0) {
       console.log(this.post.postId);
       console.log("post id");
       PostService.addComment(newComment)
@@ -126,6 +127,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+      }
     },
 
     deleteComment(comment) {
@@ -169,6 +173,7 @@ export default {
         });
     },
     upVote(comment) {
+      if (this.$store.state.user.userId != 0) {
       VotingService.upvoteCommentForResponse(comment)
         .then((response) => {
           console.log("upvote");
@@ -178,8 +183,12 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+      }
     },
     downVote(comment) {
+      if (this.$store.state.user.userId != 0) {
       VotingService.downvoteCommentForResponse(comment)
         .then((response) => {
           console.log(response.data);
@@ -188,6 +197,9 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+      } else {
+        this.$router.push("/login");
+      }
     },
     formatLocalDateTimeWithAMPM(localDateTime) {
       if (
@@ -316,14 +328,15 @@ body {
 
 
 .main-container {
-  display: flex;
+  /* display: flex;
   justify-content: space-around;
   gap: 0.5rem;
+  max-height: 50%; */
 
 }
 
 #theActualItems {
-  gap: 1rem;
+  /* gap: 1rem; */
 }
 
 .bdge {
