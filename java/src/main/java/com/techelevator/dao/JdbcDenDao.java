@@ -2,7 +2,10 @@ package com.techelevator.dao;
 
 import com.techelevator.exception.DaoException;
 import com.techelevator.model.*;
-import org.apache.coyote.Response;
+import com.twilio.Twilio;
+import com.twilio.rest.api.v2010.account.Message;
+import com.twilio.type.PhoneNumber;
+
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.jdbc.CannotGetJdbcConnectionException;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -13,13 +16,17 @@ import java.security.Principal;
 import java.util.ArrayList;
 import java.util.List;
 
+
+
 @Component
 public class JdbcDenDao implements DenDao {
 
     private final JdbcTemplate jdbcTemplate;
+    private final UserDao userDao;
 
-    public JdbcDenDao(JdbcTemplate jdbcTemplate) {
+    public JdbcDenDao(JdbcTemplate jdbcTemplate,  UserDao userDao) {
         this.jdbcTemplate = jdbcTemplate;
+        this.userDao = userDao;
     }
 
 
@@ -368,6 +375,24 @@ public class JdbcDenDao implements DenDao {
             throw new DaoException("Data integrity violation", e);
         }
 
+        //Send text message
+
+
+        List<User> users = userDao.getUsers();
+        for (User user : users){
+            if(newPost.getPostDesc().contains("@"+ user.getUsername() + " ")){
+                String smsBody = "You have been tagged in a post on Foxtrot! Log in to check it out!";
+                String phoneNumber = "6149409056";
+                Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
+                Message message = Message.creator(
+                                new com.twilio.type.PhoneNumber("+1"+phoneNumber),
+                                new com.twilio.type.PhoneNumber("+18559611686"),
+                                smsBody)
+                        .create();
+            }
+        }
+
+
         return newPost;
     }
 
@@ -485,5 +510,7 @@ public class JdbcDenDao implements DenDao {
         favoriteDto.setUserId(rowSet.getInt("user_id"));
         return favoriteDto;
     }
+
+
 
 }

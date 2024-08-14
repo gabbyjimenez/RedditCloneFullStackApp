@@ -4,7 +4,8 @@
       <div id="searchBar">
         <input id="searchBar" type="search" class="form-control" placeholder="Search dens or categories"
           aria-label="Search" v-model="searchFilter" />
-      </div>
+          </div>
+         
       <div id="favoriteToggle" class="form-check form-switch">
         <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
           v-on:click="toggleFavoriteDens">
@@ -295,6 +296,10 @@ export default {
 
 #favoriteIcon:hover {
   color: #ffab00;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 
 /* Trash Can Icon Styling */
@@ -305,6 +310,98 @@ export default {
   font-size: 20px;
   color: red;
   cursor: pointer;
+}
+
+ 
+
+.fa-solid:hover {
+  color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+#favoriteToggle {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-wrap: 1;
+  width: 100%;
+}
+
+#flexSwitchCheckDefault {
+  
+  display: flex;
+  font-size: large;
+  
+
+
+
+
+}
+
+
+
+#flexSwitchLabel {
+  display: flex;
+  height:50%;
+  width: 10%;
+  justify-content: flex-start
+}
+
+#searchOption {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+width: 100%;
+ align-content: center;
+  align-items: center;
+  text-align: center;
+
+
+}
+
+#searchBar {
+  display: flex;
+  width: 90%;
+  align-items: center;
+  text-align: center;
+  margin-bottom: auto;
+  padding-left: 10%;
+  padding-right: -10%;
+}
+
+#flexSwitchCheckLabel {
+  flex-direction: flex-start;
+}
+
+#favoriteToggle {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  font-size: larger;
+
+
+
+
+}
+
+#favoriteBox {
+  display: flex;
+  color: gold;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 10%;
+  
+ 
 }
 
 </style>

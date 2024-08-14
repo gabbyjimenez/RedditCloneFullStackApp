@@ -1,6 +1,6 @@
 <template>
   <div id="searchPost" class="search-post">
-    <label for="searchFilter">Search: </label>
+  
     <input type="text" id="searchFilter" name="denName" v-model="searchFilter"
       placeholder="Search by Title/Post Content" />
   </div>
