@@ -15,8 +15,27 @@ public class RegisterUserDto {
     private String password;
     @NotEmpty
     private String confirmPassword;
+
+    private String phone;
+    private String pfpLink;
     @NotEmpty(message = "Please select a role for this user.")
     private String role;
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public void setPfpLink(String pfpLink) {
+        this.pfpLink = pfpLink;
+    }
+
+    public String getPfpLink() {
+        return pfpLink;
+    }
 
     public String getUsername() {
         return username;
