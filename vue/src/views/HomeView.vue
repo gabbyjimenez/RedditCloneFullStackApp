@@ -55,7 +55,7 @@ export default {
 
 <style>
 #page{
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 #body {
   display: flex;

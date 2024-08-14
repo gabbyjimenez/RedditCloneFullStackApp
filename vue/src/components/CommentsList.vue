@@ -9,7 +9,10 @@
     </p>
     <div class="comment-bottom bg-white p-2 px-4" v-show="commentOPen">
       <div class="main-container">
-        <div class="d-flex flex-row add-comment-section mt-4 mb-4" id="theActualItems">
+        <div
+          class="d-flex flex-row add-comment-section mt-4 mb-4"
+          id="theActualItems"
+        >
           <img
             class="img-fluid img-responsive rounded-circle mr-2"
             src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
@@ -42,29 +45,52 @@
           <!-- TEMPLATE START -->
 
           <div class="comment-bottom bg-white p-2 px-4 main-comment-section">
-            <div class="commented-section mt-2">
-              <div class="d-flex flex-row align-items-center commented-user">
-                <h5 class="mr-2 commentCreatorName">@{{ comment.creatorName }}</h5>
-                <span class="dot mb-1"></span
-                ><span class="postTime">{{ formatLocalDateTimeWithAMPM(comment.timeCreated) }}</span>
-              </div>
-              <div class="comment-text-sm comment-desc-container">
-                <span class="comment-description">{{ comment.responseDesc }}</span>
-              </div>
-              <div class="reply-section">
-                <div class="d-flex flex-row align-items-center voting-icons">
+            <div class="commented-section mt-2 containing-picture">
+              <div class="secure-pfp">
+                <div class="profile-image">
+                  <img
+                    class="rounded-circle"
+                    src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
+                    width="38"
+                  />
+                </div>
+                <div
+                  class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1 arrows"
+                >
                   <i
-                    class="fa fa-sort-up fa-2x upvoteIcon"
+                    class="fa fa-sort-up fa-2x hit-voting upvoteIcon"
                     v-on:click.prevent="upVote(comment)"
-                  ></i
-                  ><i
+                  ></i>
+                  <i
                     class="fa fa-sort-down fa-2x hit-voting downvoteIcon"
                     v-on:click.prevent="downVote(comment)"
-                  ></i
-                  ><span class="dot ml-2"></span><span class="ml-2">{{comment.upvotes - comment.downvotes}}</span>
+                  ></i>
                 </div>
+                <span class="total-votes"
+                  >{{ comment.upvotes - comment.downvotes }}
+                </span>
               </div>
+
+              <div class="d-flex user-and-time">
+                <h6 class="commentCreatorName">@{{ comment.creatorName }}</h6>
+                <div class="userAndTrashContainer"> <span class="commentTime">{{
+                  formatLocalDateTimeWithAMPM(comment.timeCreated)
+                }}</span><i v-if="comment.creatorName == $store.state.user.username" v-on:click="deleteComment(comment)"
+                  class="fa-solid fa-trash trashCan" id="trashCanIcon">
+                </i></div>
+               
+
+                
+                
+              </div>
+              
+              
             </div>
+            <div class="comment-text-sm comment-desc-container">
+                <span class="comment-description">{{
+                  comment.responseDesc
+                }}</span>
+              </div>
           </div>
         </div>
       </div>
@@ -98,7 +124,7 @@ export default {
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
-        isPinned: false
+        isPinned: false,
       },
     };
   },
@@ -115,18 +141,18 @@ export default {
     },
     addComment(newComment) {
       if (this.$store.state.user.userId != 0) {
-      console.log(this.post.postId);
-      console.log("post id");
-      PostService.addComment(newComment)
-        .then((response) => {
-          this.getComments(this.post);
-          console.log(response.data);
-          console.log(this.newComment);
-          this.clearForm();
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        console.log(this.post.postId);
+        console.log("post id");
+        PostService.addComment(newComment)
+          .then((response) => {
+            this.getComments(this.post);
+            console.log(response.data);
+            console.log(this.newComment);
+            this.clearForm();
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.$router.push("/login");
       }
@@ -159,7 +185,7 @@ export default {
         creatorId: this.$store.state.user.id,
         creatorName: this.$store.state.user.username,
         denName: this.$route.params.denName,
-        isPinned: false
+        isPinned: false,
       };
     },
 
@@ -174,29 +200,29 @@ export default {
     },
     upVote(comment) {
       if (this.$store.state.user.userId != 0) {
-      VotingService.upvoteCommentForResponse(comment)
-        .then((response) => {
-          console.log("upvote");
-          console.log(response.data);
-          this.getComments(this.post);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        VotingService.upvoteCommentForResponse(comment)
+          .then((response) => {
+            console.log("upvote");
+            console.log(response.data);
+            this.getComments(this.post);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.$router.push("/login");
       }
     },
     downVote(comment) {
       if (this.$store.state.user.userId != 0) {
-      VotingService.downvoteCommentForResponse(comment)
-        .then((response) => {
-          console.log(response.data);
-          this.getComments(this.post);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+        VotingService.downvoteCommentForResponse(comment)
+          .then((response) => {
+            console.log(response.data);
+            this.getComments(this.post);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
       } else {
         this.$router.push("/login");
       }
@@ -237,61 +263,78 @@ export default {
 </script>
 
 <style scoped>
-
-
+/* General Styles */
 body {
   background-color: #eee;
   display: flex;
   justify-content: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* Ensure a consistent font */
 }
 
-.add-comment-section {
-  margin-top: 0%;
-}
-
-
-.bdge {
-  height: 21px;
-  background-color: orange;
-  color: #fff;
-  font-size: 11px;
-  padding: 8px;
-  border-radius: 4px;
-  line-height: 3px;
-}
-
-.commentCreatorName{
-  font-weight: 500;
-}
-
+/* Comment Section Styles */
 .comments {
   text-decoration: underline;
   text-underline-position: under;
   cursor: pointer;
+  margin: 0;
+  padding-bottom: 1rem;
+}
+
+.comment-bottom {
+  background-color: #fff;
+  padding: 1rem;
+  border-top: solid 1px #a1c181;
+  margin-bottom: 1rem;
+  /* Apply max width here to control the width of each comment */
+  max-width: 90%;
+  min-width: 90%;
+  /* Center each comment */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.secure-pfp {
+  display: flex;
+}
+.profile-image {
+  display: block;
   justify-content: center;
+  align-content: center;
 }
 
-#postBody > div:nth-child(2),
-#postBody > div:nth-child(2) > div,
-#postBody > div:nth-child(2) > div > div.main-container {
-  justify-content: center;
-  align-items: center;
+.arrows {
+  align-content: center;
 }
-
-.upvoteIcon:hover {
-  color: #a1c181;
-  animation-name: fa-shake;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
+.commentCreatorName {
+  display: flex;
+  flex-flow: row;
+  margin: 0%;
+  text-align: justify;
+  font-weight: 550;
+  font-size: medium;
 }
-
-.downvoteIcon:hover {
-  color: #fe7f2d;
-  animation-name: fa-shake;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
+.commentTime {
+  font-size: smaller;
+  text-align: justify;
+}
+.total-votes {
+  margin-right: .5rem;
+  align-content: center;
+}
+.userAndTrashContainer{
+  display: flex;
+  flex-flow: row;
+  justify-content: space-between;
+}
+.user-and-time {
+  display: flex;
+  flex-flow: column;
+  padding-bottom: .5%;
+}
+#trashCanIcon{
+  display: flex;
+  padding-left: 10px;
+  
 }
 
 .fa-trash:hover {
@@ -302,219 +345,118 @@ body {
   animation-timing-function: var(--fa-animation-timing, linear);
 }
 
-/* .comment-bottom, .add-comment-section, .main-container, #commentContainer{
-  display:flex;
-  flex-flow: column;
-  width:70%;
-  justify-content: center;
-  align-content: center;
-} */
-.dot {
-  height: 0.5rem;
-  width: 0.5rem;
-  margin: 0.5rem;
-  background-color: #bbb;
-  border-radius: 50%;
-  display: inline-block;
-  align-self: center;
-}
-
-#commentContainer > div > div {
-  align-content: center;
-}
-
-#commentContainer > div {
-  width: 80%;
-
-}
-
-.hit-voting:hover {
-  color: blue;
-}
-
-.hit-voting {
-  cursor: pointer;
-}
-#commentContainer {
-  width: 100%;
-  border-top: solid blueviolet 1px;
-
-}
-
-.image-button {
-  background: none;
-  /* Remove default button background */
-  border: none;
-  /* Remove default button border */
-  padding: 0;
-  /* Remove default button padding */
-  margin: 0;
-  /* Remove default button margin */
-  cursor: pointer;
-  /* Change cursor to pointer */
-  display: inline-flex;
-  /* Make sure buttons are inline with other content */
-}
-
-/* Ensure images inside buttons fit well */
-.image-button img {
+.comment-description {
   display: block;
-  /* Remove extra space below image */
-  width: 1rem;
-  /* Adjust width as needed */
-  height: auto;
-  /* Maintain aspect ratio */
+  word-wrap: break-word;
+
+  text-align: justify;
 }
 
-/* Additional styles for button container */
-.button-container {
+.containing-picture {
   display: flex;
-  flex-flow: row;
+  justify-content: flex-start;
   align-items: center;
-  /* Center items vertically */
-  justify-content: center;
-  /* Center items horizontally */
+  margin-top: 0%;
+}
+
+/* Button and Icon Styles */
+.btn-primary {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5rem 1rem;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.upvoteIcon,
+.downvoteIcon {
+  cursor: pointer;
 }
 
 .upvoteIcon:hover {
   color: #a1c181;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 
 .downvoteIcon:hover {
   color: #fe7f2d;
+  animation-name: fa-shake;
+  animation-duration: var(--fa-animation-duration, 1s);
+  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
+  animation-timing-function: var(--fa-animation-timing, linear);
 }
 
-/* DOT */
+/* Layout and Flexbox */
+.add-comment-section {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  margin-top: 1rem;
+}
+
+.comment-desc-container {
+  padding-bottom: 0.5rem;
+  padding-left: 6%;
+}
+
+.comment-container {
+  width: 100%;
+  max-width: 600px; /* Fixed width for the comment container */
+  margin: 0 auto;
+  border-top: 1px solid blueviolet;
+}
+
+.comment-container > div {
+  padding-left: 1rem;
+}
+
 .dot {
   height: 0.5rem;
   width: 0.5rem;
-  margin: 0.5rem;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
+  margin: 0 0.5rem;
 }
 
-.hit-voting {
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .add-comment-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .btn-primary {
+    width: 100%;
+  }
+
+  .comment-container {
+    width: 100%;
+  }
+}
+
+/* Additional Styles for Image Buttons */
+.image-button {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
   cursor: pointer;
+  display: inline-flex;
 }
 
-/* .hit-voting:hover {
-  color: blue;
-} */
-
-.votings {
-  padding: 0.5rem;
+.image-button img {
+  display: block;
+  width: 1rem;
+  height: auto;
 }
 
-.username {
-  display: flex;
-  text-align: bottom;
-  padding-left: 0.5rem;
-  margin-bottom: 8px;
-  vertical-align: bottom;
-}
-
-img {
-  justify-content: flex-start;
-}
-
-/* #postDesc {
-  margin: .5%;
-  display: inline-block;
-  
-  word-wrap: break-word;
-  justify-content: center;
-
-} */
-
-body {
-  background-color: #eee;
-  display: flex;
-}
-
-.bdge {
-  height: 21px;
-  background-color: orange;
-  color: #fff;
-  font-size: 11px;
-  padding: 8px;
-  border-radius: 4px;
-  line-height: 3px;
-}
-
-.delete {
-  width: 80%;
-  margin: 0.5rem;
-  margin-left: 59px;
-  display: inline-block;
-  word-wrap: break-word;
-  justify-content: center;
-  text-align: justify;
-}
-
-.comments {
-  text-decoration: underline;
-  text-underline-position: under;
-  cursor: pointer;
-}
-
-.comments-list {
-  display: flex;
-  flex-flow: column;
-  justify-content: flex-start;
-  align-items: center;
-}
-
-.second-container {
-  border-top: solid #619b8a 1px;
-}
-
-#searchPost {
-  padding-bottom: 1rem;
-}
-
-h6 {
-  display: inline-block;
-  width: 100%;
-  /* text-wrap: wrap; */
-}
-
-.postTime{
-  font-size:80%;
-  margin-bottom: 0%;
-  padding-bottom:0%;
-  text-align:start;
-  justify-self: center;
-
-}
-
-#commentContainer {
-  display: flex;
-  justify-content: center;
-}
-
-.comment-text-sm{
-  margin-bottom:2%;
-}
-
-.comment-description{
-  display: inline-block;
-  word-wrap: break-word;
-  justify-content: center;
-  text-align: justify;
-}
-
-.main-comment-section{
-  padding-left:1%;
-}
-
-#commentContainer > div{
-  padding-left:1%;
-}
-
-.comment-desc-container{
-  display: flex;
-  justify-content: flex-start;
-}
-
-/* Your other existing styles */</style>
+/* Your other existing styles */
+</style>

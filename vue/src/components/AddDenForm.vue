@@ -104,8 +104,8 @@ padding: 20px;
 
 /* Card styling for the expandable button */
 .expandable-card {
-max-width: 300px;
-max-height: 70px;
+max-width: 100%;
+max-height: 65%;
 background-color: transparent; /* No solid background */
 border: 2px solid rgba(97, 155, 138,1); /* Colored outline */
 border-radius: 8px;

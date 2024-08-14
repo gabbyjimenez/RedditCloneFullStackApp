@@ -1,9 +1,14 @@
 <template>
   <div class="form-container">
-    <button class="toggle-button" v-on:click="toggleForm">Add Post:</button>
+    <button class="toggle-button" v-on:click="toggleForm" v-show="!formOpen">Add Post:</button>
     <form v-on:submit.prevent="makeNewPost" v-show="formOpen" class="post-form">
       <div class="field">
-        <label for="postTitle">Post Title:</label>
+        
+        <div class="trashCanAndPost">
+          <label for="postTitle" class="titleLabel">Post Title:</label>
+      <i class="fa-solid fa-trash trashCan" id="trashCanIcon" v-on:click="toggleForm()"> </i>
+    </div>
+        
         <input
           type="text"
           id="postTitle"
@@ -22,6 +27,7 @@
         ></textarea>
       </div>
       <button type="submit" class="submit-button">Post</button>
+      
     </form>
   </div>
 </template>
@@ -100,6 +106,7 @@ export default {
   max-width: 600px;
   margin: 0 auto;
   padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Style for the toggle button */
@@ -157,7 +164,7 @@ export default {
 
 /* Style for the submit button */
 .submit-button {
-  background-color: #28a745;
+  background-color: #619b8a;
   color: white;
   border: none;
   padding: 10px 15px;
@@ -165,8 +172,24 @@ export default {
   font-size: 16px;
   cursor: pointer;
   transition: background-color 0.3s;
+  
+}
+.trashCanAndPost{
+  display: inline-flex;
+  justify-content: center;
+  width: 100%;
+}
+.titleLabel{
+  width:99%;
 }
 
+.fa-trash{
+  display: flex;
+  flex-flow: row;
+  align-items: center;
+  align-content: center;
+  
+}
 .submit-button:hover {
   background-color: #218838;
 }

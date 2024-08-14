@@ -1,5 +1,5 @@
 <template>
-  <div id="searchPost">
+  <div id="searchPost" class="search-post">
     <label for="searchFilter">Search: </label>
     <input type="text" id="searchFilter" name="denName" v-model="searchFilter"
       placeholder="Search by Title/Post Content" />
@@ -28,7 +28,7 @@
                 </i>
 
                 <i v-if="getThisDen(post)" v-on:click="pinToggle(post)" class="fa-solid fa-flag" :class="{ 'flagged': post.pinned }"></i> 
-                <i v-else-if="post.pinned == true" class="fa-solid fa-flag" :class="{ 'flagged': post.pinned }"></i>   
+                <i v-else-if="post.pinned == true" class="fa-solid fa-flag pinflag" :class="{ 'flagged': post.pinned }"></i>   
   
               </div>
 
@@ -213,6 +213,21 @@ created() {
 </script>
 <style scoped>
 /* Remove default button styling */
+
+#postBody, .search-post{
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+#searchPost{
+  display: inline-flex;
+  width: 75%;
+  justify-content: center;
+}
+#searchFilter{
+  display: inline-flex;
+  text-align: center;
+  width:50%;
+
+}
 .image-button {
   background: none;
   /* Remove default button background */
@@ -262,6 +277,11 @@ created() {
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
+}
+
+.fa-flag{
+
+  align-content: center;
 }
 
 .fa-trash:hover {
@@ -316,6 +336,7 @@ img {
 body {
   background-color: #eee;
   display: flex;
+  max-width: 90%;
 }
 
 .bdge {
@@ -366,7 +387,6 @@ h5 {
 h6 {
   display: inline-block;
   width: 100%;
-  padding-bottom: 1rem;
   text-wrap: break-word;
 }
 
