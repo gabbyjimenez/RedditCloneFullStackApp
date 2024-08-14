@@ -10,8 +10,9 @@
             <img id="heroImage" src="../assets/2.gif" alt="Hero Image">
             <!--End of Gabby messing everything up-->
             <div id="overlayContainer" class="card-img-overlay">
-                <h1 class="headline">Welcome to Our App</h1>
-                <p class="subtitle">Discover the amazing features and benefits we offer.</p>
+                <h1 class="headline">Welcome to Foxtrot</h1>
+                <p id="textBox" class="subtitle">
+                    Discover Foxtrot, an employee-centric SaaS platform empowering Employee Resource Groups (ERGs) with a service that provides convenient communication and enrichment community collaboration.</p>
                 <div class="action-buttons">
                     <router-link v-bind:to="{ name: 'dens' }">
                         <button id="buttonsOfACtion" type="button" class="btn btn-primary">Get Started</button>
@@ -117,7 +118,7 @@ export default {
 }
 
 .headline {
-    font-size: 2.5rem;
+    font-size: 4rem;
     font-weight: bold;
     margin-bottom: 1rem;
 }
@@ -183,7 +184,7 @@ button {
 
 .contentSection h2 {
     margin-bottom: 1rem;
-    font-size: 1.75rem;
+    font-size:3rem;
 }
 
 .contentSection p {
@@ -209,6 +210,11 @@ button {
 }
 #signUpLink:hover {
 color: rgba(255, 255, 255, 0.5);
-
 }
+#textBox{
+display: flex;
+width: 70%;
+font-size:2rem;
+}
+
 </style>

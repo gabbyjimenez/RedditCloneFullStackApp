@@ -4,7 +4,6 @@ import { useStore } from 'vuex'
 // Import components
 import HomeView from '../views/HomeView.vue';
 import LoginView from '../views/LoginView.vue';
-import LogoutView from '../views/LogoutView.vue';
 import RegisterView from '../views/RegisterView.vue';
 import DenView from '../views/DenView.vue';
 import LandingView from '../views/LandingView.vue'
@@ -36,14 +35,7 @@ const routes = [
       requiresAuth: false
     }
   },
-  {
-    path: "/logout",
-    name: "logout",
-    component: LogoutView,
-    meta: {
-      requiresAuth: false
-    }
-  },
+
   {
     path: "/register",
     name: "register",
