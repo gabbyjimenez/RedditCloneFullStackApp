@@ -31,7 +31,7 @@
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
           <BenefitsCard 
             title="Enhanced Community Engagement"
-            icon="fa-light fa-network-wired"
+            icon="<fa-solid fa-users"
             :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']"
           />
           <BenefitsCard 
