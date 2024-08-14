@@ -3,16 +3,15 @@
         <Header id="header"></Header>
 
         <!-- Main panel -->
-        <!--<div id="mainPanel">-->
-            <!--<img id="heroImage" src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Hero Image">-->
-               <!--Beginning of Gabby messing everything up-->
-               <div id="mainPanel" style="height: 40rem;">
+        <!--Beginning of Gabby messing everything up-->
+        <div id="mainPanel" style="height: 40rem;">
             <img id="heroImage" src="../assets/2.gif" alt="Hero Image">
             <!--End of Gabby messing everything up-->
             <div id="overlayContainer" class="card-img-overlay">
                 <h1 class="headline">Welcome to Foxtrot</h1>
                 <p id="textBox" class="subtitle">
-                    Discover Foxtrot, an employee-centric SaaS platform empowering Employee Resource Groups (ERGs) with a service that provides convenient communication and enrichment community collaboration.</p>
+                    Discover Foxtrot, an employee-centric SaaS platform empowering Employee Resource Groups (ERGs) with a
+                    service that provides convenient communication and enriching community collaboration.</p>
                 <div class="action-buttons">
                     <router-link v-bind:to="{ name: 'dens' }">
                         <button id="buttonsOfACtion" type="button" class="btn btn-primary">Get Started</button>
@@ -22,37 +21,26 @@
                     </router-link> -->
                 </div>
                 <p class="signup-text">
-                    Don't have an account? <router-link id="signUpLink" v-bind:to="{ name: 'register' }">Sign up here!</router-link>
+                    Don't have an account? <router-link id="signUpLink" v-bind:to="{ name: 'register' }">Sign up
+                        here!</router-link>
                 </p>
             </div>
         </div>
 
         <!-- Content Section -->
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
-          <BenefitsCard 
-            title="Responsive Design"
-            icon="fa-light fa-network-wired"
-            :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']"
-          />
-          <BenefitsCard 
-            title="Fast Performance"
-            icon="fa-rocket"
-            :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']"
-          />
-          <BenefitsCard 
-            title="Secure"
-            icon="fa-lock"
-            :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']"
-          />
+
+            <BenefitsCard id="cardA" title="Dens" icon="fa-solid fa-tent"
+                :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']" />
+            <BenefitsCard id="cardB" title="Streamlined Information Sharing" icon="fa-solid fa-comments"
+                :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']" />
+            <BenefitsCard id="cardC" title="Inclusive and Collaborative Environment" icon="fa-solid fa-handshake"
+                :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']" />
         </div>
 
         <!-- Footer -->
         <Footer id="footer"></Footer>
     </div>
-
-
-
-
 </template>
 
 <script>
@@ -80,8 +68,9 @@ export default {
 }
 
 #header {
-    flex-shrink: 0; /* Ensure the header doesn't shrink */
-    
+    flex-shrink: 0;
+    /* Ensure the header doesn't shrink */
+
 }
 
 #mainPanel {
@@ -98,7 +87,7 @@ export default {
 }
 
 #overlayContainer {
-    
+
     position: absolute;
     top: 0;
     left: 0;
@@ -108,11 +97,12 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4); /**-- Semi-transparent overlay -- **/
+    background: rgba(0, 0, 0, 0.4);
+    /**-- Semi-transparent overlay -- **/
     color: white;
     text-align: center;
     padding: 2rem;
-   
+
 
 
 }
@@ -170,11 +160,11 @@ button {
     flex: 1;
     /**below was here before**/
     /**padding: 2rem; **/
-    
-   background-color: #f9f9f9; 
+
+    background-color: #f9f9f9;
     /**above was here before**/
     /**beginning of Gabby playing with things**/
-     padding: 0rem; 
+    padding: 0rem;
 
 }
 
@@ -184,7 +174,7 @@ button {
 
 .contentSection h2 {
     margin-bottom: 1rem;
-    font-size:3rem;
+    font-size: 3rem;
 }
 
 .contentSection p {
@@ -202,19 +192,69 @@ button {
 #footer p {
     margin: 0;
 }
-#buttonsOfACtion{
+
+#buttonsOfACtion {
     background-color: rgba(0, 0, 0, 0.50);
 }
+
 #buttonsOfACtion:hover {
-    background-color:  rgba(97, 155, 138,  0.50);
-}
-#signUpLink:hover {
-color: rgba(255, 255, 255, 0.5);
-}
-#textBox{
-display: flex;
-width: 70%;
-font-size:2rem;
+    background-color: rgba(97, 155, 138, 0.50);
 }
 
+#signUpLink:hover {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+#textBox {
+    display: flex;
+    width: 70%;
+    font-size: 2rem;
+}
+
+#cardA:hover {
+
+    display: flex;
+    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
+    background-repeat: no-repeat; */
+    color: rgba(0, 0, 255, 0);
+    object-fit: cover;
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
+    padding: 2rem;
+    /* no need for qoutes */
+
+    img:focus {
+        flex: 1;
+        object-fit: cover;
+    }
+}
+
+#cardB:hover {
+
+    display: flex;
+    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
+background-repeat: no-repeat; */
+    color: rgba(0, 0, 255, 0);
+    object-fit: cover;
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
+    padding: 2rem;
+    /* no need for qoutes */
+
+    img:focus {
+        flex: 1;
+        object-fit: cover;
+    }
+}
+
+#cardC:hover {
+    display: flex;
+    color: rgba(0, 0, 255, 0);
+    object-fit: cover;
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
+    padding: 2rem;
+
+    img:focus {
+        flex: 1;
+
+    }
+}
 </style>

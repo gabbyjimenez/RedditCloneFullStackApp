@@ -154,7 +154,10 @@ export default {
     },
   },
   created(){
+<<<<<<< HEAD
+=======
     this.getFavorites(this.$store.state.user);
+>>>>>>> e8b1a0b1b47db093e122cc5d6cdc64a24cf392f0
     this.getDens()
   }
 }
@@ -165,7 +168,7 @@ export default {
 .main-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 80%;
   position: relative;
   border: 1px solid #e6e6e6;
   border-radius: 8px;
@@ -210,7 +213,11 @@ export default {
   font-weight: bold;
   color: #333;
   text-align: center;
+<<<<<<< HEAD
   margin: 0; /* Remove default margins */
+=======
+  margin-right: 15%; /* Remove default margins */
+>>>>>>> e8b1a0b1b47db093e122cc5d6cdc64a24cf392f0
 }
 
 #denDescription {
@@ -223,6 +230,10 @@ export default {
   margin: 0 auto;
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+<<<<<<< HEAD
+=======
+  align-items: center;
+>>>>>>> e8b1a0b1b47db093e122cc5d6cdc64a24cf392f0
 }
 
 /* Search Bar Styling */
