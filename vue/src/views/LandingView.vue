@@ -31,11 +31,11 @@
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
 
             <BenefitsCard id="cardA" title="Dens: Your ERG’s Information Hub" icon="fa-solid fa-tent"
-                :benefits="['Build Organiztional Communities', 'Promote Team Growth', 'Facilitate Cross-Organizational Collaboration']" />
+                :benefits="['Facilitate Interdepartmental Collaboration','Build Organizational Communities', 'Encourage Team Development']" />
             <BenefitsCard id="cardB" title="Community Driven Content" icon="fa-solid fa-sort"
-                :benefits="['Optimized for speed', 'Follow and filter your favorite Dens', 'Recieve feedback via Upvote and Downvote on your content ', 'Pin comments that are important to you']" />
+                :benefits="['Get feedback via Upvote and Downvote on your content ', 'Pin relevant comments that matter to you', 'Follow and filter your favorite Dens',  ]" />
             <BenefitsCard id="cardC" title="Stay Connected" icon="<fa-solid fa-comment-sms"
-                :benefits="['Recieve Notification on your Posts and Comments', 'Data encryption', 'Regular updates', 'SMS and Email Functionality']" />
+                :benefits="['Receive Notification on your Posts and Comments', 'SMS and Email Functionality', '']" />
         </div>
         
 
@@ -214,36 +214,24 @@ button {
     width: 70%;
     font-size: 2rem;
 }
-#cardC{
-    display: flex;
-    height: 10%
-}
-#cardA:hover {
 
-    display: flex;
-    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    background-repeat: no-repeat; */
+#cardA:hover {
+    display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    padding: 2rem;
-    /* no need for qoutes */
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723675238/Screenshot_13_wskjnk.svg');
 
     img:focus {
         flex: 1;
+        object-fit: cover;
     }
 }
 
 #cardB:hover {
-
-    display: flex;
-    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-background-repeat: no-repeat; */
+    display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    padding: 2rem;
-    /* no need for qoutes */
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723676583/Screenshot_15_jhunns_ftiyd8.svg');
 
     img:focus {
         flex: 1;
@@ -253,14 +241,10 @@ background-repeat: no-repeat; */
 
 
 #cardC:hover {
-    display: flex;
-    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-background-repeat: no-repeat; */
+    display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    padding: 2rem;
-    /* no need for qoutes */
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723675476/Screenshot_14_zpqoj8.svg');
 
     img:focus {
         flex: 1;
