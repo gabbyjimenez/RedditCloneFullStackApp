@@ -151,14 +151,18 @@ public class JdbcDenDao implements DenDao {
         List<User> users = userDao.getUsers();
         for (User user : users){
             if(newResponse.getResponseDesc().contains("@"+ user.getUsername() + " ")){
-                String smsBody = "You have been tagged in a comment on Foxtrot! Log in to check it out!";
-                String phoneNumber = user.getPhoneNumber();
-                Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
-                Message message = Message.creator(
-                                new com.twilio.type.PhoneNumber("+1"+phoneNumber),
-                                new com.twilio.type.PhoneNumber("+18559611686"),
-                                smsBody)
-                        .create();
+                if(user.getPhoneNumber() != null) {
+                    if(!user.getPhoneNumber().equalsIgnoreCase("0000000000")){
+                        String smsBody = "You have been tagged in a comment on Foxtrot! Log in to check it out!";
+                        String phoneNumber = user.getPhoneNumber();
+                        Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
+                        Message message = Message.creator(
+                                        new com.twilio.type.PhoneNumber("+1" + phoneNumber),
+                                        new com.twilio.type.PhoneNumber("+18559611686"),
+                                        smsBody)
+                                .create();
+                    }
+                }
             }
         }
 
@@ -394,14 +398,18 @@ public class JdbcDenDao implements DenDao {
         List<User> users = userDao.getUsers();
         for (User user : users){
             if(newPost.getPostDesc().contains("@"+ user.getUsername() + " ")){
-                String smsBody = "You have been tagged in a post on Foxtrot! Log in to check it out!";
-                String phoneNumber = user.getPhoneNumber();
-                Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
-                Message message = Message.creator(
-                                new com.twilio.type.PhoneNumber("+1"+phoneNumber),
-                                new com.twilio.type.PhoneNumber("+18559611686"),
-                                smsBody)
-                        .create();
+                if(user.getPhoneNumber()!=null){
+                    if(user.getPhoneNumber().equalsIgnoreCase("0000000000")){
+                        String smsBody = "You have been tagged in a post on Foxtrot! Log in to check it out!";
+                        String phoneNumber = user.getPhoneNumber();
+                        Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
+                        Message message = Message.creator(
+                                        new com.twilio.type.PhoneNumber("+1"+phoneNumber),
+                                        new com.twilio.type.PhoneNumber("+18559611686"),
+                                        smsBody)
+                                .create();
+                    }
+                }
             }
         }
 
