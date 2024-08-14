@@ -2,66 +2,67 @@
   <div class="container">
     <div id="searchOption">
       <div id="searchBar">
-
-        <input id="searchBar" type="search" class="form-control" placeholder="Search dens or categories"
+<div id="searchBar">
+        <input id="searchText" type="search" class="form-control" placeholder="Search dens or categories"
           aria-label="Search" v-model="searchFilter" />
-      </div>
-      <div id="favoriteToggle" class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-          v-on:click="(showFavoriteDens = !showFavoriteDens); getFavorites(this.$store.state.user)">
-        <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
-      </div>
+          </div>
+          <div id="favoriteBox">
+        <div id="favoriteToggle" class="form-check form-switch">
 
-
+          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+            v-on:click="(showFavoriteDens = !showFavoriteDens); getFavorites(this.$store.state.user)">
+        </div>
+        <div id="flexSwitchCheckLabel">
+          <p>Favorites</p>
+        </div>
+      </div>
+      </div>
+      
     </div>
 
     <ul id="denList">
-      <div v-if="!showFavoriteDens">
-        <li v-for="den in filteredDens" :key="den.denName" class="den-item">
+      <li v-for="den in filteredDens" :key="den.denName" class="den-item" v-show="!showFavoriteDens">
 
-          <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-            <div id="denHeader">
-              <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
-                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+          <div id="denHeader">
+            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
+              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
 
-              <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
-            </div>
-            <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
-            <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
-            <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
-
-            <div id="denDescription" class="card-body">
-              <p>{{ den.denDesc }}</p>
-
-              <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-                @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
-            </div>
+            <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
           </div>
-        </li>
-        </div>
-        <div v-else>
-        <li v-for="den in filteredFavdens" :key="den.denName" class="den-item">
-          <p></p>
-          <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-            <div id="denHeader">
-              <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
-                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+          <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
+         
+          <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
 
-              <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
-            </div>
-            <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
-            <!-- <p class="den-meta">Favorite: {{ den.isFavorite ? 'Yes' : 'No' }}</p> -->
-            <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
+          <div id="denDescription" class="card-body">
+            <p>{{ den.denDesc }}</p>
 
-            <div id="denDescription" class="card-body">
-              <p>{{ den.denDesc }}</p>
-
-              <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-                @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
-            </div>
+            <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
           </div>
-        </li>
         </div>
+      </li>
+      <li v-for="favorite in favorites" v-bind:key="favorite.denName" v-show="showFavoriteDens">
+        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: favorite.denName } })">
+          <div id="denHeader">
+            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
+              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+
+            <p id="userName" class="den-meta">Created by: {{ favorite.denCreatorUserName }}</p>
+          </div>
+          <h5 id="denTitle" class="mr-2">{{ favorite.denName }}</h5><span class="dot mb-1"></span>
+
+          <i id="favoriteIcon" class="fa-solid fa-star"></i>
+
+          <div id="denDescription" class="card-body">
+            <p>{{ favorite.denDesc }}</p>
+
+            <i v-if="favorite.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+          </div>
+        </div>
+
+      </li>
     </ul>
 
 
@@ -98,26 +99,6 @@ export default {
         );
         return searchFilter === "" ? true : nameMatch || categoryMatch;
       });
-
-      // Sort dens with isFavorite at the top
-      return filtered.sort((a, b) => {
-        if (a.isFavorite && !b.isFavorite) return -1;
-        if (!a.isFavorite && b.isFavorite) return 1;
-        return 0;
-      });
-    },
-    filteredFavdens() {
-      // const searchFilter = this.searchFilter.toLowerCase();
-
-      // Filter dens based on searchFilter
-      const filtered = this.$store.state.dens.filter((den) => {
-        const favMatch = this.favorites.some(fav => fav.denId === den.denId);
-        console.log(favMatch)
-        return favMatch;
-      
-      });
-      console.log(filtered)
-      console.log(this.favorites)
 
       // Sort dens with isFavorite at the top
       return filtered.sort((a, b) => {
@@ -357,38 +338,84 @@ export default {
 
 #favoriteToggle {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-wrap: 1;
+  width: 100%;
 }
 
 #flexSwitchCheckDefault {
+  
   display: flex;
+  font-size: large;
+  
+
+
 
 
 }
 
+
+
 #flexSwitchLabel {
   display: flex;
-
-
+  height:50%;
+  width: 10%;
+  justify-content: flex-start
 }
 
 #searchOption {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  margin: auto;
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+width: 100%;
+ align-content: center;
+  align-items: center;
+  text-align: center;
 
 
 }
 
 #searchBar {
-  width: 90%
+  display: flex;
+  width: 90%;
+  align-items: center;
+  text-align: center;
+  margin-bottom: auto;
+  padding-left: 10%;
+  padding-right: -10%;
+}
+
+#flexSwitchCheckLabel {
+  flex-direction: flex-start;
 }
 
 #favoriteToggle {
-  width: 5%;
-  justify-content: center;
+  display: flex;
   align-items: center;
-  font-size: x-small;
+  justify-content: flex-start;
+  font-size: larger;
+
+
+
+
 }
+
+#favoriteBox {
+  display: flex;
+  color: gold;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  font-size: small;
+  margin-top: auto;
+  margin-bottom: auto;
+  width: 10%;
+  
+ 
+}
+
 </style>
