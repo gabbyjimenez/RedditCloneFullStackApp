@@ -387,7 +387,7 @@ h5 {
 h6 {
   display: inline-block;
   width: 100%;
-  text-wrap: break-word;
+  /* text-wrap: break-word; */
 }
 
 #trashCanIcon {
