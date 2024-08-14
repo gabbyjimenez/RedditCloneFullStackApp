@@ -17,6 +17,10 @@
         <label for="confirmPassword">Confirm Password</label>
         <input type="password" id="confirmPassword" v-model="user.confirmPassword" required />
       </div>
+      <div class="form-input-group">
+        <label for="phone-number">Phone Number</label>
+        <input type="tel" id="phone-number" v-model="user.phoneNumber" />
+      </div>
       <button type="submit" class="submit-button">Create Account</button>
       <p class="login-link">
         <router-link v-bind:to="{ name: 'login' }">Already have an account? Log in.</router-link>
@@ -36,6 +40,7 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
+        phoneNumber: ""
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
@@ -80,6 +85,14 @@ export default {
   align-items: center;
   min-height: 100vh;
   background-color: #f4f4f4;
+}
+
+input[type="tel"] {
+  width: 100%;
+  padding: 0.75rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
 }
 
 .register-form {
