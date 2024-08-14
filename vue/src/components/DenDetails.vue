@@ -214,10 +214,14 @@ export default {
   color: #333;
   text-align: center;
 <<<<<<< HEAD
+<<<<<<< HEAD
   margin: 0; /* Remove default margins */
 =======
   margin-right: 15%; /* Remove default margins */
 >>>>>>> e8b1a0b1b47db093e122cc5d6cdc64a24cf392f0
+=======
+  margin-right: 15%; /* Remove default margins */
+>>>>>>> 0bcb970c43f41a77122de9b443e5e4e9c70ef3e8
 }
 
 #denDescription {
@@ -231,9 +235,13 @@ export default {
   padding: 20px;
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
   align-items: center;
 >>>>>>> e8b1a0b1b47db093e122cc5d6cdc64a24cf392f0
+=======
+  align-items: center;
+>>>>>>> 0bcb970c43f41a77122de9b443e5e4e9c70ef3e8
 }
 
 /* Search Bar Styling */
