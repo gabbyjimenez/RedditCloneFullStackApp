@@ -7,6 +7,8 @@ CREATE TABLE users (
 	username varchar(50) NOT NULL UNIQUE,
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
+	phone varchar(10) DEFAULT '0000000000',
+	pfp_link varchar(200),
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 

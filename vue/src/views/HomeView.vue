@@ -49,11 +49,12 @@ export default {
   created() {
     this.getDens();
     this.show();
+    console.log("created")
   }
 }
 </script>
 
-<style>
+<style scoped>
 #page{
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
