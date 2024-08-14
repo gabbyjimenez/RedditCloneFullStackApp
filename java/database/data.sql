@@ -10,6 +10,10 @@ INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('nick','$
 INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('allison','$2a$10$D94Sx7eXi3kdChP6/P6z4OTVJSLZ3sqkSVGzHfKSNOvmIJhJ8FPUi','ROLE_USER', '8478459081', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652607/Allison_Linkedin_Photo_x2duxj.jpg');
 INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('cole','$2a$10$2WRh8HyrF5iQBBehailgqOacoPAQO.tlRZ3WGMw6VVNdSmtksnnwK','ROLE_USER', '6146701098', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652594/Cole_Linkedin_Photo_hopcv7.jpg');
 INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('amanda','$2a$10$mQMKEXCvK0tgzA/iMEVWfuKttQpbpu8AYRg3muTYFNEIive.CEw06','ROLE_USER', '4193085642', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652798/Screenshot_20240814_112120_Reddit_qupntb.jpg');
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('andy','$2a$10$xRKKx.MHFxH1DAzcFGZIE.TI3ZPWibBY2k48hRIlGBFpyh.EjG9Ti','ROLE_USER', '4074907855', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652798/Screenshot_20240814_112120_Reddit_qupntb.jpg');
+
+
+
 --Creating Dens
 --SELECT * FROM dens;
 
