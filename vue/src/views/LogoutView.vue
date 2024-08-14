@@ -13,10 +13,10 @@ export default {
   methods: {
     logout(){
       this.$store.commit("LOGOUT");
-      this.$router.push("/dens");
+      this.$router.push("/home");
     },
     goHome(){
-      this.$router.push("/dens")
+      this.$router.push("/home")
     }
     
   },
