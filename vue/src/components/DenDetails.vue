@@ -24,7 +24,24 @@
               <div class="header-content">
                 <h5 id="denTitle">{{ den.denName }}</h5>
               </div>
-            </div>
+
+                <!--
+              Gabby Started Here-->
+
+              
+              <div class="col-2">
+                <CategoryBadge
+                  v-for="(category, index) in den.categoryNames"
+                  :key="index"
+                  :category="category"/>
+                </div>
+
+            <!-- Gabby Ended Here-->
+           </div>
+
+          
+
+            
 
             <i id="favoriteIcon" class="fa-solid fa-star"
               :class="{ 'favorited': isFav(den) }"
@@ -35,7 +52,10 @@
               <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
                 @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
             </div>
+            
+          
           </div>
+          
         </li>
       </div>
       <div v-else>
@@ -77,6 +97,10 @@ export default {
       showFavoriteDens: false,
       favorites: []
     };
+  },
+/**Gabby added up to line 84 */
+  components: {
+      CategoryBadge
   },
 
   computed: {
@@ -385,7 +409,6 @@ width: 100%;
   align-items: center;
   justify-content: flex-start;
   font-size: larger;
-
 
 
 
