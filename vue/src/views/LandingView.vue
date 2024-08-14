@@ -30,18 +30,18 @@
         <!-- Content Section -->
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
           <BenefitsCard 
-            title="Enhanced Community Engagement"
-            icon="<fa-solid fa-users"
+            title="Responsive Design"
+            icon="fa-light fa-network-wired"
             :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']"
           />
           <BenefitsCard 
-            title="Streamlined Information Sharing"
-            icon="fa-solid fa-comments"
+            title="Fast Performance"
+            icon="fa-rocket"
             :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']"
           />
           <BenefitsCard 
-            title="Inclusive and Collaborative Environment"
-            icon="fa-solid fa-handshake"
+            title="Secure"
+            icon="fa-lock"
             :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']"
           />
         </div>
