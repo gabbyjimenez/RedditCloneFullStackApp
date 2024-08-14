@@ -209,7 +209,7 @@ export default {
   font-weight: bold;
   color: #333;
   text-align: center;
-  margin: 0; /* Remove default margins */
+  margin: 20%; /* Remove default margins */
 }
 
 #denDescription {
