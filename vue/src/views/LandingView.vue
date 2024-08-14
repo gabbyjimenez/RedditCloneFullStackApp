@@ -41,7 +41,7 @@
           />
           <BenefitsCard 
             title="Inclusive and Collaborative Environment"
-            icon="fa-solid fa-comments"
+            icon="fa-solid fa-handshake"
             :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']"
           />
         </div>
