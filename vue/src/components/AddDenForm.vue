@@ -1,5 +1,5 @@
 <template>
-  <div id="main">
+  <div id="main" v-show="this.$store.state.user.userId != 0">
       <div id="button">
           <!-- Adjust the button styling here -->
           <div id="addButton" class="card expandable-card" v-on:click="(denOpen = !denOpen); clearForm();">

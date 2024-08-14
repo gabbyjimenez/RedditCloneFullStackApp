@@ -4,6 +4,7 @@
       class="mr-2 comments"
       id="commentsButton"
       v-on:click.prevent="commentOPen = !commentOPen"
+      
     >
       Comments
     </p>
@@ -12,11 +13,12 @@
         <div
           class="d-flex flex-row add-comment-section mt-4 mb-4"
           id="theActualItems"
+          v-if="this.$store.state.user.userId != 0"
         >
           <img
             class="img-fluid img-responsive rounded-circle mr-2"
-            src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
-            width="38"
+            v-bind:src=this.$store.state.user.pfpLink
+            width="38" height="38"
           />
 
           <input
@@ -50,8 +52,8 @@
                 <div class="profile-image">
                   <img
                     class="rounded-circle"
-                    src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
-                    width="38"
+                    v-bind:src="comment.pfpUrl"
+                    width="38" height="38"
                   />
                 </div>
                 <div
@@ -283,7 +285,7 @@ body {
 .comment-bottom {
   background-color: #fff;
   padding: 1rem;
-  border-top: solid 1px #a1c181;
+  border-top: solid 1px #323232;
   margin-bottom: 1rem;
   /* Apply max width here to control the width of each comment */
   max-width: 90%;
@@ -440,6 +442,10 @@ body {
   .comment-container {
     width: 100%;
   }
+}
+
+.p-2{
+  padding: .0rem !important;
 }
 
 /* Additional Styles for Image Buttons */

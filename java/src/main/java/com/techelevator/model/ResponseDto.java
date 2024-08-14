@@ -15,11 +15,13 @@ public class ResponseDto {
 
     private boolean pinned;
     private LocalDateTime timeCreated;
+
+    private String pfpUrl;
     public ResponseDto(){
 
     }
 
-    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes, boolean pinned, LocalDateTime timeCreated) {
+    public ResponseDto(int responseId, String responseDesc, int postId, int creatorId, String creatorName, String denName, int upvotes, int downvotes, boolean pinned, LocalDateTime timeCreated, String pfpUrl) {
         this.responseId = responseId;
         this.responseDesc = responseDesc;
         this.postId = postId;
@@ -30,12 +32,24 @@ public class ResponseDto {
         this.downvotes = downvotes;
         this.pinned = pinned;
         this.timeCreated = timeCreated;
+        this.pfpUrl = pfpUrl;
 
+    }
+
+
+    public String getPfpUrl() {
+        return pfpUrl;
+    }
+
+    public void setPfpUrl(String pfpUrl) {
+        this.pfpUrl = pfpUrl;
     }
 
     public LocalDateTime getTimeCreated() {
         return timeCreated;
     }
+
+
 
     public void setTimeCreated(LocalDateTime timeCreated) {
         this.timeCreated = timeCreated;
