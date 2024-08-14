@@ -219,7 +219,7 @@ button {
     display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723675238/Screenshot_13_wskjnk.svg');
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677337/A_zhwkgi.svg');
 
     img:focus {
         flex: 1;
@@ -231,7 +231,7 @@ button {
     display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723676583/Screenshot_15_jhunns_ftiyd8.svg');
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677356/B_ucjh0s.svg');
 
     img:focus {
         flex: 1;
@@ -244,7 +244,7 @@ button {
     display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723675476/Screenshot_14_zpqoj8.svg');
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677350/C_qq6jtb.svg');
 
     img:focus {
         flex: 1;
