@@ -2,81 +2,72 @@
   <div class="container">
     <div id="searchOption">
       <div id="searchBar">
-<div id="searchBar">
-        <input id="searchText" type="search" class="form-control" placeholder="Search dens or categories"
+        <input id="searchBar" type="search" class="form-control" placeholder="Search dens or categories"
           aria-label="Search" v-model="searchFilter" />
           </div>
-          <div id="favoriteBox">
-        <div id="favoriteToggle" class="form-check form-switch">
-
-          <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
-            v-on:click="(showFavoriteDens = !showFavoriteDens); getFavorites(this.$store.state.user)">
-        </div>
-        <div id="flexSwitchCheckLabel">
-          <p>Favorites</p>
-        </div>
+         
+      <div id="favoriteToggle" class="form-check form-switch">
+        <input class="form-check-input" type="checkbox" id="flexSwitchCheckDefault"
+          v-on:click="toggleFavoriteDens">
+        <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
       </div>
-      </div>
-      
     </div>
 
     <ul id="denList">
-      <li v-for="den in filteredDens" :key="den.denName" class="den-item" v-show="!showFavoriteDens">
+      <div v-if="!showFavoriteDens">
+        <li v-for="den in filteredDens" :key="den.denName" class="den-item">
+          <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+            <div id="denHeader">
+              <img id="denPic" class="img-fluid img-responsive rounded-circle" 
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+                <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+              <div class="header-content">
+                <h5 id="denTitle">{{ den.denName }}</h5>
+              </div>
+            </div>
 
-        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
-          <div id="denHeader">
-            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
-              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+            <i id="favoriteIcon" class="fa-solid fa-star"
+              :class="{ 'favorited': isFav(den) }"
+              v-on:click.stop="toggleFavorite(den)"></i>
 
-            <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+            <div id="denDescription" class="card-body">
+              <p>{{ den.denDesc }}</p>
+              <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+                @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+            </div>
           </div>
-          <h5 id="denTitle" class="mr-2">{{ den.denName }}</h5><span class="dot mb-1"></span>
-         
-          <i id="favoriteIcon" class="fa-solid fa-star" v-on:click.stop="toggleFavorite(den)"></i>
+        </li>
+      </div>
+      <div v-else>
+        <li v-for="den in filteredFavdens" :key="den.denName" class="den-item">
+          <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
+            <div id="denHeader">
+              <img id="denPic" class="img-fluid img-responsive rounded-circle" 
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+                <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+              <div class="header-content">
+                <h5 id="denTitle">{{ den.denName }}</h5>
+              </div>
+            </div>
+            <i id="favoriteIcon" class="fa-solid fa-star"
+              :class="{ 'favorited': isFav(den) }"
+              v-on:click.stop="toggleFavorite(den)"></i>
 
-          <div id="denDescription" class="card-body">
-            <p>{{ den.denDesc }}</p>
-
-            <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+            <div id="denDescription" class="card-body">
+              <p>{{ den.denDesc }}</p>
+              <i v-if="den.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
+                @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
+            </div>
           </div>
-        </div>
-      </li>
-      <li v-for="favorite in favorites" v-bind:key="favorite.denName" v-show="showFavoriteDens">
-        <div class="main-container" @click="$router.push({ name: 'den', params: { denName: favorite.denName } })">
-          <div id="denHeader">
-            <img id="denPic" class="img-fluid img-responsive rounded-circle mr-2"
-              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
-
-            <p id="userName" class="den-meta">Created by: {{ favorite.denCreatorUserName }}</p>
-          </div>
-          <h5 id="denTitle" class="mr-2">{{ favorite.denName }}</h5><span class="dot mb-1"></span>
-
-          <i id="favoriteIcon" class="fa-solid fa-star"></i>
-
-          <div id="denDescription" class="card-body">
-            <p>{{ favorite.denDesc }}</p>
-
-            <i v-if="favorite.denCreatorUserName === $store.state.user.username || this.$store.state.user.authorities.some(auth => auth.name === 'ROLE_ADMIN')"
-              @click.stop="DeleteDen(den)" class="fa-solid fa-trash trashCan" id="trashCanIcon"> </i>
-          </div>
-        </div>
-
-      </li>
+        </li>
+      </div>
     </ul>
-
-
-
-
   </div>
 </template>
 
 
-
 <script>
-
 import DenService from '../services/DenService';
-
 
 export default {
   data() {
@@ -90,36 +81,50 @@ export default {
   computed: {
     filteredDens() {
       const searchFilter = this.searchFilter.toLowerCase();
-
-      // Filter dens based on searchFilter
-      const filtered = this.$store.state.dens.filter((den) => {
+      return this.$store.state.dens.filter((den) => {
         const nameMatch = den.denName.toLowerCase().includes(searchFilter);
         const categoryMatch = den.categoryNames.some((category) =>
           category.toLowerCase().includes(searchFilter)
         );
         return searchFilter === "" ? true : nameMatch || categoryMatch;
+      }).sort((a, b) => {
+        if (a.isFavorite && !b.isFavorite) return -1;
+        if (!a.isFavorite && b.isFavorite) return 1;
+        return 0;
       });
+    },
 
-      // Sort dens with isFavorite at the top
-      return filtered.sort((a, b) => {
+    filteredFavdens() {
+      return this.$store.state.dens.filter((den) => 
+        this.favorites.some(fav => fav.denId === den.denId)
+      ).sort((a, b) => {
         if (a.isFavorite && !b.isFavorite) return -1;
         if (!a.isFavorite && b.isFavorite) return 1;
         return 0;
       });
     },
   },
+
   methods: {
+    isFav(den) {
+      return this.favorites.some(fav => fav.denId === den.denId);
+    },
+
+    toggleFavoriteDens() {
+      this.showFavoriteDens = !this.showFavoriteDens;
+      this.getFavorites(this.$store.state.user);
+    },
+
     DeleteDen(den) {
-      console.log("bleep");
       if (confirm("Are you sure you want to delete this message? This action cannot be undone.")) {
-        DenService.delete(den).then(response => {
+        DenService.delete(den).then(() => {
           this.getDens();
-          console.log("deleted");
         }).catch(error => {
           this.handleErrorResponse(error, 'deleting');
         });
       }
     },
+
     getDens() {
       DenService.getDens().then(response => {
         this.$store.state.dens = response.data;
@@ -127,32 +132,32 @@ export default {
         console.log('You are out of luck');
       });
     },
+
     getFavorites(user) {
       DenService.getFavorites(user)
-        .then((response) => {
-          console.log(response.data)
+        .then(response => {
           this.favorites = response.data;
         })
-        .catch((error) => {
+        .catch(error => {
           console.log("You are out of luck");
         });
     },
+
     toggleFavorite(den) {
       DenService.toggleFavorite(den)
-        .then((response) => {
+        .then(() => {
           this.getFavorites(this.$store.state.user);
-
         })
-        .catch((error) => {
+        .catch(error => {
           console.log("You are out of luck");
         });
-
-
     },
+  },
+  created(){
+    this.getDens()
   }
-};
+}
 </script>
-
 
 <style scoped>
 /* General Container Styling */
@@ -161,35 +166,62 @@ export default {
   flex-direction: column;
   width: 100%;
   position: relative;
-  /* Required for absolute positioning of delete button */
-  border: 1px solid #ddd;
+  border: 1px solid #e6e6e6;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   overflow: hidden;
   transition: box-shadow 0.3s ease;
+  background-color: #ffffff;
 }
 
 #denHeader {
   display: flex;
-  flex-direction: row;
   align-items: center;
-  max-height: 5%;
+  padding: 10px;
+  border-bottom: 1px solid #e6e6e6;
+  background-color: #f9f9f9;
+  position: relative;
+}
 
+#denPic {
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  margin-right: 10px;
+}
+
+.header-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically within available space */
+  align-items: center; /* Center horizontally */
 }
 
 #userName {
-  display: flex;
-  align-items: center;
+  font-size: 14px;
+  color: #555;
+  margin: 0; /* Remove default margins */
+  text-align: center;
+}
 
-  margin-top: auto;
-  margin-bottom: auto;
+#denTitle {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  text-align: center;
+  margin: 0; /* Remove default margins */
+}
+
+#denDescription {
+  padding: 10px;
 }
 
 .container {
-  width: 1200px;
+  width: 90%;
+  max-width: 1200px;
   margin: 0 auto;
   padding: 20px;
-  font-family: 'Segoe UI';
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 /* Search Bar Styling */
@@ -199,7 +231,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.form-control {
+#searchBar input {
   width: 100%;
   max-width: 600px;
   padding: 10px;
@@ -208,125 +240,79 @@ export default {
   border: 1px solid #ccc;
 }
 
+/* Favorite Toggle Styling */
+#favoriteToggle {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-check-label {
+  margin-left: 10px;
+  font-size: 14px;
+  color: #555;
+}
+
 /* Den List Styling */
 #denList {
   list-style-type: none;
   padding: 0;
   margin: 0;
-  width: 100
 }
 
 .den-item {
   margin-bottom: 20px;
   position: relative;
-  /* Position relative to position the delete button absolutely */
+  cursor: pointer;
 }
 
-#denTitle {
-  font-weight: bolder;
-}
-
-#denDescription {
-  font-weight: lighter;
-}
-
-/* Card Styling */
-.card {
-  position: relative;
-  /* Required for absolute positioning of delete button */
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: box-shadow 0.3s ease;
-  margin: auto;
-}
-
-.card:hover {
+.den-item:hover .main-container {
   box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
-}
-
-.card-header {
-
-  background-color: #f8f9fa;
-  padding: 15px;
-  border-bottom: 1px solid #ddd;
-}
-
-#desc-container {
-  display: flex;
-  flex-direction: column;
-  width: 80%;
-
-}
-
-#denPic {
-  max-height: 15%;
-  padding: .5%;
-
 }
 
 .card-body {
   padding: 15px;
-  cursor: pointer;
 }
 
-.card-body p {
-  margin: 0;
-}
-
-/* Meta Information Styling */
 .den-meta {
   font-size: 14px;
-  color: #555;
+  color: #666;
 }
 
-/* Delete Button Styling */
-.fa-trash {
-  position: absolute;
-  top: 10px;
-  right: 8px;
-  background: transparent;
-  color: #dc3545;
-  border: none;
-  font-size: 15px;
-  cursor: pointer;
-  transition: color 0.3s ease;
-}
-
+/* Favorite Icon Styling */
 #favoriteIcon {
   position: absolute;
   top: 10px;
-  right: 25px;
-  background: transparent;
+  right: 40px;
   color: #b6b6b6;
-  font-size: 15px;
+  font-size: 20px;
   cursor: pointer;
   transition: color 0.3s ease;
+}
+
+#favoriteIcon.favorited {
+  color: #fe7f2d;
 }
 
 #favoriteIcon:hover {
-  position: absolute;
-
-
-  color: rgba(89, 89, 89, 0.379);
-
-  cursor: pointer;
-  transition: color 0.3s ease;
-  animation-name: fa-fade;
-  animation-duration: var(--fa-animation-duration, 1s);
-  animation-iteration-count: var(--fa-animation-iteration-count, infinite);
-  animation-timing-function: var(--fa-animation-timing, linear);
-}
-
-
-.fa-trash:hover {
-  color: #fe7f2d;
+  color: #ffab00;
   animation-name: fa-shake;
   animation-duration: var(--fa-animation-duration, 1s);
   animation-iteration-count: var(--fa-animation-iteration-count, infinite);
   animation-timing-function: var(--fa-animation-timing, linear);
 }
+
+/* Trash Can Icon Styling */
+#trashCanIcon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 20px;
+  color: red;
+  cursor: pointer;
+}
+
+ 
 
 .fa-solid:hover {
   color: #fe7f2d;
