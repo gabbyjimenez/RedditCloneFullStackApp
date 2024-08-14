@@ -174,6 +174,7 @@ export default {
   flex-direction: row;
   align-items: center;
   max-height: 5%;
+  font-size: larger;
 
 }
 
@@ -264,6 +265,12 @@ export default {
   max-height: 15%;
   padding: .5%;
 
+}
+#denTitle{
+  font-size: xx-large;
+}
+#denDescription{
+  font-size: large;
 }
 
 .card-body {
