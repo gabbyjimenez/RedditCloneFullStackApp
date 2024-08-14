@@ -13,5 +13,7 @@ public interface UserDao {
 
     User getUserByUsername(String username);
 
+    String getPfpLinkByUserId(String username);
+
     User createUser(RegisterUserDto user);
 }

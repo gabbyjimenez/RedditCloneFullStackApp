@@ -27,6 +27,10 @@ export default {
   deleteComment(denName, comment){
     return axios.delete(`${denName}/${comment.postId}/comments/${comment.responseId}`, comment)
 
+  },
+
+  getPfpLink(userName){
+    return axios.get(`${userName}/photo`);
   }
 
 }

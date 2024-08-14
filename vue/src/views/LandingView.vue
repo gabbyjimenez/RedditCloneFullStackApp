@@ -221,11 +221,13 @@ button {
     object-fit: cover;
     content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677337/A_zhwkgi.svg');
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
 
 #cardB:hover {
     display: inline-block;
@@ -233,11 +235,13 @@ button {
     object-fit: cover;
     content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677356/B_ucjh0s.svg');
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
 
 
 #cardC:hover {
@@ -246,9 +250,11 @@ button {
     object-fit: cover;
     content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677350/C_qq6jtb.svg');
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
 </style>

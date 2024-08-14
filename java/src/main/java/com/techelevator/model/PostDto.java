@@ -16,11 +16,13 @@ public class PostDto {
     private boolean pinned;
     private LocalDateTime timeCreated;
 
+    private String pfpUrl;
+
     public PostDto (){
 
     }
 
-    public PostDto(int postId, int creatorId, String creatorUsername, int denId, String postTitle, String postDesc, String denName, int upvotes, int downvotes, boolean pinned, LocalDateTime timeCreated) {
+    public PostDto(int postId, int creatorId, String creatorUsername, int denId, String postTitle, String postDesc, String denName, int upvotes, int downvotes, boolean pinned, LocalDateTime timeCreated, String pfpUrl) {
         this.postId = postId;
         this.creatorId = creatorId;
         this.creatorUsername = creatorUsername;
@@ -32,6 +34,15 @@ public class PostDto {
         this.downvotes = downvotes;
         this.pinned = pinned;
         this.timeCreated = timeCreated;
+        this.pfpUrl = pfpUrl;
+    }
+
+    public String getPfpUrl() {
+        return pfpUrl;
+    }
+
+    public void setPfpUrl(String pfpUrl) {
+        this.pfpUrl = pfpUrl;
     }
 
     public LocalDateTime getTimeCreated() {
