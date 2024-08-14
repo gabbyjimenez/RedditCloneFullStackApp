@@ -16,6 +16,10 @@
         <label for="password">Password</label>
         <input type="password" id="password" v-model="user.password" required />
       </div>
+      <div class="form-input-group">
+        <label for="phone-number">Phone Number</label>
+        <input type="tel" id="phone-number" v-model="user.phoneNumber" />
+      </div>
       <button type="submit" class="submit-button">Sign in</button>
       <button type="button" class="guest-button" @click="loginAsGuest">Continue as Guest</button>
       <p class="signup-link">
@@ -24,6 +28,7 @@
     </form>
   </div>
 </template>
+
 
 <script>
 import authService from "../services/AuthService";
@@ -35,6 +40,7 @@ export default {
       user: {
         username: "",
         password: "",
+        phoneNumber: ""
       },
       invalidCredentials: false
     };
@@ -118,7 +124,8 @@ label {
 }
 
 input[type="text"],
-input[type="password"] {
+input[type="password"],
+input[type="tel"] {
   width: 100%;
   padding: 0.75rem;
   border: 1px solid #ccc;
