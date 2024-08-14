@@ -32,8 +32,7 @@ export function createStore(currentToken, currentUser) {
         state.user = {
           userId: 0,
           username: "Guest",
-          authorities: [{name:'ROLE_GUEST'}],
-          phoneNumber: ""
+          authorities: [{name:'ROLE_GUEST'}]
         };
         console.log(state.user)
         axios.defaults.headers.common = {};

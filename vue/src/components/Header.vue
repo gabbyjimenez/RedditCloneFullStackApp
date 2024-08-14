@@ -11,11 +11,11 @@
 
 
     <div id="favLog">
-      <p id="logButton" v-if="this.$store.state.user.userId != 0" v-bind:to="{ name: 'logout' }" class="auth-link"
+      <p v-if="this.$store.state.user.userId != 0" v-bind:to="{ name: 'logout' }" class="auth-link"
         data-toggle="modal" data-target="#logoutModal">
         Logout
       </p>
-      <router-link id="logButton" v-else v-bind:to="{ name: 'login' }" class="auth-link">
+      <router-link v-else v-bind:to="{ name: 'login' }" class="auth-link">
         Login
       </router-link>
       

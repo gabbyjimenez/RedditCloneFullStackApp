@@ -154,6 +154,7 @@ export default {
     },
   },
   created(){
+    this.getFavorites(this.$store.state.user);
     this.getDens()
   }
 }
@@ -209,7 +210,7 @@ export default {
   font-weight: bold;
   color: #333;
   text-align: center;
-  margin: 20%; /* Remove default margins */
+  margin: 0; /* Remove default margins */
 }
 
 #denDescription {
