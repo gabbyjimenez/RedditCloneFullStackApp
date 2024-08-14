@@ -10,6 +10,9 @@ public class User {
 
    private int id;
    private String username;
+
+   private String phoneNumber;
+   private String pfpLink;
    @JsonIgnore
    private String password;
    @JsonIgnore
@@ -18,12 +21,30 @@ public class User {
 
    public User() { }
 
-   public User(int id, String username, String password, String authorities) {
+   public User(int id, String username, String password, String authorities, String pfpLink, String phoneNumber ) {
       this.id = id;
       this.username = username;
       this.password = password;
       if (authorities != null) this.setAuthorities(authorities);
       this.activated = true;
+      this.pfpLink = pfpLink;
+      this.phoneNumber = phoneNumber;
+   }
+
+   public String getPhoneNumber() {
+      return phoneNumber;
+   }
+
+   public void setPhoneNumber(String phoneNumber) {
+      this.phoneNumber = phoneNumber;
+   }
+
+   public String getPfpLink() {
+      return pfpLink;
+   }
+
+   public void setPfpLink(String pfpLink) {
+      this.pfpLink = pfpLink;
    }
 
    public int getId() {
