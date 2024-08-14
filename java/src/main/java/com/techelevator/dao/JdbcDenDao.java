@@ -148,6 +148,19 @@ public class JdbcDenDao implements DenDao {
         } catch (DataIntegrityViolationException e) {
             throw new DaoException("Data integrity violation", e);
         }
+        List<User> users = userDao.getUsers();
+        for (User user : users){
+            if(newResponse.getResponseDesc().contains("@"+ user.getUsername() + " ")){
+                String smsBody = "You have been tagged in a comment on Foxtrot! Log in to check it out!";
+                String phoneNumber = user.getPhoneNumber();
+                Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
+                Message message = Message.creator(
+                                new com.twilio.type.PhoneNumber("+1"+phoneNumber),
+                                new com.twilio.type.PhoneNumber("+18559611686"),
+                                smsBody)
+                        .create();
+            }
+        }
 
         return newResponse;
 
@@ -382,7 +395,7 @@ public class JdbcDenDao implements DenDao {
         for (User user : users){
             if(newPost.getPostDesc().contains("@"+ user.getUsername() + " ")){
                 String smsBody = "You have been tagged in a post on Foxtrot! Log in to check it out!";
-                String phoneNumber = "6149409056";
+                String phoneNumber = user.getPhoneNumber();
                 Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
                 Message message = Message.creator(
                                 new com.twilio.type.PhoneNumber("+1"+phoneNumber),
