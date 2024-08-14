@@ -12,9 +12,9 @@
         <div class="form-check-label" for="flexSwitchCheckDefault" id="flexSwitchLabel">Followed Dens</div>
       </div>
     </div>
-
+    <div id="denBody">
     <ul id="denList">
-      <div v-if="!showFavoriteDens">
+      <div id="filtered" v-if="!showFavoriteDens">
         <li v-for="den in filteredDens" :key="den.denName" class="den-item">
           <div class="main-container" @click="$router.push({ name: 'den', params: { denName: den.denName } })">
             <div id="denHeader">
@@ -63,6 +63,7 @@
       </div>
     </ul>
   </div>
+</div>
 </template>
 
 
@@ -176,6 +177,7 @@ export default {
 }
 
 #denHeader {
+  padding-top: 10px;
   display: flex;
   align-items: center;
   padding: 10px;
@@ -218,25 +220,35 @@ export default {
 }
 
 .container {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 20px;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1200px; /* Optional: sets a maximum width for better responsiveness */
+  position: relative;
+  overflow: hidden;
+  transition: box-shadow 0.3s ease;
+  background-color: #ffffff;
+}
+
+#body{
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Center vertically */
+  align-items: center; /* Center horizontally */
+  flex: 1; /* Take up remaining space */
+  padding: 20px; /* Add some padding */
+  box-sizing: border-box; /* Include padding in width calculation */
 }
 
 /* Search Bar Styling */
 #searchBar {
   display: flex;
   justify-content: center;
-  margin-bottom: 20px;
 }
 
 #searchBar input {
   width: 100%;
   max-width: 600px;
-  padding: 10px;
   font-size: 16px;
   border-radius: 5px;
   border: 1px solid #ccc;
@@ -264,8 +276,8 @@ export default {
 
 .den-item {
   margin-bottom: 20px;
-  position: relative;
-  cursor: pointer;
+  display: flex;
+  justify-content: center; /* Center the main container */
 }
 
 .den-item:hover .main-container {
@@ -337,10 +349,6 @@ export default {
   
   display: flex;
   font-size: large;
-  
-
-
-
 
 }
 
@@ -355,7 +363,7 @@ export default {
 
 #searchOption {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   width: 90%;
   margin-left: auto;
   margin-right: auto;
@@ -373,23 +381,11 @@ width: 100%;
   align-items: center;
   text-align: center;
   margin-bottom: auto;
-  padding-left: 10%;
-  padding-right: -10%;
+
 }
 
 #flexSwitchCheckLabel {
   flex-direction: flex-start;
-}
-
-#favoriteToggle {
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
-  font-size: larger;
-
-
-
-
 }
 
 #favoriteBox {
