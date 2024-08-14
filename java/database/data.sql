@@ -1,8 +1,15 @@
 BEGIN TRANSACTION;
 
+
+
 INSERT INTO users (username,password_hash,role) VALUES ('user','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_USER');
 INSERT INTO users (username,password_hash,role) VALUES ('admin','$2a$08$UkVvwpULis18S19S5pZFn.YHPZt3oaqHZnDwqbCW9pft6uFtkXKDC','ROLE_ADMIN');
-
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('carter','$2a$10$9n57HHMwx1SMw5JzDidE7eTRwqBmDrAUWGm6dufvMf/Wywtxd8ole','ROLE_USER', '6149409056', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg');
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('gabby','$2a$10$y6GtBmsotRBxLLic4H38meofYnXl.HlsvNDJNefNuEUThqzkKyeES','ROLE_USER', '8056241446', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652745/gabby_linkedin_photo_ekoo93.jpg');
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('nick','$2a$10$9pK5/38EJW1eAsAcOT/DkOPdEHuQJi7/IEubPK0JRopvQeIfXWsey','ROLE_USER', '7409735912', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652594/Nick_Linkedin_Photo_z09kee.jpg');
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('allison','$2a$10$D94Sx7eXi3kdChP6/P6z4OTVJSLZ3sqkSVGzHfKSNOvmIJhJ8FPUi','ROLE_USER', '8478459081', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652607/Allison_Linkedin_Photo_x2duxj.jpg');
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('cole','$2a$10$2WRh8HyrF5iQBBehailgqOacoPAQO.tlRZ3WGMw6VVNdSmtksnnwK','ROLE_USER', '6146701098', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652594/Cole_Linkedin_Photo_hopcv7.jpg');
+INSERT INTO users (username,password_hash,role,phone,pfp_link) VALUES ('amanda','$2a$10$mQMKEXCvK0tgzA/iMEVWfuKttQpbpu8AYRg3muTYFNEIive.CEw06','ROLE_USER', '4193085642', 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723652798/Screenshot_20240814_112120_Reddit_qupntb.jpg');
 --Creating Dens
 --SELECT * FROM dens;
 
