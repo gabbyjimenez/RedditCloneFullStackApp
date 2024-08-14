@@ -3,8 +3,12 @@
         <Header id="header"></Header>
 
         <!-- Main panel -->
-        <div id="mainPanel">
-            <img id="heroImage" src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Hero Image">
+        <!--<div id="mainPanel">-->
+            <!--<img id="heroImage" src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723135298/workers_qqq1ka.webp" alt="Hero Image">-->
+               <!--Beginning of Gabby messing everything up-->
+               <div id="mainPanel" style="height: 40rem;">
+            <img id="heroImage" src="../assets/2.gif" alt="Hero Image">
+            <!--End of Gabby messing everything up-->
             <div id="overlayContainer" class="card-img-overlay">
                 <h1 class="headline">Welcome to Our App</h1>
                 <p class="subtitle">Discover the amazing features and benefits we offer.</p>
@@ -93,6 +97,7 @@ export default {
 }
 
 #overlayContainer {
+    
     position: absolute;
     top: 0;
     left: 0;
@@ -102,10 +107,13 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.4); /* Semi-transparent overlay */
+    background: rgba(0, 0, 0, 0.4); /**-- Semi-transparent overlay -- **/
     color: white;
     text-align: center;
     padding: 2rem;
+   
+
+
 }
 
 .headline {
@@ -159,8 +167,14 @@ button {
 
 #content {
     flex: 1;
-    padding: 2rem;
-    background-color: #f9f9f9;
+    /**below was here before**/
+    /**padding: 2rem; **/
+    
+   background-color: #f9f9f9; 
+    /**above was here before**/
+    /**beginning of Gabby playing with things**/
+     padding: 0rem; 
+
 }
 
 .contentSection {
