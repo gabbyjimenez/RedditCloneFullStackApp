@@ -30,13 +30,14 @@
         <!-- Content Section -->
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
 
-            <BenefitsCard id="cardA" title="Dens" icon="fa-solid fa-tent"
-                :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']" />
-            <BenefitsCard id="cardB" title="Streamlined Information Sharing" icon="fa-solid fa-comments"
-                :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']" />
-            <BenefitsCard id="cardC" title="Inclusive and Collaborative Environment" icon="fa-solid fa-handshake"
-                :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']" />
+            <BenefitsCard id="cardA" title="Dens: Your ERG’s Information Hub" icon="fa-solid fa-tent"
+                :benefits="['Build Organiztional Communities', 'Promote Team Growth', 'Facilitate Cross-Organizational Collaboration']" />
+            <BenefitsCard id="cardB" title="Community Driven Content" icon="fa-solid fa-sort"
+                :benefits="['Optimized for speed', 'Follow and filter your favorite Dens', 'Recieve feedback via Upvote and Downvote on your content ', 'Pin comments that are important to you']" />
+            <BenefitsCard id="cardC" title="Stay Connected" icon="<fa-solid fa-comment-sms"
+                :benefits="['Recieve Notification on your Posts and Comments', 'Data encryption', 'Regular updates', 'SMS and Email Functionality']" />
         </div>
+        
 
         <!-- Footer -->
         <Footer id="footer"></Footer>
@@ -165,16 +166,19 @@ button {
     /**above was here before**/
     /**beginning of Gabby playing with things**/
     padding: 0rem;
+    font-family: 'Segoe UI';
 
 }
 
 .contentSection {
     margin-bottom: 3rem;
+    color: rgba(0, 0, 0, 0.434);
 }
 
 .contentSection h2 {
     margin-bottom: 1rem;
     font-size: 3rem;
+    background-color: rgba(0, 0, 0, 0.434);
 }
 
 .contentSection p {
@@ -210,7 +214,10 @@ button {
     width: 70%;
     font-size: 2rem;
 }
-
+#cardC{
+    display: flex;
+    height: 10%
+}
 #cardA:hover {
 
     display: flex;
@@ -224,7 +231,6 @@ button {
 
     img:focus {
         flex: 1;
-        object-fit: cover;
     }
 }
 
@@ -245,16 +251,20 @@ background-repeat: no-repeat; */
     }
 }
 
+
 #cardC:hover {
     display: flex;
+    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
+background-repeat: no-repeat; */
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
     content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
     padding: 2rem;
+    /* no need for qoutes */
 
     img:focus {
         flex: 1;
-
+        object-fit: cover;
     }
 }
 </style>
