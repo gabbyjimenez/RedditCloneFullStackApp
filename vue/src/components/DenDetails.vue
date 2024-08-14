@@ -154,6 +154,7 @@ export default {
     },
   },
   created(){
+    this.getFavorites(this.$store.state.user);
     this.getDens()
   }
 }
