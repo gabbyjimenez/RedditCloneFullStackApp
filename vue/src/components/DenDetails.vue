@@ -76,6 +76,7 @@
 <script>
 
 import DenService from '../services/DenService';
+import CategoryBadge from './CategoryBadge.vue';
 
 
 export default {
