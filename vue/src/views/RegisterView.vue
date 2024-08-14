@@ -19,7 +19,7 @@
       </div>
       <div class="form-input-group">
         <label for="phone-number">Phone Number</label>
-        <input type="tel" id="phone-number" v-model="user.phoneNumber" />
+        <input type="tel" id="phone-number" v-model="user.phone" />
       </div>
       <button type="submit" class="submit-button">Create Account</button>
       <p class="login-link">
@@ -40,7 +40,7 @@ export default {
         password: '',
         confirmPassword: '',
         role: 'user',
-        phoneNumber: ""
+        phone: ''
       },
       registrationErrors: false,
       registrationErrorMsg: 'There were problems registering this user.',
