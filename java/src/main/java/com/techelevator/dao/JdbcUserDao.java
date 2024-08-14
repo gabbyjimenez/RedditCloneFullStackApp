@@ -72,6 +72,34 @@ public class JdbcUserDao implements UserDao {
     }
 
     @Override
+    public String getPfpLinkByUserId(String username) {
+
+
+        String sql = "SELECT pfp_link FROM users WHERE username = ?";
+        String pfpLink = "";
+        String defaultPfpLink = "https://res.cloudinary.com/drtlz85pc/image/upload/v1723668864/icons8-user-90_uzwmpf.png";
+
+
+        try {
+            SqlRowSet results = jdbcTemplate.queryForRowSet(sql, username);
+           if(results.next()){
+               pfpLink = results.getString("pfp_link");
+           }
+
+        } catch (CannotGetJdbcConnectionException e) {
+            throw new DaoException("Unable to connect to server or database", e);
+        }
+
+        if(pfpLink == null){
+            return defaultPfpLink;
+        } else {
+            return pfpLink;
+        }
+
+    }
+
+
+    @Override
     public User createUser(RegisterUserDto user) {
         User newUser = null;
         String insertUserSql = "INSERT INTO users (username, password_hash, role, phone) values (LOWER(TRIM(?)), ?, ?, ?) RETURNING user_id";
@@ -87,6 +115,9 @@ public class JdbcUserDao implements UserDao {
         }
         return newUser;
     }
+
+
+
 
     private User mapRowToUser(SqlRowSet rs) {
         User user = new User();

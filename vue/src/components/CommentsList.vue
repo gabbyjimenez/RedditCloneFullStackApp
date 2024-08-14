@@ -15,8 +15,8 @@
         >
           <img
             class="img-fluid img-responsive rounded-circle mr-2"
-            src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
-            width="38"
+            v-bind:src=this.$store.state.user.pfpLink
+            width="38" height="38"
           />
 
           <input
@@ -50,8 +50,8 @@
                 <div class="profile-image">
                   <img
                     class="rounded-circle"
-                    src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg"
-                    width="38"
+                    v-bind:src="comment.pfpUrl"
+                    width="38" height="38"
                   />
                 </div>
                 <div

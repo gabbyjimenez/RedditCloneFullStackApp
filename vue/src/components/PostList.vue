@@ -12,7 +12,7 @@
           <div class="d-flex flex-row align-items-center text-left comment-top p-2 bg-white px-4">
             <div class="profile-image">
               <img class="rounded-circle"
-                src="https://res.cloudinary.com/drtlz85pc/image/upload/v1723343728/Headshot_ipay6u.jpg" width="70" />
+              v-bind:src="post.pfpUrl" width="70">
             </div>
             <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
               <i class="fa fa-sort-up fa-2x hit-voting upvoteIcon" v-on:click.prevent="upVote(post)"></i><span>{{
@@ -64,6 +64,7 @@ export default {
   data() {
     return {
       searchFilter: "",
+      pfpCache: {}
     };
   },
   computed: {
@@ -199,6 +200,22 @@ export default {
 
     return `${month}/${day}/${year} ${formattedHours}:${minutes} ${ampm}`;
   },
+  getPfpLink(userName){
+
+    let pfpLink = ''
+
+      PostService.getPfpLink(userName).then((response) => {
+          console.log(response.data);
+          pfpLink = response.data.toString();
+          console.log('pfpLink: ', pfpLink)
+          
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+        console.log(pfpLink)
+        return pfpLink;
+  }
 },
 created() {
   this.getPosts(this.$route.params.denName);

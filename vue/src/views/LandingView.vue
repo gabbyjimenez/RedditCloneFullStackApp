@@ -222,11 +222,13 @@ button {
     padding: 2rem;
     /* no need for qoutes */
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
 
 #cardB:hover {
 
@@ -239,11 +241,13 @@ background-repeat: no-repeat; */
     padding: 2rem;
     /* no need for qoutes */
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
 
 #cardC:hover {
     display: flex;
@@ -252,9 +256,11 @@ background-repeat: no-repeat; */
     content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
     padding: 2rem;
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
 
     }
-}
 </style>
