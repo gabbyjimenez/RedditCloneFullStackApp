@@ -287,6 +287,7 @@ export default {
 #searchBar {
   display: flex;
   justify-content: center;
+  padding-top: 10px;
 }
 
 #searchBar input {
