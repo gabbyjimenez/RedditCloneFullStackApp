@@ -20,8 +20,9 @@
             
             <div id="denHeader">
               <img id="denPic" class="img-fluid img-responsive rounded-circle" 
-                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723474352/foxtrot_logo_fin_noText_zwlfxu.svg" width="38">
                 <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
+
 
                 <div id="categoryIconAndTrash">
                   <CategoryBadge
@@ -56,7 +57,7 @@
             
             <div id="denHeader">
               <img id="denPic" class="img-fluid img-responsive rounded-circle" 
-                src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723478237/Designer_4_kr6i4y.jpg" width="38">
+              src="https://res.cloudinary.com/daprq6s7w/image/upload/v1723474352/foxtrot_logo_fin_noText_zwlfxu.svg" width="38">
                 <p id="userName" class="den-meta">Created by: {{ den.denCreatorUserName }}</p>
 
                 <div id="categoryIconAndTrash">
@@ -437,8 +438,7 @@ width: 100%;
   align-items: flex-start;
   justify-content: center;
   font-size: small;
-  margin-top: auto;
-  margin-bottom: auto;
+
   width: 10%;
   
  

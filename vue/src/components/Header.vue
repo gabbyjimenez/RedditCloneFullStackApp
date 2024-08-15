@@ -140,18 +140,12 @@ img {
 #favLog {
   display: flex;
   align-items: center;
-  justify-content: center;
-  border: 3px solid rgb(219, 198, 12); /* Solid yellow border */
-  border-radius: 50%; /* Makes the div a circle */
-  width: 60px; /* Set width to define the size of the circle */
-  height: 60px; /* Set height to be equal to width */
-  padding: 0.5rem; /* Optional: padding inside the circle */
-  box-sizing: border-box; /* Ensures padding is included in the total width/height */
 }
 
 .auth-link {
   color: rgba(252, 202, 70, 1);
   text-decoration: none;
+  margin-left: 1rem;
   padding: 0.5rem 1rem;
   border-radius: 4px;
   transition: background-color 0.3s, color 0.3s;
