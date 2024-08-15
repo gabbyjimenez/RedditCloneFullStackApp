@@ -5,7 +5,7 @@
         <!-- Main panel -->
         <!--Beginning of Gabby messing everything up-->
         <div id="mainPanel" style="height: 40rem;">
-            <img id="heroImage" src="../assets/2.gif" alt="Hero Image">
+            <img id="heroImage" src="../assets/2-imageonline.co-1872188.gif" alt="Hero Image">
             <!--End of Gabby messing everything up-->
             <div id="overlayContainer" class="card-img-overlay">
                 <h1 class="headline">Welcome to Foxtrot</h1>
@@ -33,7 +33,7 @@
             <BenefitsCard id="cardA" title="Dens: Your ERG’s Information Hub" icon="fa-solid fa-tent"
                 :benefits="['Facilitate Interdepartmental Collaboration','Build Organizational Communities', 'Encourage Team Development']" />
             <BenefitsCard id="cardB" title="Community Driven Content" icon="fa-solid fa-sort"
-                :benefits="['Get feedback via Upvote and Downvote on your content ', 'Pin relevant comments that matter to you', 'Follow and filter your favorite Dens',  ]" />
+                :benefits="['User feedback via Upvote and Downvote on content ', 'Pin relevant comments that matter to you', 'Follow and filter your favorite Dens',  ]" />
             <BenefitsCard id="cardC" title="Stay Connected" icon="<fa-solid fa-comment-sms"
                 :benefits="['Receive Notification on your Posts and Comments', 'SMS and Email Functionality', '']" />
         </div>
@@ -250,6 +250,7 @@ img:focus {
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
     content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677350/C_qq6jtb.svg');
+    
 
     
 }
