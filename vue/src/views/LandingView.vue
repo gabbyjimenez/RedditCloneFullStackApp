@@ -30,13 +30,14 @@
         <!-- Content Section -->
         <div id="content" class="w3-row-padding w3-center w3-margin-top">
 
-            <BenefitsCard id="cardA" title="Dens" icon="fa-solid fa-tent"
-                :benefits="['Built-in responsiveness', 'Mobile first fluid grid', 'Fits any screen sizes', 'PC Tablet and Mobile']" />
-            <BenefitsCard id="cardB" title="Streamlined Information Sharing" icon="fa-solid fa-comments"
-                :benefits="['Optimized for speed', 'Minimal load times', 'Efficient data handling', 'Lightning-fast interactions']" />
-            <BenefitsCard id="cardC" title="Inclusive and Collaborative Environment" icon="fa-solid fa-handshake"
-                :benefits="['Top-notch security', 'Data encryption', 'Regular updates', '24/7 monitoring']" />
+            <BenefitsCard id="cardA" title="Dens: Your ERG’s Information Hub" icon="fa-solid fa-tent"
+                :benefits="['Facilitate Interdepartmental Collaboration','Build Organizational Communities', 'Encourage Team Development']" />
+            <BenefitsCard id="cardB" title="Community Driven Content" icon="fa-solid fa-sort"
+                :benefits="['Get feedback via Upvote and Downvote on your content ', 'Pin relevant comments that matter to you', 'Follow and filter your favorite Dens',  ]" />
+            <BenefitsCard id="cardC" title="Stay Connected" icon="<fa-solid fa-comment-sms"
+                :benefits="['Receive Notification on your Posts and Comments', 'SMS and Email Functionality', '']" />
         </div>
+        
 
         <!-- Footer -->
         <Footer id="footer"></Footer>
@@ -165,16 +166,19 @@ button {
     /**above was here before**/
     /**beginning of Gabby playing with things**/
     padding: 0rem;
+    font-family: 'Segoe UI';
 
 }
 
 .contentSection {
     margin-bottom: 3rem;
+    color: rgba(0, 0, 0, 0.434);
 }
 
 .contentSection h2 {
     margin-bottom: 1rem;
     font-size: 3rem;
+    background-color: rgba(0, 0, 0, 0.434);
 }
 
 .contentSection p {
@@ -212,49 +216,46 @@ button {
 }
 
 #cardA:hover {
-
-    display: flex;
-    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    background-repeat: no-repeat; */
+    display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    padding: 2rem;
-    /* no need for qoutes */
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677337/A_zhwkgi.svg');
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
 
 #cardB:hover {
-
-    display: flex;
-    /* background-image: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-background-repeat: no-repeat; */
+    display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    padding: 2rem;
-    /* no need for qoutes */
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677356/B_ucjh0s.svg');
 
-    img:focus {
+    
+}
+
+img:focus {
         flex: 1;
         object-fit: cover;
     }
-}
+
+
 
 #cardC:hover {
-    display: flex;
+    display: inline-block;
     color: rgba(0, 0, 255, 0);
     object-fit: cover;
-    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723478297/Designer_13_nnety0.jpg');
-    padding: 2rem;
+    content: url('https://res.cloudinary.com/daprq6s7w/image/upload/v1723677350/C_qq6jtb.svg');
 
-    img:focus {
-        flex: 1;
-
-    }
+    
 }
+
+img:focus {
+        flex: 1;
+        object-fit: cover;
+    }
 </style>

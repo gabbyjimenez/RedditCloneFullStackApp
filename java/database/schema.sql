@@ -8,7 +8,7 @@ CREATE TABLE users (
 	password_hash varchar(200) NOT NULL,
 	role varchar(50) NOT NULL,
 	phone varchar(10) DEFAULT '0000000000',
-	pfp_link varchar(200),
+	pfp_link varchar(200) DEFAULT 'https://res.cloudinary.com/drtlz85pc/image/upload/v1723668864/icons8-user-90_uzwmpf.png',
 	CONSTRAINT PK_user PRIMARY KEY (user_id)
 );
 
