@@ -1,10 +1,10 @@
 <template>
   <div id="main" >
-      <div id="button" v-show="this.$store.state.user.id != 0">
+      <div id="button" v-if="this.$store.state.user.id != 0">
           <!-- Adjust the button styling here -->
           <div id="addButton" class="card expandable-card" v-on:click="(denOpen = !denOpen); clearForm();">
               <div class="card-body">
-                  <p class="card-title">+ Creat a Group</p>
+                  <p class="card-title">+ Create a Group</p>
               </div>
           </div>
       </div>
