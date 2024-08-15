@@ -35,7 +35,7 @@
             <BenefitsCard id="cardB" title="Community Driven Content" icon="fa-solid fa-sort"
                 :benefits="['User feedback via Upvote and Downvote on content ', 'Pin relevant comments that matter to you', 'Follow and filter your favorite Dens',  ]" />
             <BenefitsCard id="cardC" title="Stay Connected" icon="<fa-solid fa-comment-sms"
-                :benefits="['Receive Notification on your Posts and Comments', 'SMS and Email Functionality', '']" />
+                :benefits="['Receive notifications on your Posts and Comments', 'SMS Functionality', '']" />
         </div>
         
 
