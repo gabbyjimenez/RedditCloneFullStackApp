@@ -230,49 +230,59 @@ public class JdbcDenDao implements DenDao {
     @Override
     public void deleteDenByDenName(String denName) {
 
-        String sql = "DELETE FROM responses \n" +
+        String sqlOne = "DELETE FROM favorites_dens \n" +
+                "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?);";
+
+        String sqlTwo = "DELETE FROM responses \n" +
                 "WHERE post_id IN (\n" +
                 "    SELECT post_id FROM  posts WHERE den_id = (\n" +
                 "        SELECT den_id FROM dens WHERE den_name = ?" +
                 "    )\n" +
                 ");";
 
-        String sqlTwo = "DELETE FROM posts\n" +
+        String sqlThree = "DELETE FROM posts\n" +
                 "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?);";
 
-        String sqlThree = "DELETE FROM den_category\n" +
+        String sqlFour = "DELETE FROM den_category\n" +
                 "WHERE den_id = (SELECT den_id FROM dens WHERE den_name = ?);";
 
-        String sqlFour = "DELETE FROM dens \n" +
+        String sqlFive = "DELETE FROM dens \n" +
                 "WHERE den_name = ?;";
 
-        jdbcTemplate.update(sql, denName);
+        jdbcTemplate.update(sqlOne, denName);
         jdbcTemplate.update(sqlTwo, denName);
         jdbcTemplate.update(sqlThree, denName);
         jdbcTemplate.update(sqlFour, denName);
+        jdbcTemplate.update(sqlFive, denName);
 
     }
 
     @Override
     public void deletePostByPostId(int postId) {
 
-        String sql = "DELETE FROM responses\n" +
+        String sqlOne = "DELETE FROM post_user_vote\n" +
                 "WHERE post_id = ?";
 
-        String sqlTwo = "DELETE FROM posts\n" +
+        String sqlTwo = "DELETE FROM responses\n" +
                 "WHERE post_id = ?";
 
-        jdbcTemplate.update(sql, postId);
+        String sqlThree = "DELETE FROM posts\n" +
+                "WHERE post_id = ?";
+
+        jdbcTemplate.update(sqlOne, postId);
         jdbcTemplate.update(sqlTwo, postId);
-
+        jdbcTemplate.update(sqlThree, postId);
     }
 
     @Override
     public void deleteCommentByCommentId(int responseId) {
 
-        String sql = "DELETE FROM responses WHERE response_id = ?";
+        String sqlOne = "DELETE FROM response_user_vote WHERE response_id = ?";
 
-        jdbcTemplate.update(sql, responseId);
+        String sqlTwo = "DELETE FROM responses WHERE response_id = ?";
+
+        jdbcTemplate.update(sqlOne, responseId);
+        jdbcTemplate.update(sqlTwo, responseId);
 
     }
 
