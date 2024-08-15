@@ -17,7 +17,7 @@
             <div class="d-flex flex-column-reverse flex-grow-0 align-items-center votings ml-1">
               <i class="fa fa-sort-up fa-2x hit-voting upvoteIcon" v-on:click.prevent="upVote(post)"></i><span>{{
                 post.upvotes - post.downvotes }} </span>
-              <i class="fa fa-sort-down fa-2x hit-voting downvoteIcon" v-on:click.prevent="downVote(post)"></i>
+              <i class="fa fa-sort-down fa-2x hit-voting downvoteIcon" v-on:click.prevent="downVote(post)" ></i>
             </div>
 
             <div class="d-flex flex-column ml-3 titleDiv">

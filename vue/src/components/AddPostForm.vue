@@ -99,7 +99,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 /* Container for the form and button */
 .form-container {
   width: 100%;

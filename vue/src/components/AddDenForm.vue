@@ -1,5 +1,5 @@
 <template>
-  <div id="main" v-show="this.$store.state.user.userId != 0">
+  <div id="main" >
       <div id="button">
           <!-- Adjust the button styling here -->
           <div id="addButton" class="card expandable-card" v-on:click="(denOpen = !denOpen); clearForm();">
@@ -93,7 +93,7 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
 /* Overall styling for the button and form container */
 #main {
 display: flex;
