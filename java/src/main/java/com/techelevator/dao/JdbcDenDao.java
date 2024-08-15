@@ -87,7 +87,7 @@ public class JdbcDenDao implements DenDao {
                 "JOIN users ON posts.creator_id = users.user_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
                 "WHERE dens.den_name ILIKE ?" +
-                "ORDER BY pinned DESC, time_created DESC";
+                "ORDER BY pinned DESC, upvotes DESC, time_created DESC";
 
 
         try{
@@ -117,7 +117,7 @@ public class JdbcDenDao implements DenDao {
                 "JOIN posts ON responses.post_id = posts.post_id " +
                 "JOIN dens ON posts.den_id = dens.den_id " +
                 "WHERE dens.den_name ILIKE ? AND posts.post_id = ? " +
-                "ORDER BY pinned DESC, time_created DESC";
+                "ORDER BY pinned DESC, upvotes DESC, time_created DESC";
 
         try{
             SqlRowSet results = jdbcTemplate.queryForRowSet(sql, denName, postId);
