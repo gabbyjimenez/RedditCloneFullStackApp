@@ -155,7 +155,7 @@ public class JdbcDenDao implements DenDao {
                     if(!user.getPhoneNumber().equalsIgnoreCase("0000000000")){
                         String smsBody = "You have been tagged in a comment on Foxtrot! Log in to check it out!";
                         String phoneNumber = user.getPhoneNumber();
-                        Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
+                        Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "cfcd85dc7978e2b3de666cf7a15f838c");
                         Message message = Message.creator(
                                         new com.twilio.type.PhoneNumber("+1" + phoneNumber),
                                         new com.twilio.type.PhoneNumber("+18559611686"),
@@ -412,7 +412,7 @@ public class JdbcDenDao implements DenDao {
                     if(user.getPhoneNumber().equalsIgnoreCase("0000000000")){
                         String smsBody = "You have been tagged in a post on Foxtrot! Log in to check it out!";
                         String phoneNumber = user.getPhoneNumber();
-                        Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "4ca9ba626dd3dc21f57acf1476350c44");
+                        Twilio.init("ACec4c4a1c09b9e3b0c85856282ee18290", "cfcd85dc7978e2b3de666cf7a15f838c");
                         Message message = Message.creator(
                                         new com.twilio.type.PhoneNumber("+1"+phoneNumber),
                                         new com.twilio.type.PhoneNumber("+18559611686"),
