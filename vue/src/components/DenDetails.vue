@@ -204,6 +204,7 @@ export default {
   background-color: #ffffff;
 }
 
+/* MAKES EACH DEN CONTAINER SLIGHTLY BIGGER WHEN HOVERING OVER IT */
 .main-container:hover {
   transform: scale(1.02); /* Slightly enlarge the container on hover */
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3); /* Stronger shadow effect */
