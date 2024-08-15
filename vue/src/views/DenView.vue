@@ -1,7 +1,7 @@
 <template>
   <div>
     <!-- referencing DenName that is pulled from URL -->
-    <theHeader id="header" :showBackToDensButton="true" />
+    <theHeader id="header" />
 
     <!-- DEN NAME TITLE -->
     <h1>{{ denName }}</h1>
