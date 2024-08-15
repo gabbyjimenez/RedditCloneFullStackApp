@@ -3,7 +3,7 @@
   <div id="Dens" class="Dens">
     <theHeader id="header" />
     <div id="body">
-    <AddDenForm />
+    <AddDenForm v-if="this.$store.state.user.userId !=0"/>
 
     <DenDetails />
     </div>

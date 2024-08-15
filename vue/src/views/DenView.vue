@@ -7,7 +7,7 @@
     <h1>{{ denName }}</h1>
 
 
-    <AddPostForm id="addPostForm" />
+    <AddPostForm id="addPostForm" v-if="this.$store.state.user.userId !=0"/>
     <PostList/>
 
      <!-- THIS IS THE 'Back to Dens' BUTTON  -->
